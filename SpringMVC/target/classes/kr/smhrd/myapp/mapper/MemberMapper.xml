@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.smhrd.myapp.mapper.MemberMapper">
+
+	<insert id="memberJoin" parameterType="kr.smhrd.myapp.entity.Member">
+		insert into member values(#{email},#{pw},#{tel},#{address})
+	</insert>
+
+	<select 
+		id="memberLogin" 
+		parameterType="kr.smhrd.myapp.entity.Member"
+		resultType="kr.smhrd.myapp.entity.Member"
+	>
+		select * from member where email=#{email} and pw=#{pw}
+	</select>
+	
+	<!-- 회원정보를 수정하는 update 태그 생성
+	     - id 값은 추상메소드이름과 동일하게 설정
+		 - parameterType 정의
+	 -->
+	<update id="memberUpdate" parameterType="kr.smhrd.myapp.entity.Member">
+		update member set pw=#{pw}, tel=#{tel}, address=#{address} 
+		where email=#{email}
+	</update>
+	
+	<select id="selectMember" resultType="kr.smhrd.myapp.entity.Member">
+		select * from member where email != 'admin'
+	</select>
+	
+	<delete id="memberDelete" parameterType="string">
+		delete from member where email=#{email}
+	</delete>
+	
+	<!-- RestController 관련 기능 -->
+	<select 
+		id="emailCheck" 
+		parameterType="string" 
+		resultType="string">
+		
+		select email from member where email=#{email}
+		
+	</select>	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
