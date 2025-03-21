@@ -35,5 +35,5 @@
 	</bean>
 
 	<!-- @Mapper -> Mapper 인터페이스를 메모리에 적재 -->
-	<mybatis-spring:scan base-package="kr.smhrd.myapp.mapper" />
+	<mybatis-spring:scan base-package="com.together.furture.mapper" />
 </beans>

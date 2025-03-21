@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.together.furture.entity.user_info;
 import com.together.furture.mapper.user_info_mapper;
@@ -17,27 +19,22 @@ public class user_info_controller {
 	@Autowired
 	user_info_mapper mapper;
 	
-	// 시작화면 세팅
-	@GetMapping("/")
-	public String main_page() {
-		return "login";
-	}
-	
 	// 회원가입 페이지 이동(GET) -> join.jsp로 이동
-	@GetMapping("views/join")
+	@GetMapping("/join")
 	public String joinPage() {
-		System.out.println("회원가입 페이지 이동");
-		return "views/join";
+	    System.out.println("회원가입 페이지 이동");
+	    return "join";  // "WEB-INF/views/join.jsp"로 이동
 	}
 	
 	
 	// 회원가입 처리
 	@RequestMapping("user_join.do")
 	public String user_join(user_info user, Model model) {
+				
 		mapper.user_join(user);
 		model.addAttribute("user_id", user.getUser_id());
 		
-		return "user_join_success";
+		return "join";
 	}
 	
 	
