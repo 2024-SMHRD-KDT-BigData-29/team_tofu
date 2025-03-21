@@ -57,7 +57,7 @@
 
 	<!-- 디폴트 페이지 경로 설정 -->
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/views/index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/views/login.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>
