@@ -14,7 +14,7 @@
          <form method="post" action="/user_login.do" id="login-form">
              <input type="text" name="user_id" placeholder="아이디 또는 이메일">
              <input type="password" name="user_pw" placeholder="비밀번호 입력">
-             <a href="views/join.jsp">회원가입</a>
+             <a href="join">회원가입</a>
              <input type="submit" value="Login">
          </form>
      </div>
