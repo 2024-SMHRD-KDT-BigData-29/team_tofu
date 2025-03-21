@@ -1,4 +1,4 @@
-package com.together.future.entity;
+package com.together.furture.entity;
 
 import java.sql.Timestamp;
 
