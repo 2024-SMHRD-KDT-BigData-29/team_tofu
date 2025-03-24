@@ -48,4 +48,26 @@ public class user_info_controller {
 	    System.out.println("로그인 성공");		
 		return "main";
 	}
+	
+	// find 페이지 이동	
+	@GetMapping("/find.do")
+	public String findPage() {
+		System.out.println("find 페이지 이동");
+		
+		return "find";
+	}
+	
+	// main 페이지 이동
+	@GetMapping("/main.do")
+	public String mainPage() {
+		System.out.println("피드로 이동");
+		return "main";
+	}
+	
+	// 마이페이지 이동
+	@GetMapping("/mypage.do")
+	public String myPage() {
+		System.out.println("마이페이지 이동");
+		return "mypage";
+	}
 }

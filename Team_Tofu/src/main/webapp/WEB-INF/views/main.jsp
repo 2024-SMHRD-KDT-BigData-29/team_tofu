@@ -8,7 +8,7 @@
     <title>To.fu</title>
     <link rel="stylesheet" href="./Main.css" />
     <style type="text/css">
-    * {
+    	* {
     padding: 0;
     margin: 0;
     border: none;
@@ -35,6 +35,7 @@
 	    right: 0;
 	    z-index: 1000;
 	    flex-wrap: nowrap; /* 줄바꿈 방지 */
+	    justify-content: flex-end; /* 요소들을 오른쪽으로 정렬 */
 	}
 	
 	#tofu-main {
@@ -44,6 +45,7 @@
 	    margin-right: 20px;
 	    flex-shrink: 0;
 	    white-space: nowrap;
+	    margin-right: auto; /* 왼쪽 정렬 유지 */
 	}
 	
 	#find-main {
@@ -53,15 +55,20 @@
 	    cursor: pointer;
 	    flex-shrink: 0;
 	    white-space: nowrap;
+	    margin-right: auto; /* 왼쪽 정렬 유지 */
+	}
+	#find-main a {
+	    text-decoration: none; /* 밑줄 제거 */
+	    color: inherit; /* 부모 요소의 색상 상속 */
 	}
 	
 	#top-bar form {
 	    display: flex;
 	    align-items: center;
 	    gap: 5px;
-	    margin-left: auto;
+	    margin-left: 10px; /* 오른쪽 요소들과 간격 조정 */
 	    flex-shrink: 1;
-	    min-width: 200px;
+	    min-width: 40px;
 	}
 	
 	.search-txt {
@@ -86,11 +93,15 @@
 	    justify-content: center;
 	    font-size: 16px;
 	}
+	#left-section {
+	    display: flex;
+	    align-items: center;
+	    margin-right: auto; /* 왼쪽에 고정 */
+	}
 	
 	#profile-bar {
 	    height: 40px;
 	    width: 40px;
-	    background-color: black;
 	    border-radius: 50%;
 	    display: flex;
 	    align-items: center;
@@ -99,6 +110,17 @@
 	    margin-left: 10px;
 	    flex-shrink: 0;
 	    white-space: nowrap;
+	    overflow: hidden;
+	    padding: 0;
+	    border: none;
+	    background-color: transparent;
+	}
+	
+	#profile-bar img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	    border-radius: 50%;
 	}
 	
 	/* 스토리 섹션 */
@@ -380,13 +402,19 @@
 <body>
     <!-- 고정된 상단 바 -->
     <div id="top-bar">
-        <span id="tofu-main">To.fu</span>
-        <span id="find-main"><a>FIND</a></span>
-        <form action="#" method="post">
+        <div id="left-section">
+            <span id="tofu-main">To.fu</span>
+            <span id="find-main"><a href="find.do">FIND</a></span>
+        </div>
+        <form action="#" method="get">
             <input class="search-txt" type="text" placeholder="검색어를 입력해주세요">
             <button class="search-btn"></button>
         </form>
-        <button id="profile-bar"></button>
+        <form action="mypage.do" method="get">
+            <button id="profile-bar">
+                <img src="./이미지/FIND DETAIL.jpg" alt ="프로필 이미지">
+            </button>
+        </form>
     </div>
 
     <!-- 스토리 섹션 -->
