@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <button id="back-button">←</button>
+            <h2>프로필</h2>
+        </div>
+        <div class="profile-content">
+            <div class="profile-image">
+                <img src="https://via.placeholder.com/150" alt="프로필 이미지">
+            </div>
+            <div class="profile-info">
+                <h3 name="user_nick">닉네임</h3>
+                <p>ether, Futu</p>
+                <button id="edit-profile-button">프로필 수정</button>
+                <div class="profile-actions">
+                    <button id="view-posts-button">게시글 보기</button>
+                    <button id="view-profile-button">프로필 보기</button>
+                </div>
+            </div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat">
+                <span class="stat-number">120</span>
+                <span class="stat-label">게시글</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">1.2K</span>
+                <span class="stat-label">팔로워</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">300</span>
+                <span class="stat-label">팔로잉</span>
+            </div>
+        </div>
+        <div class="profile-bio">
+            <p>안녕하세요, 닉네임입니다. 반갑습니다!</p>
+        </div>
+    </div>
+    <script src="profile.js"></script>
+</body>
+</html>
