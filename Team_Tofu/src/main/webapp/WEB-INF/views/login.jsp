@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
+<link rel="stylesheet" href="resources/css/login.css" type="text/css">
+
 </head>
 <body>
 	<!-- 메인페이지 로그인 구현 -->
@@ -18,5 +20,6 @@
              <input type="submit" value="Login">
          </form>
      </div>
+     <script src="resources/js/login.js"></script>
 </body>
 </html>

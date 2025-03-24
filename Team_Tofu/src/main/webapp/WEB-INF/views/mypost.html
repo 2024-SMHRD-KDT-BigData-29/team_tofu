@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 보기</title>
+    <link rel="stylesheet" href="mypost.css">
+</head>
+<body>
+    <div class="post-container">
+        <!-- 상단 바 -->
+        <div class="post-header">
+            <button id="back-button">←</button>
+            <h2>게시글 보기</h2>
+        </div>
+
+        <!-- 게시글 내용 -->
+        <div class="post-content">
+            <div class="post-title">
+                <h1 nmae="user_nick">닉네임</h1>
+                <p>내 드릴을 하늘을 뚫는 드릴이다.</p>
+            </div>
+            <div class="post-info">
+                <span class="post-category">편집</span>
+                <div class="post-stats">
+                    <span class="stat">필로워 <strong>120</strong></span>
+                    <span class="stat">필로잉 <strong>300</strong></span>
+                </div>
+            </div>
+            <div class="post-body">
+                <!-- 동적으로 추가된 게시글이 여기에 표시됩니다 -->
+            </div>
+        </div>
+
+        <!-- 게시글 작성 섹션 -->
+        <div class="post-write">
+            <textarea id="post-input" placeholder="말하고 싶은 이야기를 작성해보세요..."></textarea>
+            <button id="submit-post-button">게시</button>
+        </div>
+
+        <!-- 하단 버튼 -->
+        <div class="post-actions">
+            <button id="edit-post-button">게시글 수정</button>
+            <button id="delete-post-button">게시글 삭제</button>
+        </div>
+    </div>
+    <script src="mypost.js"></script>
+</body>
+</html>
