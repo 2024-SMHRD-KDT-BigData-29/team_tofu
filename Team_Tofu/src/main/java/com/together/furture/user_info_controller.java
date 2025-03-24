@@ -28,24 +28,24 @@ public class user_info_controller {
 	
 	
 	// 회원가입 처리
-	@RequestMapping("user_join.do")
+	@RequestMapping("/user_join.do")
 	public String user_join(user_info user, Model model) {
 				
 		mapper.user_join(user);
 		model.addAttribute("user_id", user.getUser_id());
-		
-		return "join";
+		System.out.println("회원가입 성공");
+		return "login";
 	}
 	
 	
 	// 로그인 처리
 	@RequestMapping("/user_login.do")
-	public String memberLogin(user_info user, HttpServletRequest request) {
+	public String user_login(user_info user, HttpServletRequest request) {
 		
 		user_info login_user = mapper.user_login(user);
 	    
 	    request.getSession().setAttribute("login_user", login_user);
-				
+	    System.out.println("로그인 성공");		
 		return "main";
 	}
 }

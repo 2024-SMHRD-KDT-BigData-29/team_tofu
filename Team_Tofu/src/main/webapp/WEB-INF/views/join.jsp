@@ -11,7 +11,7 @@
 <body>
 	<div class="join-wrapper">
         <h2>TO.FU</h2>
-        <form method="post" action="/user_join.do" id="join-form" enctype="multipart/form-data">
+        <form action="user_join.do" method="post"  id="join-form">
             <input type="text" name="user_id" placeholder="아이디 또는 이메일">
             <input type="password" name="user_pw" placeholder="비밀번호 입력">
             <input type="password" name="user_pw_check" placeholder="비밀번호 확인">
