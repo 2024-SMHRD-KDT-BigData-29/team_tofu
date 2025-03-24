@@ -102,3 +102,26 @@ body {
 .join-button:hover {
     background-color: #525252; /* 호버 시 회색 */
 }
+/* 참여방 만들기 섹션 스타일 */
+.create-room-section {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    background-color: #f8f8f8;
+    text-align: center; /* 버튼을 가운데 정렬 */
+}
+
+#create-room-button {
+    width: 100%;
+    max-width: 800px; /* 버튼 최대 너비 설정 */
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#create-room-button:hover {
+    background-color: #525252;
+}
