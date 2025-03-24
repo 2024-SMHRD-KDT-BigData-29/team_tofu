@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.together.furture.entity.user_info;
 import com.together.furture.mapper.user_info_mapper;
 
+
+
 @Controller
 public class user_info_controller {
 	
@@ -43,31 +45,17 @@ public class user_info_controller {
 	public String user_login(user_info user, HttpServletRequest request) {
 		
 		user_info login_user = mapper.user_login(user);
-	    
+		
+		if (login_user == null) {
+	        System.out.println("로그인 실패");
+	        return "redirect:/"; // 로그인 페이지로 리다이렉트
+		}
+		
 	    request.getSession().setAttribute("login_user", login_user);
 	    System.out.println("로그인 성공");		
 		return "main";
 	}
 	
-	// find 페이지 이동	
-	@GetMapping("/find.do")
-	public String findPage() {
-		System.out.println("find 페이지 이동");
-		
-		return "find";
-	}
 	
-	// main 페이지 이동
-	@GetMapping("/main.do")
-	public String mainPage() {
-		System.out.println("피드로 이동");
-		return "main";
-	}
 	
-	// 마이페이지 이동
-	@GetMapping("/mypage.do")
-	public String myPage() {
-		System.out.println("마이페이지 이동");
-		return "mypage";
-	}
 }
