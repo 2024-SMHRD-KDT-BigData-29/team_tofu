@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 container.innerHTML = `
                     <div style="position: relative; display: inline-block;">
                         <img src="${e.target.result}" alt="이미지 미리보기" class="image-preview">
-                        <button class="delete-file-btn"></button>
+                        <button class="delete-file-btn">&times;</button>
                     </div>
                 `;
 
@@ -31,10 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
             previewImage(existingFileInput, existingPreviewContainer);
         });
     }
-
     // 파일 추가 버튼 클릭 시 새로운 파일 입력 필드 추가
-    document.getElementById('add-file-btn')?.addEventListener('click', function () {
-        const fileUploadSection = document.getElementById('file-upload-section');
+    const addFileBtn = document.getElementById("add-file-btn");
+	if (addFileBtn) {
+    	addFileBtn.addEventListener("click", function () {
+       		const fileUploadSection = document.getElementById("file-upload-section");
 
         // 새로운 파일 업로드 컨테이너 생성
         const newFileUpload = document.createElement('div');
@@ -78,5 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
         newFileUpload.appendChild(deleteButton);
         fileUploadSection.appendChild(newFileUpload);
         fileUploadSection.appendChild(newPreviewContainer);
-    });
+		});
+	}
 });
