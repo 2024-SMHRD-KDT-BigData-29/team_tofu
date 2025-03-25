@@ -16,29 +16,29 @@ import lombok.ToString;
 public class feed_info {
 
     // 글 식별자 
-    private Integer feedIdx;
+    private Integer feed_idx;
 
     // 글 제목 
-    private String feedTitle;
+    private String feed_title;
 
     // 글 내용 
-    private String feedContent;
+    private String feed_content;
 
     // 글 첨부파일 
-    private String feedFile;
+    private String feed_file;
 
     // 글 작성일자 
-    private Timestamp createdAt;
+    private Timestamp created_at;
 
     // 글 조회수 
-    private Integer feedViews;
+    private Integer feed_views;
 
     // 글 좋아요수 
-    private Integer feedLikes;
+    private Integer feed_likes;
 
     // 글 작성자 
-    private String userId;
+    private String user_id;
 
     // 해시 태그 
-    private String hashTag;
+    private String hash_tag;
 }

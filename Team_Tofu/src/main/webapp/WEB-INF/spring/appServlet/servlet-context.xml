@@ -29,4 +29,5 @@
 	<!-- Controller 자동 등록 -->
     <context:component-scan base-package="com.together.furture" />
     
+    
 </beans:beans>

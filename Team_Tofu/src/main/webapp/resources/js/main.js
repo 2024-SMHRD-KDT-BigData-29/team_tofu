@@ -37,6 +37,7 @@ document.querySelectorAll('.comment-submit').forEach(button => {
     });
 });
 
+
 // 기존 댓글 삭제 기능
 document.querySelectorAll('.comment-delete').forEach(button => {
     button.addEventListener('click', function() {

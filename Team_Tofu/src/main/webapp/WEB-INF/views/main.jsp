@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="com.together.furture.entity.comment_info"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +14,9 @@
     <!-- 고정된 상단 바 -->
     <div id="top-bar">
         <div id="left-section">
-            <span id="tofu-main">To.fu</span>
-            <span id="find-main"><a href="find.do">FIND</a></span>
+        	
+           	<span id="tofu-main"><a href="main.do">To.fu</a></span>
+           	<span id="find-main"><a href="find.do">FIND</a></span>
         </div>
         <form action="#" method="get">
             <input class="search-txt" type="text" placeholder="검색어를 입력해주세요">
@@ -77,39 +79,42 @@
 
     <!-- 게시글 1 -->
     <div class="post">
-        <div class="post-header">
-            <img src="./이미지/WRITE.jpg" alt="닉네임 프로필" class="profile-img">
-            <span class="nickname" name="user_nick">닉네임1</span>
-            <span class="post-menu">&#8942;</span> <!-- ⋮ 아이콘 -->
-        </div>
-        <img src="./이미지/MY POST.jpg" alt="게시글 이미지" class="post-image">
-        <div class="post-actions">
-            <button class="like-btn">❤️</button>
-            <button class="comment-btn">💬</button>
-        </div>
-        <div class="post-caption">
-            <span class="nickname" name="user_nick">닉네임1</span>
-            <span class="caption">이것은 게시글 설명입니다.</span>
-        </div>
+    	
+	        <div class="post-header">
+	            <img src="./이미지/WRITE.jpg" alt="닉네임 프로필" class="profile-img">
+	            <span class="nickname" name="user_nick">닉네임1</span>
+	            <span class="post-menu">&#8942;</span> <!-- ⋮ 아이콘 -->
+	        </div>
+	        <img src="./이미지/MY POST.jpg" alt="게시글 이미지" class="post-image">
+	        <div class="post-actions">
+	            <button class="like-btn">❤️</button>
+	            <button class="comment-btn">💬</button>
+	        </div>
+	        <div class="post-caption">
+	            <span class="nickname" name="user_nick">닉네임1</span>
+	            <span class="caption">이것은 게시글 설명입니다.</span>
+	        </div>
+ 
         <div class="comment-list">
-            <!-- 댓글 예시 -->
-            <div class="comment-item">
-                <span class="comment-nickname">닉네임1</span>
-                <span class="comment-text">첫 번째 댓글입니다.</span>
-                <button class="comment-delete">🗑️</button> <!-- 삭제 버튼 -->
-            </div>
-            <div class="comment-item">
-                <span class="comment-nickname">닉네임2</span>
-                <span class="comment-text">두 번째 댓글입니다.</span>
-                <button class="comment-delete">🗑️</button> <!-- 삭제 버튼 -->
-            </div>
-        </div>
-         <!-- 댓글 작성 섹션 -->
-         <div class="comment-section">
-            <textarea class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
-            <button class="comment-submit">게시</button>
-        </div>
-    </div>
+            <!-- 댓글 기능 -->
+            <c:forEach var="cmt" items="${cmt_list}">
+		        <div class="comment-item">
+		            <span class="comment-nickname">${cmt.user_nick}</span> <!-- 닉네임 -->
+		            <span class="comment-text">${cmt.cmt_content}</span> <!-- 댓글 내용 -->
+		            <button class="comment-delete" data-cmt-id="${cmt.cmt_idx}">🗑️</button> <!-- 삭제 버튼 -->
+		        </div>
+        	</c:forEach>
+		    
+
+	        </div>
+	         <!-- 댓글 작성 섹션 -->
+	         <form action="comment_send.do">
+		         <div class="comment-section">
+		            <textarea class="comment-input" name="cmt_content" placeholder="댓글을 입력하세요..."></textarea>
+		            <button class="comment-submit">게시</button>
+		        </div>
+	        </form>
+	    </div>
 
     <!-- 게시글 2 -->
     <div class="post">
