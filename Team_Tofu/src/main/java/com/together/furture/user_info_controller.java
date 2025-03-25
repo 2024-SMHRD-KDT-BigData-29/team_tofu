@@ -50,10 +50,10 @@ public class user_info_controller {
 	        System.out.println("로그인 실패");
 	        return "redirect:/"; // 로그인 페이지로 리다이렉트
 		}
-		
+		request.getSession().setAttribute("user_id", login_user.getUser_id());
 	    request.getSession().setAttribute("login_user", login_user);
-	    System.out.println("로그인 성공");		
-		return "main";
+	    System.out.println("로그인 성공, user_id: " + login_user.getUser_id());		
+		return "redirect:/main";
 	}
 	
 	
