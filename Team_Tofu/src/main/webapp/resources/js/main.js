@@ -53,3 +53,58 @@ document.querySelectorAll('.story').forEach(story => {
         // 예: window.location.href = `/profile/${nickname}`;
     });
 });
+ 
+// 프로필 팝업 기능 (로그아웃 버튼 이벤트 제거 버전)
+document.getElementById('profile-bar').addEventListener('click', function(e) {
+    e.stopPropagation(); // 이벤트 버블링 방지
+    const overlay = document.getElementById('popup-overlay');
+    overlay.style.display = 'flex';
+    
+    overlay.innerHTML = `
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2>프로필</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src="/이미지/img.png" alt="프로필 이미지">
+                </div>
+                <div class="profile-info">
+                    <h3 name="user_nick">닉네임</h3>
+                    <p>더 이상 자세한 설명은 생략한다.</p>
+                    <div class="profile-actions">
+                        <button id="view-posts-button">게시글 보기</button>
+                        <button id="view-profile-button">프로필 보기</button>
+                        <button id="logout">로그아웃</button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">게시글</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1.2K</span>
+                    <span class="stat-label">팔로워</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">300</span>
+                    <span class="stat-label">팔로잉</span>
+                </div>
+            </div>
+            <div class="profile-bio">
+                <p>안녕하세요, 닉네임입니다. 반갑습니다!</p>
+            </div>
+        </div>
+    `;
+    
+    // 로그아웃 버튼 이벤트는 여기서 제거됨
+});
+
+// 오버레이 클릭 시 팝업 닫기
+document.getElementById('popup-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
+}); 

@@ -147,12 +147,16 @@
         </div>
     </div>
 
+
     
     <!-- 상단 이동 버튼 및 게시물 작성 버튼 -->
-<div class="floating-buttons">
-    <button id="write-post">✏️ </button>
-    <button id="scroll-top">&#9650;</button>
-</div>
+    <div class="floating-buttons">
+        <button id="write-post">✏️ </button>
+        <button id="scroll-top">&#9650;</button>
+    </div>
+    <div id="popup-overlay">
+        <!-- 프로필 팝업 내용 (동적으로 로드됨) -->
+    </div>
     <script src="resources/js/main.js"></script>
     
 </body>
