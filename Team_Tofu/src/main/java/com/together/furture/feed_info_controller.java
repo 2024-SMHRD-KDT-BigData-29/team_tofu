@@ -36,13 +36,19 @@ public class feed_info_controller {
 		System.out.println("피드로 이동");
 		return "main";
 	}
-
-	// 마이페이지 이동
+	
 	@GetMapping("/mypage")
 	public String myPage() {
 		System.out.println("마이페이지 이동");
 		return "mypage";
 	}
+	
+	@GetMapping("/mypost")
+	public String myPost() {
+		System.out.println("mypost 이동");
+		return "mypost";
+	}
+	
 
 //	@RequestMapping("/insertfeed.do")
 //	public String insertfeed(feed_info user, HttpServletRequest request) {

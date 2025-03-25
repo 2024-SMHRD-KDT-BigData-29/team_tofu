@@ -16,7 +16,11 @@
         	</form>
             <h2>마이페이지</h2>
         </div>
-        <div class="profile-content">
+      <div class="profile-content">
+            <!-- 프로필 이미지 추가 -->
+            <div class="profile-image">
+                <img src="/이미지/img.png">
+            </div>
             <div class="profile-info">
                 <h1 name="user_id">홍길동</h1>
                 <p>동에 번쩍 서에 번쩍</p>
@@ -57,6 +61,7 @@
             </div>
         </div>
     </div>
-    <script src="./mypage.js"></script>
+    
+    <script src="/resources/js/mypage.js"></script>
 </body>
 </html>

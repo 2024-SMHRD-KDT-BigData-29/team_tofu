@@ -12,5 +12,7 @@ public interface user_info_mapper {
 	void user_join(user_info user);
 	
 	user_info user_login(user_info user);
+
+	//int profile_save(user_info user);
 	
 }

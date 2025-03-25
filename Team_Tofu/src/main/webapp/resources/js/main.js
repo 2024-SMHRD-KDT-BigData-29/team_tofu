@@ -37,7 +37,6 @@ document.querySelectorAll('.comment-submit').forEach(button => {
     });
 });
 
-
 // 기존 댓글 삭제 기능
 document.querySelectorAll('.comment-delete').forEach(button => {
     button.addEventListener('click', function() {
@@ -54,3 +53,49 @@ document.querySelectorAll('.story').forEach(story => {
         // 예: window.location.href = `/profile/${nickname}`;
     });
 });
+ 
+// 프로필 팝업 기능 (로그아웃 버튼 이벤트 제거 버전)
+document.getElementById('profile-btn').addEventListener('click', function(e) {
+    e.stopPropagation(); // 이벤트 버블링 방지
+    const overlay = document.getElementById('popup-overlay');
+    overlay.style.display = 'flex';
+        
+    
+    overlay.innerHTML = `
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2>프로필</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src=${user_profile} alt="프로필 이미지">
+                </div>
+                <div class="profile-info">
+                    <h3 name="user_nick">${user_nick}</h3>
+                    <p>${user_intro}</p>
+                    <div class="profile-actions">
+                        <button id="view-posts-button" onclick="location.href='mypost'">게시글 보기</button>
+                        <button id="view-profile-button" onclick="location.href='mypage'">프로필 보기</button>
+                        <button id="logout">로그아웃</button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">게시글</span>
+                </div>
+            </div>
+
+        </div>
+    `;
+    
+    // 로그아웃 버튼 이벤트는 여기서 제거됨
+});
+
+// 오버레이 클릭 시 팝업 닫기
+document.getElementById('popup-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
+}); 

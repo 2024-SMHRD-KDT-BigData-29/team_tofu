@@ -12,7 +12,7 @@
 <body>
     <div class="join-wrapper">
         <h2>TO.FU</h2>
-        <form method="post" action="user_join.do" id="join-form">
+        <form method="post" action="user_join.do" id="join-form" enctype="multipart/form-data">
             <input type="text" name="user_id" placeholder="아이디 또는 이메일">
             <input type="password" name="user_pw" id="user_pw" placeholder="비밀번호 입력">
             <input type="password" id="confirm_pw" placeholder="비밀번호 확인">
