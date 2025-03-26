@@ -100,7 +100,8 @@ textarea:focus {
 
 .file-input {
     display: none; /* 파일 입력 필드 숨기기 */
-}
+ }
+
 #join-form > select{
     border: 1px solid #D2D2D2;
     width: 100%;

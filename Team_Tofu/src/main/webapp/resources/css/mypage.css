@@ -2,23 +2,29 @@ body {
     font-family: Arial, sans-serif;
     background-color: #fafafa;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    /* body에서만 스크롤 허용 */
+    overflow-y: auto;
 }
 
 .profile-container {
     width: 800px;
+    max-width: 100%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    overflow: hidden; /* 내부 스크롤 제거 */
     display: flex;
     flex-direction: column;
+    margin: 20px 0;
+    /* height: auto; (기본값) */
+    /* 스크롤 없이 내용이 길어지면 자연스럽게 확장 */
 }
 
+/* 나머지 CSS는 기존과 동일하게 유지 */
 .profile-header {
     background-color: #f8f8f8;
     padding: 15px;
@@ -112,6 +118,19 @@ body {
     margin: 0;
     color: #666;
     font-size: 16px;
+}
+
+.profile-image {
+    margin: 0 auto 20px;
+    text-align: center;
+}
+
+.profile-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
 }
 
 .add-button {

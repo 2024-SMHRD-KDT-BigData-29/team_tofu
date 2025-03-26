@@ -40,6 +40,7 @@ public class feed_info_controller {
 		return "main";
 	}
 	
+
 	
 
 	// 글쓰기 이동
@@ -48,6 +49,14 @@ public class feed_info_controller {
 		System.out.println("글쓰기 이동");
 		return "write";
 	}
+	
+	
+	@GetMapping("/mypost")
+	public String myPost() {
+		System.out.println("mypost 이동");
+		return "mypost";
+	}
+	
 
 	@PostMapping("/write")
 	public String insert_feed(insert_feed feed, HttpServletRequest request) {

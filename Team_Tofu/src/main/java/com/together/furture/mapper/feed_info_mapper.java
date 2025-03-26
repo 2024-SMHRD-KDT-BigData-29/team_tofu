@@ -11,6 +11,7 @@ import com.together.furture.entity.user_info;
 @Mapper
 public interface feed_info_mapper {
 	
+
 	int insertfeed(insert_feed feed);
 
 	user_info user_login(user_info user);

@@ -40,5 +40,7 @@ public class feed_info {
     private String user_id;
 
     // 해시 태그 
+
     private String hash_tags;
+
 }
