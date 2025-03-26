@@ -4,11 +4,11 @@
 <mapper namespace="com.together.furture.mapper.feed_info_mapper">
 
 <insert id="insertfeed" parameterType="com.together.furture.entity.insert_feed">
-INSERT INTO feed_info (feed_title, feed_content, feed_file, hash_tag, user_id)
-VALUES (#{feed_title}, #{feed_content}, #{feed_file}, #{hash_tag}, #{user_id})
+	INSERT INTO feed_info (feed_title, feed_content, feed_file, hash_tag, user_id)
+	VALUES (#{feed_title}, #{feed_content}, #{feed_file}, #{hash_tag}, #{user_id})
 </insert>
 <select id="getFeedList" resultType="com.together.furture.entity.insert_feed">
-SELECT * FROM feed_info ORDER BY feed_idx DESC
+	SELECT * FROM feed_info ORDER BY feed_idx DESC
 </select>
 
 
