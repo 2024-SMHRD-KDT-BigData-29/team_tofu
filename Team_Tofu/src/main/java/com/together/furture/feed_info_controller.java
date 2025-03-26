@@ -80,14 +80,18 @@ public class feed_info_controller {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
+		user_info user = (user_info) request.getSession().getAttribute("login_user");
 		String feed_title = request.getParameter("feed_title");
 		String feed_content = request.getParameter("feed_content");
 		String feed_file = request.getParameter("feed_file");
 		String hash_tag = request.getParameter("hash_tag");
 		String user_id = (String) request.getSession().getAttribute("user_id");
+		String user_nick = (String) request.getSession().getAttribute("user_nick");
 
-		feed = new insert_feed(feed_title, feed_content, feed_file, hash_tag, user_id);
-
+		feed = new insert_feed(feed_title, feed_content, feed_file, hash_tag, user_id, user_nick);
+		
+		System.out.println("원영 test2 : " + user_nick);
+		
 		System.out.println("원영 test2 : " + feed.toString());
 
 		int cnt = mapper.insertfeed(feed);
