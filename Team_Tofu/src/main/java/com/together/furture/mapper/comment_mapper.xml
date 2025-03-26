@@ -5,17 +5,23 @@
 <mapper namespace="com.together.furture.mapper.comment_mapper">
 	<insert 
 		id="comment_send"
-		parameterType="com.together.furture.entity.comment_info"	
+		parameterType="com.together.furture.entity.comment_insert"	
 	>
-		insert into comment_info(user_id, cmt_content, created_at, cmt_idx, feed_idx) 
-		values(#{user_id}, #{cmt_content}, now(), #{cmt_idx}, #{feed_idx});
+		insert into comment_info(feed_idx ,user_id, cmt_content) 
+		values(#{feed_idx} ,#{user_id}, #{cmt_content});
 	</insert>
 	
 	<select 
 		id="comment_show"
-		parameterType="String"
-		resultType="com.together.furture.entity.comment_info"
+		resultType="com.together.furture.entity.comment_insert"
 	>
-		select * from comment_info where user_id=#user_id
+		select 
+			c.cmt_content as cmt_content,
+			c.user_id as user_id,
+			c.feed_idx as feed_idx,
+			u.user_nick as user_nick
+		from comment_info c
+		left join user_info u on c.user_id = u.user_id
+		order by c.created_at DESC;
 	</select>
 </mapper>

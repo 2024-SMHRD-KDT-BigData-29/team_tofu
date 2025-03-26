@@ -27,5 +27,13 @@ public class insert_feed {
 	
 	private String user_id;
 	
+	private String user_nick;
+	
+	private Integer feed_idx; 
+	
+    // 사용자 프로필 사진
+    private String user_profile;
+
+	
 	
 }

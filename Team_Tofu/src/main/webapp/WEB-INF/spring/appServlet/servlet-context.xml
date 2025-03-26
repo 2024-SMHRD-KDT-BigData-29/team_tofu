@@ -21,7 +21,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	
 	<!-- 이미지 경로 설정 -->
-	<resources mapping="/resources/img/**" location="/resources/img/" />
+    <resources mapping="/img/**" location="/resources/img" />
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />

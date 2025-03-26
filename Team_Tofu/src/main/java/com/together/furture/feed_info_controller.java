@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mysql.cj.Session;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.together.furture.entity.comment_insert;
 import com.together.furture.entity.feed_info;
 import com.together.furture.entity.insert_feed;
 import com.together.furture.entity.user_info;
+import com.together.furture.mapper.comment_mapper;
 import com.together.furture.mapper.feed_info_mapper;
 import com.together.furture.mapper.user_info_mapper;
 
@@ -30,13 +32,18 @@ public class feed_info_controller {
 	feed_info_mapper mapper;
 	@Autowired
 	user_info_mapper usermapper;
-
+	@Autowired
+	comment_mapper commentmapper;
 	// main 페이지 이동
 	@GetMapping("/main")
 	public String mainPage(Model model) {
 		System.out.println("피드로 이동");
 		List<insert_feed> feedList = mapper.getFeedList();
 		model.addAttribute("feedList", feedList);
+		
+		List<comment_insert> cmtList = commentmapper.comment_show();
+		System.out.println("cmtList길이 확인>>" + cmtList.size());
+		model.addAttribute("cmtList", cmtList);
 		return "main";
 	}
 	
@@ -50,14 +57,14 @@ public class feed_info_controller {
 		return "write";
 	}
 	
-	
+	// 경로만 추가 -> 내가 쓴글 보기 
 	@GetMapping("/mypost")
 	public String myPost() {
 		System.out.println("mypost 이동");
 		return "mypost";
 	}
 	
-
+	// 게시글 작성
 	@PostMapping("/write")
 	public String insert_feed(insert_feed feed, HttpServletRequest request) {
 		// 파일 업로드 시 필요한 객체 -> MultipartRequest 객체
@@ -80,14 +87,20 @@ public class feed_info_controller {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
+		user_info user = (user_info) request.getSession().getAttribute("login_user");
 		String feed_title = request.getParameter("feed_title");
 		String feed_content = request.getParameter("feed_content");
 		String feed_file = request.getParameter("feed_file");
 		String hash_tag = request.getParameter("hash_tag");
 		String user_id = (String) request.getSession().getAttribute("user_id");
-
-		feed = new insert_feed(feed_title, feed_content, feed_file, hash_tag, user_id);
-
+		String user_nick = (String) request.getSession().getAttribute("user_nick");
+		String user_profile = (String) request.getSession().getAttribute("user_profile");
+		
+		
+		feed = new insert_feed(feed_title, feed_content, feed_file, hash_tag, user_id, user_nick, 0, user_profile);
+		
+		System.out.println("원영 test2 : " + user_nick);
+		
 		System.out.println("원영 test2 : " + feed.toString());
 
 		int cnt = mapper.insertfeed(feed);
