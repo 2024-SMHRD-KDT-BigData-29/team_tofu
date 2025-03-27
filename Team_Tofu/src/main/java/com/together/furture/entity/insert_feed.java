@@ -16,13 +16,13 @@ import lombok.ToString;
 @ToString
 public class insert_feed {
 	
-	@NonNull private String feed_title;
+	private String feed_title;
 	
-	@NonNull private String feed_content;
+	private String feed_content;
 	
 	private String feed_file;
 	
-	@NonNull private String hash_tag;
+	private String hash_tag;
 	
 	private String user_id;
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,9 +21,9 @@
             <!-- 프로필 이미지 추가 -->
             <div class="profile-image">
        		<c:choose>
-		    	<c:when test="${empty login_user.user_profile}">
-		      	  <img src="resources/img/default_profile.png" alt="기본 프로필 이미지" class="profile-img">
-		  	  	</c:when>
+			    <c:when test="${empty login_user.user_profile}">
+			        <img src="resources/img/default_profile.png" alt="기본 프로필 이미지" class="profile-img">
+			    </c:when>
 			    <c:otherwise>
 			        <img src="resources/img/${login_user.user_profile}" alt="프로필 이미지" class="profile-img">
 			    </c:otherwise>

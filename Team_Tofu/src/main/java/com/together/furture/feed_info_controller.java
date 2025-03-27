@@ -1,11 +1,9 @@
 package com.together.furture;
 
 import java.io.IOException;
-import java.io.WriteAbortedException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,16 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mysql.cj.Session;
 import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.together.furture.entity.comment_insert;
-import com.together.furture.entity.feed_info;
 import com.together.furture.entity.insert_feed;
 import com.together.furture.entity.user_info;
 import com.together.furture.mapper.comment_mapper;
 import com.together.furture.mapper.feed_info_mapper;
 import com.together.furture.mapper.user_info_mapper;
+import com.together.furture.util.feedUploadUtile;
 
 @Controller
 public class feed_info_controller {
@@ -34,6 +30,9 @@ public class feed_info_controller {
 	user_info_mapper usermapper;
 	@Autowired
 	comment_mapper commentmapper;
+	@Autowired
+    private feedUploadUtile feedUploadUtile;
+	
 	// main 페이지 이동
 	@GetMapping("/main")
 	public String mainPage(Model model) {
@@ -65,54 +64,49 @@ public class feed_info_controller {
 		return "mypost";
 	}
 	
-	// 게시글 작성
-	@PostMapping("/write")
-	public String insert_feed(insert_feed feed, HttpServletRequest request) {
-		// 파일 업로드 시 필요한 객체 -> MultipartRequest 객체
-		// 1. 요청객체 -> request
-		// 2. 이미지 저장할 폴더의 경로(String)
-		// equest.getSession().getServletContext().getRealPath("resources/upload");
-		String save_path = request.getRealPath("resources/img");
-		System.out.println("이미지 저장 경로 : " + save_path);
+	 // 게시글 작성
+	   @PostMapping("/write")
+	   public String insert_feed(insert_feed feed, HttpServletRequest request) throws IOException {
+	      
 
-		// 3. 이미지 용량 크기(int)
-		int max_size = 1024 * 1024 * 10;
+	      MultipartRequest multi = feedUploadUtile.feedupload(request);
 
-		// 4. 파일명 인코딩 방식(String)
-		String encoding = "UTF-8";
+//	      try {
+//	         multi = new MultipartRequest(request, save_path, max_size, encoding);
+//	      } catch (IOException e) {
+//	         e.printStackTrace();
+//	      }
+	      user_info user = (user_info) request.getSession().getAttribute("login_user");
+	      String user_id = (String) request.getSession().getAttribute("user_id");
+	      String user_nick = (String) request.getSession().getAttribute("user_nick");
+	      String user_profile = (String) request.getSession().getAttribute("user_profile");
+	      
+	      String feed_title = multi.getParameter("feed_title");
+	      String feed_content = multi.getParameter("feed_content");
+	      String hash_tag = multi.getParameter("hash_tag");
+	      String feed_file = multi.getFilesystemName("feed_file");
+	      
+	      // feed_title null 체크
+	      if (feed_title == null || feed_title.trim().isEmpty()) {
+	            throw new IllegalArgumentException("feed_title은 필수 입력값입니다.");
+	        }
+	      
+	      feed = new insert_feed(feed_title, feed_content, feed_file, hash_tag, user_id, user_nick, 0, user_profile);
+	      
+	      System.out.println("원영 test2 : " + user_nick);
+	      
+	      System.out.println("원영 test2 : " + feed.toString());
 
-		MultipartRequest multi = null;
+	      int cnt = mapper.insertfeed(feed);
 
-//		try {
-//			multi = new MultipartRequest(request, save_path, max_size, encoding);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		user_info user = (user_info) request.getSession().getAttribute("login_user");
-		String feed_title = request.getParameter("feed_title");
-		String feed_content = request.getParameter("feed_content");
-		String feed_file = request.getParameter("feed_file");
-		String hash_tag = request.getParameter("hash_tag");
-		String user_id = (String) request.getSession().getAttribute("user_id");
-		String user_nick = (String) request.getSession().getAttribute("user_nick");
-		String user_profile = (String) request.getSession().getAttribute("user_profile");
-		
-		
-		feed = new insert_feed(feed_title, feed_content, feed_file, hash_tag, user_id, user_nick, 0, user_profile);
-		
-		System.out.println("원영 test2 : " + user_nick);
-		
-		System.out.println("원영 test2 : " + feed.toString());
+	      if (cnt == 1) {
+	         System.out.println("[게시물 업로드 성공]");
+	      } else {
+	         System.out.println("[게시물 업로드 실패]");
+	      }
 
-		int cnt = mapper.insertfeed(feed);
+	      return "redirect:/main";
+	   }
 
-		if (cnt == 1) {
-			System.out.println("[게시물 업로드 성공]");
-		} else {
-			System.out.println("[게시물 업로드 실패]");
-		}
-
-		return "redirect:/main";
-	}
 
 }

@@ -10,9 +10,9 @@
 <body>
 	<div class="write-wrapper">
         <h1>작성 페이지</h1>
-        <form method="post" id="write-form" action="write">
+        <form method="post" id="write-form" action="write" enctype="multipart/form-data">
 	            <!-- 제목 입력란 -->
-	            <input type="text" name="feed_title" placeholder="제목" class="form-input">
+	            <input type="text" name="feed_title" placeholder="제목" class="form-input" required />
 	
 	            <!-- 내용 입력란 -->
 	            <textarea name="feed_content" placeholder="나누고 싶은 이야기나 공유하고 싶은 것들을 이야기 해보세요" class="form-textarea"></textarea>
@@ -28,7 +28,7 @@
 	            </div>
 	
 	            <!-- 파일 추가 버튼 -->
-	            <input type="file" id="add-file-btn" class="add-file-btn">파일 추가</input>
+	            <input type="file" name="feed_file" id="add-file-btn" class="add-file-btn">파일 추가</input>
 	
 	            <!-- 태그 입력란 -->
 	            <input type="text" name="hash_tag" placeholder="테그를 추가 해주세요 (예: #태그1 #태그2)" class="form-input">

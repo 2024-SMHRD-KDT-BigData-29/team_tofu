@@ -84,14 +84,9 @@
 	                <div>
 	                    <span class="post-menu">${feed.feed_title}</span>
 	                    <p>${feed.feed_content}</p>
-	                    <c:choose>
-						    <c:when test="${empty feed.feed_file}">
-						        <img src="resources/img/help.png" alt="기본 프로필 이미지" class="profile-img">
-						    </c:when>
-						    <c:otherwise>
-						        <img src="resources/img/${feed.feed_file}" alt="프로필 이미지" class="profile-img">
-						    </c:otherwise>
-						</c:choose>
+	                    <c:if test="${not empty feed.feed_file}">
+						    <img src="resources/feed_img/${feed.feed_file}" alt="피드 이미지" class="profile-img">
+						</c:if>
 	                </div>
 	                
 	                <div class="post-actions">
@@ -99,18 +94,6 @@
 	                    <button class="comment-btn">💬</button>
 	                </div>
 	                
-	               <%--  <c:forEach var="cmt" items="${cmtList}">
-	    	            <div class="comment-list">
-		                	<!-- 댓글 -->
-	                        <div class="comment-item" name="feed_idx" value="${feed.feed_idx}">
-                    	        <span class="comment-nickname">${cmt.user_nick}</span>
-                        	    <span class="comment-text">${cmt.cmt_content}</span>
-                            	<button type="submit" class="comment-delete">🗑️</button>
-                        	</div>
-	                	</div>
-                   	</c:forEach>
-                   	 --%>
-                   	<!--  -->
                    	<div class="comment-list">
 	                    <c:forEach var="cmt" items="${cmtList}">
 	                    	<c:if test="${cmt.feed_idx==feed.feed_idx}">
