@@ -34,7 +34,9 @@ public class cowork_info {
 	    
 	    // 협업 이미지 
 	    private String cw_img;
-
+	    
+	    // 유저 닉네임
+	    private String user_nick;
 
 
 }

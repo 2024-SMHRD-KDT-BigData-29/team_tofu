@@ -77,3 +77,66 @@ document.getElementById('popup-overlay').addEventListener('click', function(e) {
         this.style.display = 'none';
     }
 }); 
+// 게시글 메뉴 기능
+document.addEventListener('DOMContentLoaded', function() {
+    // 메뉴 버튼 클릭 이벤트
+    document.addEventListener('click', function(e) {
+        const menuBtn = e.target.closest('.post-menu-btn');
+        
+        // 메뉴 버튼 클릭 시
+        if (menuBtn) {
+            e.stopPropagation();
+            const dropdown = menuBtn.nextElementSibling;
+            const isShowing = dropdown.classList.contains('show');
+            
+            // 모든 메뉴 닫기
+            document.querySelectorAll('.post-menu-dropdown').forEach(d => {
+                d.classList.remove('show');
+            });
+            
+            // 현재 메뉴 열기
+            if (!isShowing) {
+                dropdown.classList.add('show');
+            }
+        }
+        // 다른 곳 클릭 시 모든 메뉴 닫기
+        else {
+            document.querySelectorAll('.post-menu-dropdown').forEach(d => {
+                d.classList.remove('show');
+            });
+        }
+    });
+});
+
+// 메뉴 옵션 클릭 시 이벤트 전파 방지
+document.querySelectorAll('.menu-option').forEach(option => {
+    option.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+
+// 수정 기능
+function editPost(feedIdx) {
+    console.log('수정할 게시글 ID:', feedIdx);
+    // window.location.href = 'edit.do?feed_idx=' + feedIdx;
+}
+
+// 삭제 기능
+function deletePost(feedIdx) {
+    if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+        console.log('삭제할 게시글 ID:', feedIdx);
+        // fetch API로 삭제 요청
+    }
+}
+// 좋아요 버튼 클릭 시
+likeBtn.addEventListener('click', function() {
+    const icon = this.querySelector('i');
+    icon.classList.toggle('far'); // 빈 하트
+    icon.classList.toggle('fas'); // 채워진 하트
+    this.classList.toggle('liked');
+    
+    // 카운트 업데이트
+    const countElement = this.querySelector('.like-count');
+    const currentCount = parseInt(countElement.textContent);
+    countElement.textContent = this.classList.contains('liked') ? currentCount + 1 : currentCount - 1;
+});

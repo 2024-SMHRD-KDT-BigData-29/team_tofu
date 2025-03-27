@@ -20,12 +20,15 @@ public class insert_cowork {
 
     // 협업 소개 
     @NonNull private String cw_intro;
-
+    
+    // 협업 내용
+    @NonNull private String cw_content;
+    
+    // 협업 이미지
+    private String cw_img;
+    
     // 협업 인원수 
     @NonNull private Integer cw_limit;
-    
-    // 협업 이미지 
-    private String cw_img;
     
     // 협업 해시태그
     private String hash_tag;

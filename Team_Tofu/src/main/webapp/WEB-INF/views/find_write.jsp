@@ -18,7 +18,7 @@
              <input type="textarea" name="cw_intro" placeholder="무엇을 위한 그룹인지를 설명해주세요" class="form-input">
 
             <!-- 내용 입력란 -->
-            <textarea name="feed-content" placeholder="나누고 싶은 이야기나 공유하고 싶은 것들을 이야기 해보세요" class="form-textarea"></textarea>
+            <textarea name="cw_content" placeholder="나누고 싶은 이야기나 공유하고 싶은 것들을 이야기 해보세요" class="form-textarea"></textarea>
 
             <!-- 파일 첨부 버튼 -->
               <!-- 파일 업로드 섹션 -->
@@ -27,7 +27,7 @@
                 <div class="preview-container"></div>
 
                <div class="file-upload">
-                   <input type="file" name="feed-file" class="file-input">
+                   <input type="file" name="cw_img" class="file-input">
                </div>
            </div>
 
@@ -36,7 +36,7 @@
             <!-- 협원 인원 선택란-->
             <input type="text" name="cw_limit" class="form-input" placeholder="인원을 입력해주세요">
             <!-- 태그 입력란 -->
-            <input type="text" name="feed-tags" placeholder="테그를 추가 해주세요 (예: #태그1 #태그2)" class="form-input">
+            <input type="text" name="hash_tag" placeholder="테그를 추가 해주세요 (예: #태그1 #태그2)" class="form-input">
 
             <!-- 작성 버튼 -->
             <button type="submit" class="submit-btn">작성 완료</button>

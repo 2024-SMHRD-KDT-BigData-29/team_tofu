@@ -17,6 +17,7 @@ import com.together.furture.entity.insert_cowork;
 import com.together.furture.entity.insert_feed;
 import com.together.furture.entity.user_info;
 import com.together.furture.mapper.cowork_info_mapper;
+import com.together.furture.mapper.feed_info_mapper;
 import com.together.furture.mapper.user_info_mapper;
 
 @Controller
@@ -25,12 +26,17 @@ public class cowork_info_controller {
 	cowork_info_mapper mapper;
 	@Autowired
 	user_info_mapper user;
+	@Autowired
+	feed_info_mapper feedmapper;
 
 	// find 페이지 이동
 	@GetMapping("/find")
 	public String findPage(Model model) {
 		System.out.println("find 페이지 이동");
-		List<insert_cowork> insert_coworks = mapper.getCoworkList();
+		List<insert_cowork> coworkList = mapper.getCoworkList();
+		model.addAttribute("coworkList", coworkList);
+		List<insert_feed> feedList = feedmapper.getFeedList();
+		model.addAttribute("feedList", feedList);
 		return "find";
 	}
 
@@ -66,26 +72,30 @@ public class cowork_info_controller {
 		String encoding = "UTF-8";
 
 		MultipartRequest multi = null;
-
-		user_info user = (user_info) request.getSession().getAttribute("login_user");
-		String cw_title = request.getParameter("cw_title");
-		String cw_intro = request.getParameter("cw_intro");
-		Integer cw_limit = Integer.parseInt(request.getParameter("cw_limit"));
-		String cw_img = request.getParameter("cw_intro");
-		String hash_tag = (String) request.getSession().getAttribute("hash_tag");;
-		String user_id = (String) request.getSession().getAttribute("user_id");
-		String user_nick = (String) request.getSession().getAttribute("user_nick");
-
-		cowork = new insert_cowork(cw_title, cw_intro, cw_limit, cw_img ,hash_tag, user_id, user_nick);
-
-		System.out.println("원영 test2 : " + cowork.toString());
-
-		int cnt = mapper.insertcowork(cowork);
-
-		if (cnt == 1) {
-			System.out.println("[게시물 업로드 성공]");
-		} else {
-			System.out.println("[게시물 업로드 실패]");
+		if (user != null) {
+			user_info user = (user_info) request.getSession().getAttribute("login_user");
+			String cw_title = request.getParameter("cw_title");
+			String cw_intro = request.getParameter("cw_intro");
+			String cw_content = request.getParameter("cw_content"); 
+			String cw_img = request.getParameter("cw_img");
+			Integer cw_limit = Integer.parseInt(request.getParameter("cw_limit"));
+			String hash_tag = (String) request.getParameter("hash_tag");;
+			String user_id = (String) request.getSession().getAttribute("user_id");
+			String user_nick = (String) request.getSession().getAttribute("user_nick");
+	
+			cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img ,cw_limit, hash_tag, user_id, user_nick);
+	
+			System.out.println("원영 test2 : " + cowork.toString());
+	
+			int cnt = mapper.insertcowork(cowork);
+	
+			if (cnt == 1) {
+				System.out.println("[게시물 업로드 성공]");
+			} else {
+				System.out.println("[게시물 업로드 실패]");
+			}
+		}else {
+			System.out.println("로그인하지않은 사용자");
 		}
 
 		return "redirect:/find";

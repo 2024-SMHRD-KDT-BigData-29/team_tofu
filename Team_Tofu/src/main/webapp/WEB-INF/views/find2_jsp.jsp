@@ -24,11 +24,11 @@
                         <!-- user_id를 기준으로 feedList에서 프로필 이미지 찾기 -->
                         <c:set var="profileFound" value="false" />
                         <c:forEach var="f" items="${feedList}">
-                            <c:if test="${c.user_id == f.user_id && !profileFound}">
+                            <c:if test="${c.user_id == f.user_id}">
                                 <c:set var="profileFound" value="true" />
                                 <c:choose>
                                     <c:when test="${empty f.user_profile}">
-                                        	<img src="resources/img/default_profile.png" alt="프로필 이미지" class="profile-img">
+                                        <img src="resources/img/default_profile.png" alt="프로필 이미지" class="profile-img">
                                     </c:when>
                                     <c:otherwise>
                                         <img src="resources/img/${f.user_profile}" alt="프로필 이미지" class="profile-img">
@@ -36,7 +36,21 @@
                                 </c:choose>
                             </c:if>
                         </c:forEach>
-                        	<span class="author-nickname">${f.user_nick}</span>
+                        <!-- 매핑되는 프로필이 없으면 기본 이미지 -->
+                        <c:if test="${not profileFound}">
+                            <img src="resources/img/default_profile.png" alt="프로필 이미지" class="profile-img">
+                        </c:if>
+                        <!-- 닉네임 출력 -->
+                        <span class="author-nickname">
+                            <c:choose>
+                                <c:when test="${empty c.user_nick}">
+                                    익명
+                                </c:when>
+                                <c:otherwise>
+                                    ${c.user_nick}
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
                     </div>
                     <h3>${c.cw_title}</h3>
                     <p>0/${c.cw_limit}</p> <!-- 현재 인원 수는 추후 개선 -->
@@ -55,8 +69,3 @@
     <script src="resources/css/find.js"></script>
 </body>
 </html>
-
-
-
-
-
