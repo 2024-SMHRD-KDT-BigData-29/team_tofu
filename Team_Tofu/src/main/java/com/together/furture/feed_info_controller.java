@@ -71,11 +71,7 @@ public class feed_info_controller {
 
 	      MultipartRequest multi = feedUploadUtile.feedupload(request);
 
-//	      try {
-//	         multi = new MultipartRequest(request, save_path, max_size, encoding);
-//	      } catch (IOException e) {
-//	         e.printStackTrace();
-//	      }
+
 	      user_info user = (user_info) request.getSession().getAttribute("login_user");
 	      String user_id = (String) request.getSession().getAttribute("user_id");
 	      String user_nick = (String) request.getSession().getAttribute("user_nick");

@@ -22,7 +22,9 @@
 
             <!-- 파일 첨부 버튼 -->
               <!-- 파일 업로드 섹션 -->
+              <form method="post" id="write-form" action="find_write">
               <div id="file-upload-section">
+              <form method="post" id="write-form" action="find_write">
                 <!-- 미리보기 컨테이너 -->
                 <div class="preview-container"></div>
 
