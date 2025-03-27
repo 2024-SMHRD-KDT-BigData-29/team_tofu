@@ -10,32 +10,6 @@ document.querySelectorAll(".tag").forEach(tag => {
     });
 });
 
-// 댓글 게시 기능
-document.querySelectorAll('.comment-submit').forEach(button => {
-    button.addEventListener('click', function() {
-        const commentInput = this.previousElementSibling; // 댓글 입력란
-        const commentText = commentInput.value.trim();
-
-        if (commentText) {
-            const commentList = this.parentElement.previousElementSibling; // 댓글 목록
-            const commentItem = document.createElement('div');
-            commentItem.className = 'comment-item';
-            commentItem.innerHTML = `
-                <span class="comment-nickname">닉네임:</span>
-                <span class="comment-text">${commentText}</span>
-                <button class="comment-delete">🗑️</button>
-            `;
-            commentList.appendChild(commentItem); // 댓글 목록에 추가
-            commentInput.value = ''; // 입력란 초기화
-
-            // 삭제 버튼에 이벤트 리스너 추가
-            const deleteButton = commentItem.querySelector('.comment-delete');
-            deleteButton.addEventListener('click', function() {
-                commentItem.remove(); // 댓글 삭제
-            });
-        }
-    });
-});
 
 // 기존 댓글 삭제 기능
 document.querySelectorAll('.comment-delete').forEach(button => {
@@ -59,8 +33,12 @@ document.getElementById('profile-btn').addEventListener('click', function(e) {
     e.stopPropagation(); // 이벤트 버블링 방지
     const overlay = document.getElementById('popup-overlay');
     overlay.style.display = 'flex';
+    const profileImage = user_profile ? 
+        `resources/img/${user_profile}` : 
+        `resources/img/default_profile.png`;
         
     
+
     overlay.innerHTML = `
         <div class="profile-container">
             <div class="profile-header">
@@ -68,7 +46,7 @@ document.getElementById('profile-btn').addEventListener('click', function(e) {
             </div>
             <div class="profile-content">
                 <div class="profile-image">
-                    <img src=${user_profile} alt="프로필 이미지">
+                    <img src=${profileImage} alt="프로필 이미지">
                 </div>
                 <div class="profile-info">
                     <h3 name="user_nick">${user_nick}</h3>
