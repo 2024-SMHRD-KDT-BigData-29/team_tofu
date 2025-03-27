@@ -18,28 +18,23 @@ public class cowork_info {
 
 
 	    // 협업 식별자 
-	    private Integer cwIdx;
+	    private Integer cw_idx;
 
 	    // 협업 제목 
-	    private String cwTitle;
+	    private String cw_title;
 
 	    // 협업 소개 
-	    private String cwIntro;
+	    private String cw_intro;
 
 	    // 협업 인원수 
-	    private Integer cwLimit;
+	    private Integer cw_limit;
 
 	    // 협업 작성자 
-	    private String userId;
-
-	    // 협업 마감일자 
-	    private Timestamp closedAt;
-
+	    private String user_id;
+	    
 	    // 협업 이미지 
-	    private String cwImg;
+	    private String cw_img;
 
-	    // 협업 작성일자 
-	    private Timestamp createdAt;
 
 
 }

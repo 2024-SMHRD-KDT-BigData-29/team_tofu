@@ -86,10 +86,10 @@
                 </div>
                 
                 <div class="comment-list">
-                    <c:forEach var="comment" items="${feedList}">
+                    <c:forEach var="cmt" items="${cmtList}">
                         <div class="comment-item">
-                            <span class="comment-nickname">${comment.user_nick}</span>
-                            <span class="comment-text">${comment.feed_content}</span>
+                            <span class="comment-nickname">${cmt.user_nick}</span>
+                            <span class="comment-text">${cmt.comment}</span>
                             <button class="comment-delete">🗑️</button>
                         </div>
                     </c:forEach>
