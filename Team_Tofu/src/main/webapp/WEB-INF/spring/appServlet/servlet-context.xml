@@ -21,11 +21,18 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	
 	<!-- 이미지 경로 설정 -->
-    <resources mapping="/img/**" location="file:///C:/Users/smhrd/git/team_tofu_/team_tofu/Team_Tofu/src/main/webapp/resources/img" />
+    <resources mapping="/resources/**" location="/resources/" />
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 이미지 경로 자동 지정 설정 따라하기 -->
+	<beans:bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	    <beans:property name="locations">
+	        <beans:value>classpath:application.properties</beans:value>
+	    </beans:property>
 	</beans:bean>
 	
     <!-- Controller 자동 등록 -->

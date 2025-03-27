@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 
-<meta charset="UTF-8">
+ <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>To.fu</title>
 <link rel="stylesheet"
@@ -96,9 +96,9 @@
 
             <!-- 포스트 이미지 -->
             <div class="post-image-container">
-               <img
-                  src="resources/img/${not empty feed.feed_file ? feed.feed_file : 'help.png'}"
-                  alt="포스트 이미지">
+              	<c:if test="${not empty feed.feed_file}">
+				    <img src="resources/feed_img/${feed.feed_file}" alt="피드 이미지">
+				</c:if>
             </div>
 
             <!-- 포스트 내용 -->
@@ -160,3 +160,5 @@
    <script src="resources/js/main.js"></script>
 </body>
 </html>
+
+
