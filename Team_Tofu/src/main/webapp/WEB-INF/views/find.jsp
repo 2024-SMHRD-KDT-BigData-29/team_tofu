@@ -57,7 +57,9 @@
     
             <!-- 참여방 만들기 버튼을 위한 별도의 div -->
             <div class="create-room-section">
-                <button id="create-room-button">참여방 만들기</button>
+            	<form method="get" action="find_write">
+                	<button id="create-room-button">참여방 만들기</button>
+                </form>
             </div>
         </div>
         <script src="resources/css/find.js"></script>

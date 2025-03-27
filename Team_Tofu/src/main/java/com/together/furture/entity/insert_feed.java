@@ -15,8 +15,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class insert_feed {
-	// 종현이형 이거 유저 아이디가 아니라 닉네임으로 가져와야 해요
-	// 일단 참고
+	
 	@NonNull private String feed_title;
 	
 	@NonNull private String feed_content;
