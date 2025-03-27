@@ -80,5 +80,13 @@ public class user_info_controller {
 		System.out.println("로그인 성공, user_id: " + login_user.getUser_id());
 		return "redirect:/main";
 	}
+	
+	// 로그아웃 처리
+	@RequestMapping("logout")
+	public String user_out(HttpServletRequest request) {
+		request.getSession().removeAttribute("login_user");
+		
+		return "redirect:/";
+	}
 
 }

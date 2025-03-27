@@ -30,8 +30,8 @@
 			</c:choose>
             </div>
             <div class="profile-info">
-                <h1 name="user_id">홍길동</h1>
-                <p>동에 번쩍 서에 번쩍</p>
+                <h1 name="user_id">${login_user.user_nick}</h1>
+                <p>${login_user.user_intro}</p>
                 <div class="profile-stats">
                     <div class="stat">
                         <span class="stat-number">120</span>
