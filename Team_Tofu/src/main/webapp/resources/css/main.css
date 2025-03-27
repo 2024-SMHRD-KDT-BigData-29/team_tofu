@@ -41,6 +41,11 @@ body {
     margin-right: 5px;
 }
 
+#tofu-main a {
+    text-decoration: none;
+    color: #333;
+}
+
 #find-main {
     font-size: 22px;
     font-weight: bold;

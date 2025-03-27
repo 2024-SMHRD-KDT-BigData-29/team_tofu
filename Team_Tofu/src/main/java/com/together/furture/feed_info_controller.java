@@ -37,6 +37,7 @@ public class feed_info_controller {
 	// main 페이지 이동
 	@GetMapping("/main")
 	public String mainPage(Model model) {
+		
 		System.out.println("피드로 이동");
 		List<insert_feed> feedList = mapper.getFeedList();
 		model.addAttribute("feedList", feedList);
@@ -71,7 +72,7 @@ public class feed_info_controller {
 		// 1. 요청객체 -> request
 		// 2. 이미지 저장할 폴더의 경로(String)
 		// equest.getSession().getServletContext().getRealPath("resources/upload");
-		String save_path = request.getRealPath("resources/upload");
+		String save_path = request.getRealPath("resources/img");
 		System.out.println("이미지 저장 경로 : " + save_path);
 
 		// 3. 이미지 용량 크기(int)

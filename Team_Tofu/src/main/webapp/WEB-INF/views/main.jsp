@@ -15,7 +15,7 @@
 	    <!-- 고정된 상단 바 -->
 	    <div id="top-bar">
 	        <div id="left-section">
-	            <span id="tofu-main">To.fu</span>
+	            <span id="tofu-main"><a href="main.do">To.fu</a></span>
 	            <span id="find-main"><a href="find.do">FIND</a></span>
 	        </div>
 	        <form action="#" method="get">

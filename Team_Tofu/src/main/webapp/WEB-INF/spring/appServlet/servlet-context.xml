@@ -21,7 +21,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	
 	<!-- 이미지 경로 설정 -->
-    <resources mapping="/img/**" location="/resources/img" />
+    <resources mapping="/img/**" location="file:///C:/Users/smhrd/git/team_tofu_/team_tofu/Team_Tofu/src/main/webapp/resources/img" />
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
