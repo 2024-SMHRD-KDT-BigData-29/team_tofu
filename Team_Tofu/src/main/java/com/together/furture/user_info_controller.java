@@ -36,7 +36,7 @@ public class user_info_controller {
 		// 파일 저장하는 코드 필요
 		// 1. 요청객체 -> request
 		// 2. 이미지 저장할 폴더의 경로(String)
-		String save_path = "C:/Users/smhrd/git/team_tofu_/team_tofu/Team_Tofu/src/main/webapp/resources/img";
+		String save_path = "C:/upload/";
 		// request.getRealPath("resources/img")
 		System.out.println("저장하는 경로 > " + save_path);
 		

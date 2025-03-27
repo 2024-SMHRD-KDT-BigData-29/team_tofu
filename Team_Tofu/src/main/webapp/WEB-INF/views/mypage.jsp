@@ -19,14 +19,14 @@
       <div class="profile-content">
             <!-- 프로필 이미지 추가 -->
             <div class="profile-image">
-           		<c:choose>
-			    	<c:when test="${empty login_user.user_profile}">
-				        <img src="resources/img/default_profile.png" alt="기본 프로필 이미지" class="profile-img">
-				    </c:when>
-				    <c:otherwise>
-				        <img src="resources/img/${login_user.user_profile}" alt="프로필 이미지" class="profile-img">
-				    </c:otherwise>
-				</c:choose>
+       		<c:choose>
+		    	<c:when test="${empty login_user.user_profile}">
+		      	  <img src="resources/img/default_profile.png" alt="기본 프로필 이미지" class="profile-img">
+		  	  	</c:when>
+			    <c:otherwise>
+			        <img src="resources/img/${login_user.user_profile}" alt="프로필 이미지" class="profile-img">
+			    </c:otherwise>
+			</c:choose>
             </div>
             <div class="profile-info">
                 <h1 name="user_id">홍길동</h1>
