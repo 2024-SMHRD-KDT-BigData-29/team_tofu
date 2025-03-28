@@ -2,7 +2,18 @@ package com.together.furture.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public class croom_info_mapper {
+import com.together.furture.entity.insert_cowork;
 
+
+
+@Mapper
+public interface croom_info_mapper {
+    // 특정 협업방의 참여자 추가
+    void addParticipant(int coworkId, String userId);
+
+    // 특정 협업방 정보 조회
+    insert_cowork getCoworkById(int coworkId);
+
+    // 특정 협업방의 참여자 수 조회 (선택적)
+    int getParticipantCount(int coworkId);
 }

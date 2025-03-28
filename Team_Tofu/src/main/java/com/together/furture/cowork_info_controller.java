@@ -92,6 +92,7 @@ public class cowork_info_controller {
 		}
 
 		return "redirect:/find";
+		
 
 	}
 
