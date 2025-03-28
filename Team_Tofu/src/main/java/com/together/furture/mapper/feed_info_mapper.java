@@ -20,8 +20,8 @@ public interface feed_info_mapper {
 	
 	int deletepost(int feed_idx);
 
-//	insert_feed getFeedById(int feed_idx);
+	insert_feed getFeedById(int feed_idx);
 
-//	int updateFeed(insert_feed feed);
+	int updateFeed(insert_feed feed);
 
 }
