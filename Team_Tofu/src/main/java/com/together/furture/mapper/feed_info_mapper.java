@@ -17,6 +17,11 @@ public interface feed_info_mapper {
 	user_info user_login(user_info user);
 	
 	List<insert_feed> getFeedList();
+	
+	int deletepost(int feed_idx);
 
+//	insert_feed getFeedById(int feed_idx);
+
+//	int updateFeed(insert_feed feed);
 
 }

@@ -75,23 +75,26 @@
                <img class="post-image"
                   src="resources/img/${not empty feed.user_profile ? feed.user_profile : 'default_profile.png'}"
                   alt="프로필 이미지" class="profile-img"> <span class="nickname">${feed.user_nick}</span>
-
-               <c:if test="${login_user.user_id == feed.user_id}">
+				<script>
+    				const contextPath = '${pageContext.request.contextPath}';
+				</script>
+              	<c:if test="${login_user.user_id == feed.user_id}">
                   <div class="post-menu-container">
                      <button class="post-menu-btn">
                         <i class="fas fa-ellipsis-h"></i>
                      </button>
                      <div class="post-menu-dropdown">
-                        <button class="menu-option" onclick="editPost(${feed.feed_idx})">
+                        <button class="menu-option" name="editPost" 
+                        onclick="editPost(${feed.feed_idx})">
                            <i class="far fa-edit"></i> 수정하기
                         </button>
-                        <button class="menu-option"
+                        <button class="menu-option" name="deletePost"
                            onclick="deletePost(${feed.feed_idx})">
                            <i class="far fa-trash-alt"></i> 삭제하기
                         </button>
                      </div>
                   </div>
-               </c:if>
+              	</c:if>
             </div>
 
             <!-- 포스트 이미지 -->
