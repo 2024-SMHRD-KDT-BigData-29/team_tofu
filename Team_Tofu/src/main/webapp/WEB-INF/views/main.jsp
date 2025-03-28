@@ -159,7 +159,7 @@
           const user_profile = "${login_user.user_profile}"
            const user_nick = "${login_user.user_nick}"
            const user_intro = "${login_user.user_intro}";
-       </script>
+   </script>
    <script src="resources/js/main.js"></script>
 </body>
 </html>

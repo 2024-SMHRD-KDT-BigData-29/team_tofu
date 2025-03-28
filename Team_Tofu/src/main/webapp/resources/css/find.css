@@ -19,6 +19,16 @@ body {
     flex-direction: column;
 }
 
+#tofu-main a {
+    text-decoration: none;
+    color: #333;
+}
+
+#find-main a {
+   text-decoration: none;
+   color: inherit;
+}
+
 .find-header {
     background-color: #f8f8f8;
     padding: 15px;

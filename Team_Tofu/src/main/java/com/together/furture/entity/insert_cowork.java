@@ -39,6 +39,9 @@ public class insert_cowork {
     // 협업 닉네임
     private String user_nick;
     
+    // 협업 식별자
+    private Integer cw_idx;
+    
     
 	
 }
