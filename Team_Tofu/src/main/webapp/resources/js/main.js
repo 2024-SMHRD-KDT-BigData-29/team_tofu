@@ -117,18 +117,48 @@ document.querySelectorAll('.menu-option').forEach(option => {
 });
 
 // 수정 기능
-function editPost(feedIdx) {
-	console.log('수정할 게시글 ID:', feedIdx);
-	// window.location.href = 'edit.do?feed_idx=' + feedIdx;
+function editPost(feed_idx) {
+    if (!feed_idx || isNaN(feed_idx)) {
+        console.error('유효하지 않은 feed_idx:', feed_idx);
+        alert('게시글 ID가 유효하지 않습니다.');
+        return;
+    }
+    console.log('수정할 feed_idx:', feed_idx);
+    window.location.href = contextPath + '/editPost/' + feed_idx;
 }
 
 // 삭제 기능
-function deletePost(feedIdx) {
-	if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-		console.log('삭제할 게시글 ID:', feedIdx);
-		// fetch API로 삭제 요청
-	}
+function deletePost(feed_idx) {
+    if (!feed_idx || isNaN(feed_idx)) {
+        console.error('유효하지 않은 feed_idx:', feed_idx);
+        alert('게시글 ID가 유효하지 않습니다.');
+        return;
+    }
+
+    if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+        console.log('삭제할 feed_idx:', feed_idx);
+        fetch(contextPath + '/deletePost/' + feed_idx, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('게시물 삭제 성공');
+                window.location.href = contextPath + '/main'; // 삭제 후 리다이렉트
+            } else {
+                console.error('게시물 삭제 실패');
+                alert('게시물 삭제에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('삭제 요청 중 오류:', error);
+            alert('삭제 중 오류가 발생했습니다.');
+        });
+    }
 }
+
 // 좋아요 버튼 클릭 시
 likeBtn.addEventListener('click', function() {
 	const icon = this.querySelector('i');

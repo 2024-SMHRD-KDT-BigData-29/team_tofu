@@ -6,9 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +22,7 @@ import com.together.furture.entity.user_info;
 import com.together.furture.mapper.comment_mapper;
 import com.together.furture.mapper.feed_info_mapper;
 import com.together.furture.mapper.user_info_mapper;
+import com.together.furture.util.FileUploadUtil;
 import com.together.furture.util.feedUploadUtile;
 
 @Controller
@@ -40,14 +44,13 @@ public class feed_info_controller {
 		System.out.println("피드로 이동");
 		List<insert_feed> feedList = mapper.getFeedList();
 		model.addAttribute("feedList", feedList);
+		System.out.println("feedList길이 확인>>" + feedList.size());
 		
 		List<comment_insert> cmtList = commentmapper.comment_show();
 		System.out.println("cmtList길이 확인>>" + cmtList.size());
 		model.addAttribute("cmtList", cmtList);
 		return "main";
 	}
-	
-
 	
 
 	// 글쓰기 이동
@@ -102,6 +105,112 @@ public class feed_info_controller {
 
 	      return "redirect:/main";
 	   }
-
-
-}
+	   
+	   // 게시글 삭제
+	   @PostMapping("/deletePost/{feed_idx}")
+	   public ResponseEntity<String> deletepost(@PathVariable("feed_idx") int idx) {
+	       int result = mapper.deletepost(idx);
+	       if (result == 1) {
+	           System.out.println("게시물 삭제 성공: feed_idx=" + idx);
+	           return ResponseEntity.ok("삭제 성공");
+	       } else {
+	           System.out.println("게시물 삭제 실패: feed_idx=" + idx);
+	           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
+	       }
+	   }
+	   
+	   // 게시글 수정 페이지 이동
+//	   @GetMapping("/editPost/{feed_idx}")
+//	   public String editPost(@PathVariable("feed_idx") int feed_idx, Model model) {
+//		   insert_feed feed = mapper.getFeedById(feed_idx);
+//		   if (feed == null) {
+//		        System.out.println("게시물이 존재하지 않습니다: feed_idx=" + feed_idx);
+//		        return "redirect:/main";
+//		    }
+//		    if (feed.getFeed_idx() == null) {
+//		        System.out.println("조회된 게시물의 feed_idx가 null입니다: " + feed.toString());
+//		        return "redirect:/main";
+//		    }
+//		    System.out.println("조회된 게시물: " + feed.toString());
+//		    model.addAttribute("feed", feed);
+//		    return "feed_edit";
+//		}
+//
+//	   // 게시물 수정 처리
+//	   @PostMapping("/update_feed")
+//	   public String update_feed(HttpServletRequest request) {
+//	       MultipartRequest multi = null;
+//
+//	       try {
+//	           // 파일 업로드 처리
+//	           multi = feedUploadUtile.feedupload(request);
+//
+//	           // feed_idx 검증
+//	           String feedIdxStr = multi.getParameter("feed_idx");
+//	           if (feedIdxStr == null || feedIdxStr.trim().isEmpty()) {
+//	               System.out.println("feed_idx가 전달되지 않았습니다. 요청 파라미터 확인: " + multi.getParameterNames());
+//	               return "redirect:/main";
+//	           }
+//
+//	           int feed_idx;
+//	           try {
+//	               feed_idx = Integer.parseInt(feedIdxStr);
+//	           } catch (NumberFormatException e) {
+//	               System.out.println("feed_idx 형식이 잘못되었습니다: " + feedIdxStr);
+//	               return "redirect:/main";
+//	           }
+//
+//	           String feed_title = multi.getParameter("feed_title");
+//	           String feed_content = multi.getParameter("feed_content");
+//	           String hash_tag = multi.getParameter("hash_tag");
+//	           String feed_file = multi.getFilesystemName("feed_file");
+//
+//	           // 필수 필드 검증
+//	           if (feed_title == null || feed_title.trim().isEmpty()) {
+//	               System.out.println("feed_title은 필수 입력값입니다.");
+//	               return "redirect:/main";
+//	           }
+//
+//	           // 기존 게시물 정보 가져오기
+//	           insert_feed existingFeed = mapper.getFeedById(feed_idx);
+//	           if (existingFeed == null) {
+//	               System.out.println("게시물이 존재하지 않습니다: feed_idx=" + feed_idx);
+//	               return "redirect:/main";
+//	           }
+//
+//	           // 새 이미지가 업로드되지 않았으면 기존 이미지 유지
+//	           if (feed_file == null) {
+//	               feed_file = existingFeed.getFeed_file();
+//	           }
+//
+//	           // 수정된 데이터로 객체 생성
+//	           insert_feed feed = new insert_feed();
+//	           feed.setFeed_idx(feed_idx);
+//	           feed.setFeed_title(feed_title);
+//	           feed.setFeed_content(feed_content != null ? feed_content : "");
+//	           feed.setHash_tag(hash_tag != null ? hash_tag : "");
+//	           feed.setFeed_file(feed_file);
+//	           feed.setUser_id(existingFeed.getUser_id());
+//
+//	           // DB 업데이트
+//	           int result = mapper.updateFeed(feed);
+//	           if (result == 1) {
+//	               System.out.println("게시물 수정 성공: feed_idx=" + feed_idx);
+//	           } else {
+//	               System.out.println("게시물 수정 실패: feed_idx=" + feed_idx);
+//	           }
+//
+//	           return "redirect:/main";
+//
+//	       } catch (IOException e) {
+//	           e.printStackTrace();
+//	           System.out.println("파일 업로드 중 오류 발생: " + e.getMessage());
+//	           return "redirect:/main";
+//	       } catch (Exception e) {
+//	           e.printStackTrace();
+//	           System.out.println("예상치 못한 오류 발생: " + (e.getMessage() != null ? e.getMessage() : "알 수 없는 에러"));
+//	           return "redirect:/main";
+//	       }
+//	   }
+	        
+	   }
