@@ -39,15 +39,25 @@
       </button>
 	</div>
 	<c:forEach var="i" items="${coworkList}">
+	<c:if test="${cowork == i.user_id}">
 	<div class="container">
 		<h1>${i.cw_title}</h1>
 		<div class="menu-item">
-		<h2>${i.cw_title}</h2>
+		<h2>${i.cw_intro}</h2>
 		<div class="profile-pic">
-			<img src="https://via.placeholder.com/50" alt="프로필 사진">
+		<c:if test="${i.user_id == login_user.user_id}">
+			<c:choose>
+	            <c:when test="${empty login_user.user_profile}">
+	               <img src="resources/img/default_profile.png" alt="기본 프로필 이미지"
+	                  class="profile-img">
+	            </c:when>
+	            <c:otherwise>
+	               <img src="resources/img/${login_user.user_profile}" alt="프로필 이미지" class="profile-img">
+	            </c:otherwise>
+	         </c:choose>
+        </c:if>
 		</div>
 		<div class="profile-info">
-			<div class="profile-name">${i.cw_intro}</div> 
 			<div class="profile-status">${i.cw_content}</div>
 			<div class="profile-status">${i.cw_img}</div>
 			<div class="profile-status">${i.cw_limit}</div>
@@ -57,6 +67,7 @@
 		<i class="fas fa-share-alt"></i> 공유하기
 			</div>
 		</div> 
+	</c:if>
 	</c:forEach>
 			<hr class="divider">
 

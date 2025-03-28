@@ -14,38 +14,38 @@
             <form action="main">
                 <button id="back-button">←</button>
             </form>
-            <h2>FIND</h2>
-        </div>
-        <div class="find-content">
-            <!-- 동적으로 협업방 목록 출력 -->
-            <c:forEach var="c" items="${coworkList}">
-                <div class="room">
-                    <div class="room-author">
-                        <!-- user_id를 기준으로 feedList에서 프로필 이미지 찾기 -->
-                        <c:set var="profileFound" value="false" />
-                        <c:forEach var="f" items="${feedList}">
-                            <c:if test="${c.user_id == f.user_id && !profileFound}">
-                                <c:set var="profileFound" value="true" />
-                                <c:choose>
-                                    <c:when test="${empty f.user_profile}">
-                                        	<img src="resources/img/default_profile.png" alt="프로필 이미지" class="profile-img">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="resources/img/${f.user_profile}" alt="프로필 이미지" class="profile-img">
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:if>
-                        </c:forEach>
-                        	<span class="author-nickname">${f.user_nick}</span>
-                    </div>
-                    <h3>${c.cw_title}</h3>
-                    <p>0/${c.cw_limit}</p> <!-- 현재 인원 수는 추후 개선 -->
-                     <form method="get" action="find_detail?sel=${c.cw_idx}">
-                    	<button  class="join-button">참여하기</button>
-                	</form>
+        <h2>FIND</h2>
+    </div>
+    <div class="find-content">
+        <!-- 동적으로 협업방 목록 출력 -->
+        <c:forEach var="c" items="${coworkList}">
+            <div class="room">
+                <div class="room-author">
+                    <!-- user_id를 기준으로 feedList에서 프로필 이미지 찾기 -->
+                    <c:set var="profileFound" value="false" />
+                    <c:forEach var="f" items="${feedList}">
+                        <c:if test="${c.user_id == f.user_id && !profileFound}">
+                            <c:set var="profileFound" value="true" />
+                            <c:choose>
+                                <c:when test="${empty f.user_profile}">
+                                    	<img src="resources/img/default_profile.png" alt="프로필 이미지" class="profile-img">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="resources/img/${f.user_profile}" alt="프로필 이미지" class="profile-img">
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
+                    </c:forEach>
+                    	<span class="author-nickname">${f.user_nick}</span>
                 </div>
-            </c:forEach>
-        </div>
+                <h3>${c.cw_title}</h3>
+                <p>0/${c.cw_limit}</p> <!-- 현재 인원 수는 추후 개선 -->
+                 <form method="get" action="find_detail?sel=${c.cw_idx}">
+                	<button  class="join-button">참여하기</button>
+            	</form>
+            </div>
+        </c:forEach>
+    </div>
 
         <!-- 참여방 만들기 버튼 -->
         <div class="create-room-section">
