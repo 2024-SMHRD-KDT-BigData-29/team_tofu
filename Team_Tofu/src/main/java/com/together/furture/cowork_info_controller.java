@@ -41,6 +41,7 @@ public class cowork_info_controller {
 		model.addAttribute("coworkList", coworkList);
 		List<insert_feed> feedList = feedmapper.getFeedList();
 		model.addAttribute("feedList", feedList);
+		System.out.println(coworkList);
 		return "find";
 	}
 
@@ -76,7 +77,7 @@ public class cowork_info_controller {
 			String cw_content = multi.getParameter("cw_content");
 			String cw_img = multi.getFilesystemName("cw_img");
 
-			cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_tag, user_id, user_nick);
+			cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_tag, user_id, user_nick, 0);
 
 			System.out.println("원영 test2 : " + cowork.toString());
 

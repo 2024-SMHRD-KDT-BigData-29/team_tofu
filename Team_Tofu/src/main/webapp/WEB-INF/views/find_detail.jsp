@@ -16,61 +16,48 @@
 	<!-- 상단바 (main.html과 동일한 구조) -->
 	<div id="top-bar">
 		<div id="left-section">
-			<span id="tofu-main">To.fu</span> <span id="find-main"><a
-				href="#">FIND</a></span>
+			<span id="tofu-main"><a href="main.do">To.fu</a></span>
+			<span id="find-main"><a href="find.do">FIND</a></span>
 		</div>
-		<input class="search-txt" type="text" placeholder="검색어를 입력해주세요">
-		<button class="search-btn">
-			<i class="fas fa-search"></i>
-		</button>
+		<form action="#" method="get">
+	         <input class="search-txt" type="text" placeholder="검색어를 입력해주세요">
+	         <button class="search-btn">
+	            <i class="fas fa-search"></i>
+	         </button>
+	      </form>
 
-		<img
-			src="/Team_Tofu/src/main/webapp/resources/images/default_profile.png"
-			alt="프로필 이미지" id="profile-bar">
+		<button id="profile-btn" type="button">
+         <c:choose>
+            <c:when test="${empty login_user.user_profile}">
+               <img src="resources/img/default_profile.png" alt="기본 프로필 이미지"
+                  class="profile-img">
+            </c:when>
+            <c:otherwise>
+               <img src="resources/img/${login_user.user_profile}" alt="프로필 이미지" class="profile-img">
+            </c:otherwise>
+         </c:choose>
+      </button>
 	</div>
-
+	<c:forEach var="i" items="${coworkList}">
 	<div class="container">
-		<header>
-			<h1>참여방 이름</h1>
-		</header>
-
-		<main>
-			<section class="menu-section">
-				<div class="menu-item">
-					<h2>TOFU</h2>
-					<ul>
-						<li class="profile-section">
-							<div class="profile-pic">
-								<img src="https://via.placeholder.com/50" alt="프로필 사진">
-							</div>
-							<div class="profile-info">
-								<span class="profile-name">사용자 이름</span> <span
-									class="profile-status">온라인</span>
-							</div>
-						</li>
-						<li><i class="fas fa-comment-alt"></i> 메세지 보내기</li>
-						<li><i class="fas fa-share-alt"></i> 공유하기</li>
-					</ul>
-				</div>
-
-				<div class="menu-item">
-					<h2>TO.FU</h2>
-					<ul>
-						<li class="profile-section">
-							<div class="profile-pic">
-								<img src="https://via.placeholder.com/50" alt="프로필 사진">
-							</div>
-							<div class="profile-info">
-								<span class="profile-name">사용자 이름</span> <span
-									class="profile-status">온라인</span>
-							</div>
-						</li>
-						<li><i class="fas fa-comment-alt"></i> 메세지 보내기</li>
-						<li><i class="fas fa-share-alt"></i> 공유하기</li>
-					</ul>
-				</div>
-			</section>
-
+		<h1>${i.cw_title}</h1>
+		<div class="menu-item">
+		<h2>${i.cw_title}</h2>
+		<div class="profile-pic">
+			<img src="https://via.placeholder.com/50" alt="프로필 사진">
+		</div>
+		<div class="profile-info">
+			<div class="profile-name">${i.cw_intro}</div> 
+			<div class="profile-status">${i.cw_content}</div>
+			<div class="profile-status">${i.cw_img}</div>
+			<div class="profile-status">${i.cw_limit}</div>
+			<div class="profile-status">${i.hash_tag}</div>
+		</div>
+		<i class="fas fa-comment-alt"></i> 메세지 보내기
+		<i class="fas fa-share-alt"></i> 공유하기
+			</div>
+		</div> 
+	</c:forEach>
 			<hr class="divider">
 
 			<section class="content-section">
@@ -97,7 +84,7 @@
 						</div>
 					</div>
 				</div>
-
+		
 				<div class="tab-content" id="notice">
 					<h3>공지사항</h3>
 					<div class="notice-list">
@@ -142,6 +129,21 @@
 			</section>
 		</main>
 	</div>
+	
+	<!-- 상단 이동 버튼 및 게시물 작성 버튼 -->
+   <div class="floating-buttons">
+      <form method="get" action="write">
+         <button id="write-post">✏️</button>
+      </form>
+      <button id="scroll-top">&#9650;</button>
+   </div>
+	<!-- 팝업오버레이  -->
+   <div id="popup-overlay"></div>
+   <script>
+          const user_profile = "${login_user.user_profile}"
+           const user_nick = "${login_user.user_nick}"
+           const user_intro = "${login_user.user_intro}";
+   </script>
 	<script src="resources/js/find_detail.js"></script>
 </body>
 </html>

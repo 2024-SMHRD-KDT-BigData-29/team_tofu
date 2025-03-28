@@ -6,18 +6,20 @@ INSERT INTO cowork_info (cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_
 VALUES (#{cw_title}, #{cw_intro}, #{cw_content}, #{cw_img}, #{cw_limit}, #{hash_tag}, #{user_id})
 </insert>
 
-<select id="getCoworkList" resultType="com.together.furture.entity.insert_cowork">
-SELECT 
+<select id="getCoworkList"
+	resultType="com.together.furture.entity.insert_cowork">
+	SELECT
 	c.cw_title,
 	c.cw_intro,
 	c.cw_content,
 	c.cw_img,
 	c.cw_limit,
 	c.user_id,
-	c.hash_tag
-FROM cowork_info c
-LEFT JOIN user_info u ON c.user_id = u.user_id
-ORDER BY c.cw_idx DESC
+	c.hash_tag,
+	c.cw_idx
+	FROM cowork_info c
+	LEFT JOIN user_info u ON c.user_id = u.user_id
+	ORDER BY c.cw_idx DESC
 </select>
 
 

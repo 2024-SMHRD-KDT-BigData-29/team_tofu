@@ -14,6 +14,128 @@ body {
     color: #333;
 }
 
+/* 프로필 팝업 스타일 (profile.css 내용) */
+#popup-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 1000;
+   display: none;
+   justify-content: center;
+   align-items: center;
+}
+
+.profile-container {
+   width: 350px;
+   background-color: #fff;
+   border-radius: 10px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   overflow: hidden;
+}
+
+.profile-header {
+   background-color: #f8f8f8;
+   padding: 15px;
+   border-bottom: 1px solid #ddd;
+   display: flex;
+   align-items: center;
+}
+
+.profile-content {
+   padding: 20px;
+   text-align: center;
+}
+
+.profile-image img {
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   object-fit: cover;
+}
+
+.profile-info h3 {
+   margin: 10px 0 5px;
+   font-size: 20px;
+}
+
+.profile-actions {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   margin-top: 15px;
+}
+/* 플로팅 버튼 컨테이너 */
+.floating-buttons {
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   display: flex;
+   gap: 10px; /* 버튼 사이 간격 */
+}
+
+/* 상단 프로필 이미지 */
+#profile-btn {
+    width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   overflow: hidden;
+   padding: 0;
+   border: none;
+   background: none;
+   cursor: pointer;
+}
+
+/* 프로필 이미지 */
+.profile-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+}
+
+.profile-actions button {
+   margin-top: 10px;
+   padding: 10px 20px;
+   background-color: #000000; /* 검은색 */
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   width: 100%; /* 너비를 100%로 통일 */
+   font-size: 16px; /* 폰트 크기 통일 */
+}
+
+#edit-profile-button {
+   margin-top: 10px;
+   padding: 10px 20px;
+   background-color: #000000; /* 검은색 */
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   width: 100%; /* 너비를 100%로 통일 */
+   font-size: 16px; /* 폰트 크기 통일 */
+}
+
+.profile-stats {
+   display: flex;
+   justify-content: space-around;
+   padding: 15px;
+   border-top: 1px solid #ddd;
+   border-bottom: 1px solid #ddd;
+}
+
+.stat {
+   text-align: center;
+}
+
+.stat-number {
+   font-weight: bold;
+   font-size: 16px;
+}
 
 /* 상단바 스타일 (통일된 버전) */
 #top-bar {
@@ -43,6 +165,11 @@ body {
     margin-right: 5px;
 }
 
+#tofu-main a {
+    text-decoration: none;
+    color: #333;
+}
+
 #find-main a {
     font-size: 22px;
     font-weight: bold;
@@ -59,14 +186,14 @@ body {
     position: relative;
 }
 
-.search-txt {
-    width: 100%;
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    border-radius: 30px;
-    outline: none;
-    font-size: 14px;
-    background-color: #f5f5f5;
+    .search-txt {
+   width: 100%;
+   padding: 10px 20px;
+   border: 1px solid #ddd;
+   border-radius: 30px;
+   outline: none;
+   font-size: 14px;
+   background-color: #f5f5f5;
 }
 
 .search-btn {

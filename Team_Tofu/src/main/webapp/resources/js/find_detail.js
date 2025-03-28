@@ -15,6 +15,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+// 프로필 팝업 기능 (로그아웃 버튼 이벤트 제거 버전)
+document.getElementById('profile-btn').addEventListener('click', function(e) {
+	e.stopPropagation(); // 이벤트 버블링 방지
+	const overlay = document.getElementById('popup-overlay');
+	overlay.style.display = 'flex';
+	const profileImage = user_profile ?
+		`resources/img/${user_profile}` :
+		`resources/img/default_profile.png`;
+
+
+
+	overlay.innerHTML = `
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2>프로필</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src=${profileImage} alt="프로필 이미지">
+                </div>
+                <div class="profile-info">
+                    <h3 name="user_nick">${user_nick}</h3>
+                    <p>${user_intro}</p>
+                    <div class="profile-actions">
+                        <button id="view-posts-button" onclick="location.href='mypost'">게시글 보기</button>
+                        <button id="view-profile-button" onclick="location.href='mypage'">프로필 보기</button>
+                        <button id="logout" onclick="location.href='logout'">로그아웃</button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">게시글</span>
+                </div>
+            </div>
+
+        </div>
+    `;
+
+	// 로그아웃 버튼 이벤트는 여기서 제거됨
+});
+
+// 오버레이 클릭 시 팝업 닫기
+document.getElementById('popup-overlay').addEventListener('click', function(e) {
+	if (e.target === this) {
+		this.style.display = 'none';
+	}
+});
+    
     // 캘린더 생성 (일정 섹션으로 이동)
     let currentDate = new Date();
     renderCalendar(currentDate);
@@ -38,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSchedules();
     
     // 프로필 데이터 로드
-    loadProfile();
+    // loadProfile();
     
     // 프로필 클릭 이벤트
     document.querySelectorAll('.profile-section').forEach(profile => {
@@ -180,5 +230,3 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 }
-
-
