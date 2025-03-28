@@ -33,6 +33,9 @@ public class feed_info_controller {
 	@Autowired
     private feedUploadUtile feedUploadUtile;
 	
+	
+	
+	
 	// main 페이지 이동
 	@GetMapping("/main")
 	public String mainPage(Model model) {
@@ -46,9 +49,6 @@ public class feed_info_controller {
 		model.addAttribute("cmtList", cmtList);
 		return "main";
 	}
-	
-
-	
 
 	// 글쓰기 이동
 	@RequestMapping("/write")

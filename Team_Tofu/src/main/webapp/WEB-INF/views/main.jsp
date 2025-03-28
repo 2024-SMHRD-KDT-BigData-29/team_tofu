@@ -19,8 +19,8 @@
    <!-- 고정된 상단 바 -->
    <div id="top-bar">
       <div id="left-section">
-         <span id="tofu-main">To.fu</span> <span id="find-main"><a
-            href="find.do">FIND</a></span>
+         <span id="tofu-main"><a href="main.do">To.fu</a></span>
+         <span id="find-main"><a href="find.do">FIND</a></span>
       </div>
       <form action="#" method="get">
          <input class="search-txt" type="text" placeholder="검색어를 입력해주세요">
@@ -72,7 +72,7 @@
          <div class="post">
             <!-- 포스트 헤더 -->
             <div class="post-header">
-               <img
+               <img class="post-image"
                   src="resources/img/${not empty feed.user_profile ? feed.user_profile : 'default_profile.png'}"
                   alt="프로필 이미지" class="profile-img"> <span class="nickname">${feed.user_nick}</span>
 
@@ -96,9 +96,9 @@
 
             <!-- 포스트 이미지 -->
             <div class="post-image-container">
-              	<c:if test="${not empty feed.feed_file}">
-				    <img src="resources/feed_img/${feed.feed_file}" alt="피드 이미지">
-				</c:if>
+                 <c:if test="${not empty feed.feed_file}">
+                	<img src="resources/feed_img/${feed.feed_file}" alt="피드 이미지">
+            	</c:if>
             </div>
 
             <!-- 포스트 내용 -->

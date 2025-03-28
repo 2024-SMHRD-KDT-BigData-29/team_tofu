@@ -40,7 +40,9 @@
                     </div>
                     <h3>${c.cw_title}</h3>
                     <p>0/${c.cw_limit}</p> <!-- 현재 인원 수는 추후 개선 -->
-                    <button class="join-button">참여하기</button>
+                     <form method="get" action="find_detail">
+                    	<button class="join-button">참여하기</button>
+                	</form>
                 </div>
             </c:forEach>
         </div>
