@@ -13,6 +13,8 @@ public interface user_info_mapper {
 	
 	user_info user_login(user_info user);
 
+	void user_update(user_info user);
+
 	//int profile_save(user_info user);
 	
 }
