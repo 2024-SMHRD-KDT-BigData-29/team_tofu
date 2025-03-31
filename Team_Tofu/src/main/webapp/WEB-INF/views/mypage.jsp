@@ -47,6 +47,11 @@
 	                    <button id="edit-profile-button">프로필 수정</button>
 	                </div>
                 </form>
+                <form method="post" action="user_delete">
+	                <div class="profile-actions">
+	                    <button id="edit-profile-button">회원 탈퇴....</button>
+	                </div>
+                </form>
             </div>
             <div class="profile-section">
                 <h3>참여 중인 활동</h3>
