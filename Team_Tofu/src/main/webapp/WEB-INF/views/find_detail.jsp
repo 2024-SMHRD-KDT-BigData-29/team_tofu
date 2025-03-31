@@ -22,8 +22,6 @@
 <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
-	<c:set var="selectedIdx" value="${param.sel}" />
-
 	<!-- 상단바 -->
 	<div id="top-bar">
 		<div id="left-section">
@@ -54,7 +52,7 @@
 					<i class="fas fa-comment-alt">그룹채팅</i>
 				</button>
 			</form>
-			<!-- <i class="fas fa-share-alt"></i> 공유하기 -->
+
 		</div>
 	</div>
 	<hr class="divider">
