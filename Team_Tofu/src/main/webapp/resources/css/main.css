@@ -33,6 +33,12 @@ body {
    flex: 1; /* 남은 공간 모두 차지 */
    max-width: 150px; /* 최대 너비 제한 */
 }
+.post-image{
+   
+   width:10%;
+   border-radius:50%;
+}
+
 #tofu-main {
    font-size: 22px;
    font-weight: bold;
@@ -213,8 +219,9 @@ body {
 }
 
 .nickname {
-   font-size: 14px;
+   font-size: 20px;
    font-weight: bold;
+   margin-left : 3%;
 }
 
 .post-menu {
@@ -223,10 +230,11 @@ body {
    font-size: 20px;
 }
 
-.post-image {
-   width: 30%;
+/* 중복 CSS */
+/* .post-image {
+   width: 100%;
    display: block;
-}
+} */
 
 .post-actions {
    padding: 10px;
@@ -234,12 +242,15 @@ body {
    gap: 10px;
 }
 .post-text {
-   margin-top:10px;
-   font-size:12px;
+   margin-top:20px;
+   margin-bottom:20px;
+   font-size:20px;
+   padding-left: 20px;
 }
 .post-title{
-   font-size:20px;
-   
+   font-size:30px;
+   font-weight: bold;
+   padding-left: 20px;
 }
 
 /* 아이콘 버튼 공통 스타일 */
@@ -360,7 +371,7 @@ body {
    display: flex;
    align-items: center;
    margin-bottom: 5px; /* 댓글 간 간격 */
-   font-size: 14px;
+   font-size: 17px;
 }
 
 .comment-nickname {
@@ -609,7 +620,7 @@ body {
     animation: fadeIn 0.2s ease-out;
 }
 .post-image-container {
-    width: 100%;
+    width: 50%;
     aspect-ratio: 1 / 1; /* 정사각형 비율 유지 */
     overflow: hidden;
     display: flex;

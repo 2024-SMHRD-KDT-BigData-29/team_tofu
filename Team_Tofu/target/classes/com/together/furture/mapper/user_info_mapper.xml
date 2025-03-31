@@ -5,7 +5,8 @@
 
 	<insert id="user_join" parameterType="com.together.furture.entity.user_info">
 	    INSERT INTO user_info (user_id, user_pw, user_nick, user_gender, user_email, user_intro, user_profile, user_role, joined_at)
-	    VALUES (#{user_id}, #{user_pw}, #{user_nick}, #{user_gender}, #{user_email}, #{user_intro}, #{user_profile}, 'U', NOW());
+	    VALUES (#{user_id}, #{user_pw}, #{user_nick}, #{user_gender}, #{user_email}, #{user_intro}, 
+	    IFNULL(#{user_profile}, 'default_profile.png'), 'U', NOW());
 	</insert>
 	
 	<select 
