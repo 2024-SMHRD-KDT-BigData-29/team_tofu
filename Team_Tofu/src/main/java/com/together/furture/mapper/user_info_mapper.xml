@@ -5,7 +5,8 @@
 
 	<insert id="user_join" parameterType="com.together.furture.entity.user_info">
 	    INSERT INTO user_info (user_id, user_pw, user_nick, user_gender, user_email, user_intro, user_profile, user_role, joined_at)
-	    VALUES (#{user_id}, #{user_pw}, #{user_nick}, #{user_gender}, #{user_email}, #{user_intro}, #{user_profile}, 'U', NOW());
+	    VALUES (#{user_id}, #{user_pw}, #{user_nick}, #{user_gender}, #{user_email}, #{user_intro}, 
+	    IFNULL(#{user_profile}, 'default_profile.png'), 'U', NOW());
 	</insert>
 	
 	<select 
@@ -15,4 +16,25 @@
 	>
 		select * from user_info where user_id=#{user_id} and user_pw=#{user_pw}
 	</select>
+	
+	<!-- 회원정보 수정 쿼리 -->
+    <update id="user_update" parameterType="com.together.furture.entity.user_info">
+        UPDATE user_info
+        SET 
+            user_pw = #{user_pw},
+            user_nick = #{user_nick},
+            user_gender = #{user_gender},
+            user_email = #{user_email},
+            user_intro = #{user_intro},
+            user_profile = #{user_profile},
+            user_role = #{user_role},
+            joined_at = #{joined_at}
+        WHERE user_id = #{user_id}
+    </update>
+    
+    <!-- 회원 탈퇴 처리 xml -->
+    <delete id="user_delete" parameterType="com.together.furture.entity.user_info">
+	delete from user_info
+	where user_id = #{user_id} and user_pw = #{user_pw} 
+	</delete>
 </mapper>

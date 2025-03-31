@@ -74,7 +74,8 @@
             <div class="post-header">
                <img class="post-image"
                   src="resources/img/${not empty feed.user_profile ? feed.user_profile : 'default_profile.png'}"
-                  alt="프로필 이미지" class="profile-img"> <span class="nickname">${feed.user_nick}</span>
+                  alt="프로필 이미지"> 
+                  <span class="nickname">${feed.user_nick}</span>
 				<script>
     				const contextPath = '${pageContext.request.contextPath}';
 				</script>
@@ -98,17 +99,17 @@
             </div>
 
             <!-- 포스트 이미지 -->
+            <!-- 포스트 내용 -->
+            <div class="post-content">
+               <div class="post-title">${feed.feed_title}</div>
+               <div class="post-text">${feed.feed_content}</div>
+            </div>
             <div class="post-image-container">
                  <c:if test="${not empty feed.feed_file}">
                 	<img src="resources/feed_img/${feed.feed_file}" alt="피드 이미지">
             	</c:if>
             </div>
 
-            <!-- 포스트 내용 -->
-            <div class="post-content">
-               <div class="post-title">${feed.feed_title}</div>
-               <div class="post-text">${feed.feed_content}</div>
-            </div>
 
             <!-- 포스트 액션 버튼 -->
             <div class="post-actions">

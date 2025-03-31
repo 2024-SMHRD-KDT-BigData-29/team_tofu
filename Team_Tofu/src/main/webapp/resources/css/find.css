@@ -12,26 +12,40 @@ body {
 
 /* 컨테이너 */
 .find-container {
-    width: 800px;
-    height: 90vh; /* 전체 높이 설정 */
+
+    width: 100%; /* 컨테이너 크기 더 키움 */
+    height: 100vh;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: auto;
     display: flex;
     flex-direction: column;
-    position: relative;
+    align-items: center;
 }
 
 /* 헤더 (스크롤 시 고정) */
 .find-header {
-    background-color: #f8f8f8;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    position: sticky; /* 고정된 헤더 */
+    top: 0;
+    width: 100%;
+    height: 60px; /* 필요시 조정 */
+    background-color: white; /* 배경색 지정 */
+    z-index: 100;
     display: flex;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+#tofu-main a {
+    text-decoration: none;
+    color: #333;
+}
+
+#find-main a {
+   text-decoration: none;
+   color: inherit;
 }
 
 #back-button {
@@ -50,9 +64,12 @@ body {
 
 /* 컨텐츠 영역 (스크롤 가능) */
 .find-content {
-    flex-grow: 1;
-    overflow-y: auto; /* 스크롤 활성화 */
-    padding: 20px;
+    margin-top: 60px; /* 헤더 높이보다 조금 더 여유 있게 */
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* 2xN 레이아웃 유지 */
@@ -65,13 +82,13 @@ body {
 
 /* 방 스타일 */
 .room {
-    padding: 20px;
+    width: 250px;
+    padding: 15px;
+    background-color: white;
     border: 1px solid #ddd;
     border-radius: 10px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 /* 작성자 정보 */

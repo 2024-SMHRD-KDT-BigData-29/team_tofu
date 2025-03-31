@@ -16,5 +16,7 @@ public interface cowork_info_mapper {
 
 	List<insert_cowork> getCoworkList();
 
+	insert_cowork getCoworkById(int cw_idx);
+
 
 }
