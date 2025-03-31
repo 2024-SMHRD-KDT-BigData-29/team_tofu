@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 import com.oreilly.servlet.MultipartRequest;
@@ -37,12 +38,11 @@ public class croom_info_controller {
 	@Autowired
 	croom_info_mapper mapper;
 
-	@RequestMapping("find_detail")
-	public String find_detail(Model model, HttpServletRequest request) {
-		// 요기서 sel 값 받아와서 비교하기
-		List<insert_cowork> coworkList = comapper.getCoworkList();
-		model.addAttribute("coworkList", coworkList);
-		System.out.println("ggg");
+	@PostMapping("find_detail")
+	public String find_detail(@RequestParam("sel") int cw_idx, Model model) {
+		insert_cowork cowork = comapper.getCoworkById(cw_idx);
+		model.addAttribute("insert_cowork", cowork);
+		System.out.println("cw_idx : " + cowork);
 		return "find_detail";
 	}
 	

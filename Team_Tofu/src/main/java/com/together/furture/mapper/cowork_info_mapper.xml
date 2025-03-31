@@ -22,5 +22,8 @@ VALUES (#{cw_title}, #{cw_intro}, #{cw_content}, #{cw_img}, #{cw_limit}, #{hash_
 	ORDER BY c.cw_idx DESC
 </select>
 
+<select id="getCoworkById" parameterType="int" resultType="com.together.furture.entity.insert_cowork">
+    SELECT * FROM cowork_info WHERE cw_idx = #{cw_idx}
+</select>
 
 </mapper>
