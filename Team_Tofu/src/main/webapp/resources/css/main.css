@@ -34,9 +34,9 @@ body {
    max-width: 150px; /* 최대 너비 제한 */
 }
 .post-image{
-	
-	width:10%;
-	border-radius:50%;
+   
+   width:10%;
+   border-radius:50%;
 }
 
 #tofu-main {
