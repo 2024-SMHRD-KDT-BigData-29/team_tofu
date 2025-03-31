@@ -11,6 +11,13 @@
 		href="resources/css/find_detail.css">
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- FullCalendar CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/ko.min.js"></script>
+<script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
 	<!-- 상단바 (main.html과 동일한 구조) -->
@@ -103,32 +110,8 @@
 
 				<div class="tab-content" id="schedule">
 					<h3>일정</h3>
-					<div class="calendar-container">
-						<div class="calendar-header">
-							<button id="prev-month">
-								<i class="fas fa-chevron-left"></i>
-							</button>
-							<h4 id="current-month">2023년 11월</h4>
-							<button id="next-month">
-								<i class="fas fa-chevron-right"></i>
-							</button>
-						</div>
-						<div class="calendar-grid" id="calendar">
-							<!-- 달력 내용이 여기에 동적으로 생성됩니다 -->
-						</div>
-					</div>
-					<div class="schedule-form">
-						<input type="text" id="schedule-title" placeholder="일정 제목">
-						<input type="date" id="schedule-date">
-						<button id="add-schedule">추가</button>
-					</div>
-					<div class="schedule-list" id="schedule-list">
-						<!-- 일정 목록이 여기에 동적으로 생성됩니다 -->
-					</div>
+					<div id ="calendar"></div>
 				</div>
-			</section>
-		</main>
-	</div>
 	
 	<!-- 상단 이동 버튼 및 게시물 작성 버튼 -->
    <div class="floating-buttons">

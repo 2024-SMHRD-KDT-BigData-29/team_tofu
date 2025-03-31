@@ -46,7 +46,6 @@
                 </div>
             </c:forEach>
         </div>
-
         <!-- 참여방 만들기 버튼 -->
         <div class="create-room-section">
             <form method="get" action="find_write">
