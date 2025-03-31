@@ -1,3 +1,4 @@
+/* 기본 스타일 */
 body {
     font-family: Arial, sans-serif;
     background-color: #fafafa;
@@ -9,7 +10,9 @@ body {
     height: 100vh;
 }
 
+/* 컨테이너 */
 .find-container {
+
     width: 100%; /* 컨테이너 크기 더 키움 */
     height: 100vh;
     background-color: #fff;
@@ -20,6 +23,8 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+/* 헤더 (스크롤 시 고정) */
 .find-header {
     position: sticky; /* 고정된 헤더 */
     top: 0;
@@ -43,8 +48,6 @@ body {
    color: inherit;
 }
 
-
-
 #back-button {
     background: none;
     border: none;
@@ -59,6 +62,7 @@ body {
     font-size: 18px;
 }
 
+/* 컨텐츠 영역 (스크롤 가능) */
 .find-content {
     margin-top: 60px; /* 헤더 높이보다 조금 더 여유 있게 */
     padding: 10px;
@@ -68,6 +72,15 @@ body {
     gap: 10px;
 }
 
+/* 2xN 레이아웃 유지 */
+.rooms-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2개씩 배치 */
+    grid-auto-rows: auto; /* 행 자동 조정 */
+    gap: 20px;
+}
+
+/* 방 스타일 */
 .room {
     width: 250px;
     padding: 15px;
@@ -78,6 +91,7 @@ body {
     text-align: center;
 }
 
+/* 작성자 정보 */
 .room-author {
     display: flex;
     align-items: center;
@@ -96,51 +110,65 @@ body {
     font-weight: bold;
 }
 
+/* 방 제목 */
 .room h3 {
     margin: 0 0 10px;
-    font-size: 24px; /* 제목 크기 더 키움 */
+    font-size: 24px;
 }
 
+/* 방 설명 */
 .room p {
     margin: 0 0 10px;
     color: #666;
-    font-size: 18px; /* 텍스트 크기 더 키움 */
+    font-size: 18px;
 }
 
+/* 참여하기 버튼 */
 .join-button {
-    padding: 15px 20px; /* 버튼 크기 키움 */
-    background-color: #000000; /* 검은색 */
+    padding: 15px 20px;
+    background-color: #000000;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    font-size: 18px; /* 버튼 텍스트 크기 키움 */
+    font-size: 18px;
 }
 
+/* 버튼 호버 효과 */
 .join-button:hover {
-    background-color: #525252; /* 호버 시 회색 */
-}
-/* 참여방 만들기 섹션 스타일 */
-.create-room-section {
-    padding: 20px;
-    border-top: 1px solid #ddd;
-    background-color: #f8f8f8;
-    text-align: center; /* 버튼을 가운데 정렬 */
+    background-color: #525252;
 }
 
+/* 참여방 만들기 버튼을 하단 고정 */
+.create-room-section {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+/* 참여방 만들기 버튼 */
 #create-room-button {
     width: 100%;
-    max-width: 800px; /* 버튼 최대 너비 설정 */
     padding: 15px;
     background-color: #000;
     color: #fff;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
 }
 
+/* 버튼 호버 효과 */
 #create-room-button:hover {
     background-color: #525252;
+}
+
+/* 반응형: 작은 화면에서 1열로 변경 */
+@media (max-width: 600px) {
+    .rooms-wrapper {
+        grid-template-columns: 1fr; /* 한 줄에 하나씩 표시 */
+    }
 }
