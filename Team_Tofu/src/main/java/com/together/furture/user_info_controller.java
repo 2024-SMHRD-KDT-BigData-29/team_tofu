@@ -186,18 +186,17 @@ public class user_info_controller {
 		return "user_delete";
 	}
 
-	@PostMapping("/user_delete")
+	@PostMapping("/user_delete.do")
 	public String user_delete(user_info user, Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
 		user = (user_info) session.getAttribute("login_user");
-
-		// 세션에있는 비밀번호
-		String session_pass = user.getUser_pw();
-
-		// 입력받은 비밀번호
-		String user_pw = request.getParameter("user_pw");
-
+		
+		if (user == null) {
+	        model.addAttribute("error", "로그인이 필요합니다.");
+	        return "redirect:/"; // 또는 로그인 페이지로 리다이렉트
+	    }
+		
 		// 사용자 삭제 처리
 		int result = mapper.user_delete(user.getUser_pw()); // user_info_mapper에 deleteUser 메서드 가정
 			if (result == 1) {
