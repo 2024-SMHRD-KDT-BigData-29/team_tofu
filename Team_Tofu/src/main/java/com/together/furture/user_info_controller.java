@@ -1,6 +1,7 @@
 package com.together.furture;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -181,12 +182,43 @@ public class user_info_controller {
 		return "redirect:/main";
 	}
 
-	// 회원 탈퇴 처리
+	// 회원 탈퇴 페이지 이동
 	@RequestMapping("/user_delete")
 	public String delete() {
 		System.out.println("회원탈퇴 페이지 이동");
 
 		return "user_delete";
+	}
+
+	// 회원 탈퇴
+	@PostMapping("/user_delete.do")
+	public String user_delete(user_info user, Model model, HttpServletRequest request) {
+		System.out.println("user_delete_do");
+		HttpSession session = request.getSession();
+		user_info login_user = (user_info) session.getAttribute("login_user");
+		// 1. user_id와 user_pw 가져오기
+		String user_id = login_user.getUser_id();
+		String user_pw = login_user.getUser_pw();
+		String user_nick = login_user.getUser_nick();
+		String user_email = login_user.getUser_email();
+		String user_gender = login_user.getUser_gender();
+		String user_intro = login_user.getUser_intro();
+		String user_profile = login_user.getUser_profile();
+		String user_role = login_user.getUser_role();
+		Timestamp joined_at = login_user.getJoined_at();
+		// 새 객체 생성 (기존 값 유지)
+		user = new user_info(user_id, user_pw, user_nick, user_email, user_gender, user_intro, user_profile, user_role,
+				joined_at);
+		int result = mapper.user_delete(user);
+		// 3. 삭제 결과 확인
+		if (result > 0) {
+			// 삭제 성공
+			return "redirect:/";
+		} else {
+			// 삭제 실패 (아이디 또는 비밀번호 불일치)
+			System.out.println("asd");
+			return "user_delete";
+		}
 	}
 
 }

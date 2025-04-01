@@ -24,77 +24,65 @@ import com.together.furture.util.coworkUploadUtil;
 
 @Controller
 public class cowork_info_controller {
-	@Autowired
-	cowork_info_mapper mapper;
-	@Autowired
-	user_info_mapper user;
-	@Autowired
-	feed_info_mapper feedmapper;
-	@Autowired
-	private coworkUploadUtil coworkUploadUtil;
+   @Autowired
+   cowork_info_mapper mapper;
+   @Autowired
+   user_info_mapper user;
+   @Autowired
+   feed_info_mapper feedmapper;
+   @Autowired
+   private coworkUploadUtil coworkUploadUtil;
 
-	// find 페이지 이동
-	@GetMapping("/find")
-	public String findPage(Model model) {
-		System.out.println("find 페이지 이동");
-		List<insert_cowork> coworkList = mapper.getCoworkList();
-		model.addAttribute("coworkList", coworkList);
-		List<insert_feed> feedList = feedmapper.getFeedList();
-		model.addAttribute("feedList", feedList);
-		System.out.println(coworkList);
-		return "find";
-	}
+   // 마이페이지 이동
+   @GetMapping("/mypage")
+   public String myPage() {
+      System.out.println("마이페이지 이동");
 
-	// 마이페이지 이동
-	@GetMapping("/mypage")
-	public String myPage() {
-		System.out.println("마이페이지 이동");
+      return "mypage";
+   }
 
-		return "mypage";
-	}
+   // 글쓰기 이동
+   @RequestMapping("/find_write")
+   public String find_Write() {
+      System.out.println("글쓰기 이동");
+      return "find_write";
+   }
 
-	// 글쓰기 이동
-	@RequestMapping("/find_write")
-	public String find_Write() {
-		System.out.println("글쓰기 이동");
-		return "find_write";
-	}
+   // 글 작성
+   @PostMapping("/find_write")
+   public String insert_cowork(insert_cowork cowork, HttpServletRequest request) throws IOException {
 
-	// 글 작성
-	@PostMapping("/find_write")
-	public String insert_cowork(insert_cowork cowork, HttpServletRequest request) throws IOException {
+      MultipartRequest multi = coworkUploadUtil.coworkupload(request);
+      user_info user = (user_info) request.getSession().getAttribute("login_user");
 
-		MultipartRequest multi = coworkUploadUtil.coworkupload(request);
-		user_info user = (user_info) request.getSession().getAttribute("login_user");
+      if (user != null) {
+         String user_id = (String) request.getSession().getAttribute("user_id");
+         String user_nick = (String) request.getSession().getAttribute("user_nick");
+         String hash_tag = (String) request.getParameter("hash_tag");
+         Integer cw_limit = Integer.parseInt(multi.getParameter("cw_limit"));
+         String cw_title = multi.getParameter("cw_title");
+         String cw_intro = multi.getParameter("cw_intro");
+         String cw_content = multi.getParameter("cw_content");
+         String cw_img = multi.getFilesystemName("cw_img");
 
-		if (user != null) {
-			String user_id = (String) request.getSession().getAttribute("user_id");
-			String user_nick = (String) request.getSession().getAttribute("user_nick");
-			String hash_tag = (String) request.getParameter("hash_tag");
-			Integer cw_limit = Integer.parseInt(multi.getParameter("cw_limit"));
-			String cw_title = multi.getParameter("cw_title");
-			String cw_intro = multi.getParameter("cw_intro");
-			String cw_content = multi.getParameter("cw_content");
-			String cw_img = multi.getFilesystemName("cw_img");
+         cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_tag, user_id, user_nick, 0, 0);
 
-			cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_tag, user_id, user_nick, 0);
+         System.out.println("원영 test2 : " + cowork.toString());
 
-			System.out.println("원영 test2 : " + cowork.toString());
+         int cnt = mapper.insertcowork(cowork);
 
-			int cnt = mapper.insertcowork(cowork);
+         if (cnt == 1) {
+            System.out.println("[게시물 업로드 성공]");
+         } else {
+            System.out.println("[게시물 업로드 실패]");
+         }
+      } else {
+         System.out.println("로그인하지않은 사용자");
+      }
 
-			if (cnt == 1) {
-				System.out.println("[게시물 업로드 성공]");
-			} else {
-				System.out.println("[게시물 업로드 실패]");
-			}
-		} else {
-			System.out.println("로그인하지않은 사용자");
-		}
+      return "redirect:/find";
+       
 
-		return "redirect:/find";
-		
-
-	}
+   }
 
 }

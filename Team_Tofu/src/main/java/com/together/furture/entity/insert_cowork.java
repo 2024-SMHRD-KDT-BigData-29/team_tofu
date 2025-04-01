@@ -42,6 +42,17 @@ public class insert_cowork {
     // 협업 식별자
     private Integer cw_idx;
     
+ // 실제 참여자 
+    private Integer currentParticipants;
+    
+    @Override
+    public String toString() {
+        return "insert_cowork(cw_idx=" + cw_idx + ", cw_title=" + cw_title + ", cw_intro=" + cw_intro + 
+               ", cw_content=" + cw_content + ", cw_img=" + cw_img + ", cw_limit=" + cw_limit + 
+               ", hash_tag=" + hash_tag + ", user_id=" + user_id + ", user_nick=" + user_nick + 
+               ", currentParticipants=" + currentParticipants + ")";
+    }
+    
     
 	
 }
