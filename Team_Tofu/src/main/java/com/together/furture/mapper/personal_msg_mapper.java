@@ -22,6 +22,9 @@ public interface personal_msg_mapper<ChatPreviewDTO> {
 	List<ChatPreview> getChatPreviewList(String userId);
 
 	List<personal_msg> getChatHistory(@Param("user1") String user1, @Param("user2") String user2);
+	
+	int markMessagesAsRead(@Param("receiverId") String receiverId,
+            @Param("senderId") String senderId);
 
 	
 

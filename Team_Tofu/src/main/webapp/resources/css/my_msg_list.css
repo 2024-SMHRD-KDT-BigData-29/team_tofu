@@ -1,69 +1,101 @@
-.chat-list {
-  padding: 20px;
-  max-width: 600px;
-  margin: 80px auto;
-}
-
-.chat-item {
-  display: flex;
-  align-items: center;
-  padding: 15px 10px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.chat-item:hover {
-  background-color: #f9f9f9;
-}
-
-.chat-profile {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 15px;
-}
-
-.chat-content {
-  flex: 1;
-}
-
-.chat-top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
 .msg-header {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  gap: 10px;
-  border-bottom: 1px solid #eee;
-  background-color: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	padding: 0 20px;
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+	z-index: 100;
+}
+
+.chat-meta {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.unread-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 12px;
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
 }
 
 #back-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.msg-title {
+	font-size: 20px;
+	font-weight: bold;
+	color: #333;
+}
+
+.chat-list {
+	padding: 80px 20px 20px; /* 상단바 높이만큼 여백 */
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.chat-item {
+	display: flex;
+	align-items: center;
+	padding: 15px 10px;
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.chat-item:hover {
+	background-color: #f9f9f9;
+}
+
+.chat-profile {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-right: 15px;
+}
+
+.chat-content {
+	flex: 1;
+}
+
+.chat-top {
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+	margin-bottom: 4px;
 }
 
 .chat-nick {
-  font-weight: bold;
-  color: #333;
+	font-weight: bold;
+	color: #333;
 }
 
 .chat-time {
-  color: #aaa;
+	color: #aaa;
+	font-size: 12px;
 }
 
 .chat-msg {
-  color: #555;
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	color: #555;
+	font-size: 13px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

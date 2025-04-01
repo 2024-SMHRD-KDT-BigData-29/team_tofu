@@ -24,10 +24,14 @@
 			</c:forEach>
 		</div>
 
-		<div class="chat-input">
-			<input type="text" id="message-input" placeholder="메시지를 입력하세요...">
-			<button id="send-button">전송</button>
-		</div>
+		<!-- ✅ 엔터 전송을 위해 form으로 감싸고 기본 제출 막기 -->
+		<form id="chat-form" onsubmit="return false;">
+			<div class="chat-input">
+				<input type="text" id="message-input" placeholder="메시지를 입력하세요..."
+					autocomplete="off">
+				<button type="submit" id="send-button">전송</button>
+			</div>
+		</form>
 	</div>
 
 	<!-- 현재 로그인 사용자와 상대방 정보 전달 -->
@@ -41,8 +45,19 @@
 			location.href = "/";
 		</script>
 	</c:if>
-
+	<script>
+		// 페이지 로드 완료 후, 스크롤을 맨 아래로 이동
+		window.onload = function() {
+			const chatBox = document.getElementById("chat-messages");
+			chatBox.scrollTop = chatBox.scrollHeight;
+		};
+		window.addEventListener("beforeunload", function () {
+			sessionStorage.setItem("chatJustRead", "true");
+		});
+		window.addEventListener("beforeunload", function () {
+			sessionStorage.setItem("chatJustRead", "true");
+		});
+	</script>
 	<script src="resources/js/personal_msg.js"></script>
-
 </body>
 </html>

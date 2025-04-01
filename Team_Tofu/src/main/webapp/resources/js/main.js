@@ -10,7 +10,6 @@ document.querySelectorAll(".tag").forEach(tag => {
 	});
 });
 
-
 // 기존 댓글 삭제 기능
 document.querySelectorAll('.comment-delete').forEach(button => {
 	button.addEventListener('click', function() {
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		        <div class="profile-content">
 		            <p>이 사용자에게 개인 메세지를 보내시겠습니까?</p>
 		            <div class="profile-actions">
-		                <a href="personal_chat?receiver_id=${clickedUserId}&receiver_nick=${clickedUserNick}">
+		                <a href="personal_chat?receiver_id=${clickedUserId}&receiver_nick=${clickedUserNick}" >
 		                    <button>메세지 보내기</button>
 		                </a>
 		                <button onclick="document.getElementById('popup-overlay').style.display='none'">닫기</button>
@@ -215,4 +214,11 @@ likeBtn.addEventListener('click', function() {
 	const countElement = this.querySelector('.like-count');
 	const currentCount = parseInt(countElement.textContent);
 	countElement.textContent = this.classList.contains('liked') ? currentCount + 1 : currentCount - 1;
+});
+
+document.addEventListener("click", function(e) {
+	if (e.target && e.target.id === "view-message-button") {
+		sessionStorage.setItem("fromProfilePopup", "true");
+		window.location.href = "my_msg_list";
+	}
 });

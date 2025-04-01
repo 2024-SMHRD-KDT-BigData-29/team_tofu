@@ -3,13 +3,27 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.together.furture.mapper.group_chat_mapper">
 
-    <insert id="insertChatMessage">
-        INSERT INTO chatting_info (croom_idx, chatter, chat_content, chat_emoticon, chat_file, created_at)
-        VALUES (#{croom_idx}, #{chatter}, #{chat_content}, #{chat_emoticon}, #{chat_file}, NOW());
-    </insert>
+	<insert id="insertChatMessage">
+		INSERT INTO chatting_info (croom_idx, chatter,
+		chat_content, chat_emoticon,
+		chat_file, created_at)
+		VALUES
+		(#{croom_idx}, #{chatter}, #{chat_content}, #{chat_emoticon},
+		#{chat_file}, NOW());
+	</insert>
 
-    <select id="getChatMessages" resultType="com.together.furture.entity.group_chat">
-        SELECT * FROM chatting_info WHERE croom_idx = #{croom_idx} ORDER BY created_at ASC;
-    </select>
+	<select id="getChatMessages"
+		resultType="com.together.furture.entity.group_chat">
+		SELECT * FROM chatting_info WHERE croom_idx = #{croom_idx}
+		ORDER BY
+		created_at ASC;
+	</select>
 
+	<select id="select_by_croom_idx"
+		resultType="com.together.furture.entity.group_chat">
+		SELECT *
+		FROM chatting_info
+		WHERE croom_idx = #{croom_idx}
+		ORDER BY created_at ASC
+	</select>
 </mapper>
