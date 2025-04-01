@@ -10,42 +10,23 @@ body {
     height: 100vh;
 }
 
-/* 컨테이너 */
 .find-container {
-
-    width: 100%; /* 컨테이너 크기 더 키움 */
-    height: 100vh;
+    width: 800px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    position: relative;
 }
 
-/* 헤더 (스크롤 시 고정) */
+/* 헤더 스타일 */
 .find-header {
-    position: sticky; /* 고정된 헤더 */
-    top: 0;
-    width: 100%;
-    height: 60px; /* 필요시 조정 */
-    background-color: white; /* 배경색 지정 */
-    z-index: 100;
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-#tofu-main a {
-    text-decoration: none;
-    color: #333;
-}
-
-#find-main a {
-   text-decoration: none;
-   color: inherit;
 }
 
 #back-button {
@@ -62,33 +43,38 @@ body {
     font-size: 18px;
 }
 
-/* 컨텐츠 영역 (스크롤 가능) */
+/* 컨텐츠 영역 스크롤 가능 */
 .find-content {
-    margin-top: 60px; /* 헤더 높이보다 조금 더 여유 있게 */
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 500px; /* 스크롤 가능 영역 크기 */
+    padding: 20px;
 }
 
-/* 2xN 레이아웃 유지 */
-.rooms-wrapper {
+/* 페이지 그룹 */
+.pages {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 2x2 방 배치 */
+.page {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2개씩 배치 */
-    grid-auto-rows: auto; /* 행 자동 조정 */
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 20px;
 }
 
 /* 방 스타일 */
 .room {
-    width: 250px;
-    padding: 15px;
-    background-color: white;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* 작성자 정보 */
@@ -164,11 +150,4 @@ body {
 /* 버튼 호버 효과 */
 #create-room-button:hover {
     background-color: #525252;
-}
-
-/* 반응형: 작은 화면에서 1열로 변경 */
-@media (max-width: 600px) {
-    .rooms-wrapper {
-        grid-template-columns: 1fr; /* 한 줄에 하나씩 표시 */
-    }
 }

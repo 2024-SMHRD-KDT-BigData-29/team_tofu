@@ -7,21 +7,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TOFU FIND</title>
-<link rel="stylesheet" href="resources/css/find_detail.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/find_detail.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!-- FullCalendar CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
-
-<!-- FullCalendar JS -->
 <script
-	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/ko.min.js"></script>
-<script src="https://apis.google.com/js/api.js"></script>
+	src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js'></script>
+<script>
+	window.context_path = "${pageContext.request.contextPath}";
+	window.current_cw_idx = "${cw_idx}" || 1; // 기본값 설정
+	window.user_profile = "${login_user.user_profile}";
+	window.user_nick = "${login_user.user_nick}";
+	window.user_intro = "${login_user.user_intro}";
+</script>
 </head>
 <body>
+
 	<!-- 상단바 -->
 	<div id="top-bar">
 		<div id="left-section">
@@ -33,6 +36,7 @@
 			<button class="search-btn">
 				<i class="fas fa-search"></i>
 			</button>
+			.....
 		</form>
 	</div>
 	<div class="container">
@@ -46,61 +50,75 @@
 					${insert_cowork.cw_limit}명</div>
 				<div class="profile-status">${insert_cowork.hash_tag}</div>
 			</div>
-			<form action="group_chat">
-				<input type="hidden">
-				<button name=group_chat>
+			<form action="group_chat" method="get">
+				<input type="hidden" name="croom_idx"
+					value="${insert_cowork.cw_idx}">
+				<button type="submit">
 					<i class="fas fa-comment-alt">그룹채팅</i>
 				</button>
 			</form>
-
 		</div>
 	</div>
 	<hr class="divider">
 	<section class="content-section">
 		<div class="tab-container">
-			<div class="tab active" data-tab="share">공유 자료실</div>
-			<div class="tab" data-tab="notice">공지사항</div>
+			<div class="tab active" data-tab="notice">공지사항</div>
 			<div class="tab" data-tab="schedule">일정</div>
 		</div>
-
-		<div class="tab-content active" id="share">
-			<h3>공유 자료실</h3>
-			<div class="file-list">
-				<div class="file-item">
-					<i class="fas fa-file-alt"></i> <span>공유 문서 1</span> <span
-						class="file-date">2023-11-15</span>
-				</div>
-				<div class="file-item">
-					<i class="fas fa-file-image"></i> <span>이미지 자료</span> <span
-						class="file-date">2023-11-10</span>
-				</div>
-				<div class="file-item">
-					<i class="fas fa-file-pdf"></i> <span>PDF 문서</span> <span
-						class="file-date">2023-11-05</span>
-				</div>
-			</div>
-		</div>
-
-		<div class="tab-content" id="notice">
+		<div class="tab-content active" id="notice">
 			<h3>공지사항</h3>
 			<div class="notice-list">
 				<div class="notice-item">
 					<h4>시스템 점검 안내</h4>
-					<p>2023년 11월 20일 00:00 ~ 06:00 시스템 점검이 진행됩니다.</p>
+					<p>2024년 11월 20일 00:00 ~ 06:00 시스템 점검이 진행됩니다.</p>
 					<span class="notice-date">2023-11-15</span>
 				</div>
 				<div class="notice-item">
 					<h4>새로운 기능 업데이트</h4>
 					<p>공유 자료실에 캘린더 기능이 추가되었습니다.</p>
-					<span class="notice-date">2023-11-10</span>
+					<span class="notice-date">2024-11-10</span>
 				</div>
 			</div>
 		</div>
-
 		<div class="tab-content" id="schedule">
-			<h3>일정</h3>
 			<div id="calendar"></div>
 		</div>
+		<div id="event-modal" class="modal" style="display: none;"></div>
+		<div id="add-modal" class="modal" style="display: none;"></div>
+		<div id="eventModal" class="modal" style="display: none;">
+			<div class="modal-content">
+				<h2>일정 관리</h2>
+				<input type="hidden" id="eventId">
+				<div class="form-group">
+					<label>제목</label> <input type="text" id="eventTitle"
+						class="form-control">
+				</div>
+				<div class="form-group">
+					<label>시작</label> <input type="datetime-local" id="eventStart"
+						class="form-control">
+				</div>
+				<div class="form-group">
+					<label>종료</label> <input type="datetime-local" id="eventEnd"
+						class="form-control">
+				</div>
+				<div class="form-group">
+					<label>색상</label> <input type="color" id="eventColor"
+						class="form-control" value="#3788d8">
+				</div>
+				<div class="form-group">
+					<label>내용</label>
+					<textarea id="eventContent" class="form-control"></textarea>
+				</div>
+				<button id="saveEvent" class="btn btn-primary">저장</button>
+				<button id="deleteEvent" class="btn btn-danger">삭제</button>
+				<button id="closeModal" class="btn btn-secondary">닫기</button>
+			</div>
+		</div>
+		<dialog id="popup-dialog">
+		<div class="popup-content"></div>
+		<button class="dialog-button"
+			onclick="document.getElementById('popup-dialog').removeAttribute('open')">닫기</button>
+		</dialog>
 	</section>
 
 	<!-- 상단 이동 버튼 및 게시물 작성 버튼 -->
@@ -108,15 +126,11 @@
 		<form method="get" action="write">
 			<button id="write-post">✏️</button>
 		</form>
-		<button id="scroll-top">&#9650;</button>
+		<button id="scroll-top">▲</button>
 	</div>
-	<!-- 팝업오버레이  -->
+	<!-- 팝업 오버레이 -->
 	<div id="popup-overlay"></div>
-	<script>
-		const user_profile = "${login_user.user_profile}"
-		const user_nick = "${login_user.user_nick}"
-		const user_intro = "${login_user.user_intro}";
-	</script>
-	<script src="resources/js/find_detail.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/find_detail.js"></script>
 </body>
 </html>

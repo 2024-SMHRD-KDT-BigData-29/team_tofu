@@ -24,4 +24,6 @@ public interface feed_info_mapper {
 
 	int updateFeed(insert_feed feed);
 
+	int deleteCommentsByFeedIdx(int idx);
+
 }

@@ -107,19 +107,6 @@ public class feed_info_controller {
 		return "redirect:/main";
 	}
 
-	// 게시글 삭제
-	@PostMapping("/deletePost/{feed_idx}")
-	public ResponseEntity<String> deletepost(@PathVariable("feed_idx") int idx) {
-		int result = mapper.deletepost(idx);
-		if (result == 1) {
-			System.out.println("게시물 삭제 성공: feed_idx=" + idx);
-			return ResponseEntity.ok("삭제 성공");
-		} else {
-			System.out.println("게시물 삭제 실패: feed_idx=" + idx);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
-		}
-	}
-
 	// 게시글 수정 페이지 이동
 	@GetMapping("/editPost/{feed_idx}")
 	public String editPost(@PathVariable("feed_idx") int feed_idx, Model model) {
@@ -212,6 +199,20 @@ public class feed_info_controller {
 			System.out.println("예상치 못한 오류 발생: " + (e.getMessage() != null ? e.getMessage() : "알 수 없는 에러"));
 			return "redirect:/main";
 		}
+	}
+	@PostMapping("/deletePost/{feed_idx}")
+	public ResponseEntity<String> deletepost(@PathVariable("feed_idx") int idx) {
+	    System.out.println("삭제 시도: feed_idx=" + idx);
+	    mapper.deleteCommentsByFeedIdx(idx);
+	    int result = mapper.deletepost(idx);
+	    System.out.println("삭제 결과: " + result);
+	    if (result == 1) {
+	        System.out.println("게시물 삭제 성공: feed_idx=" + idx);
+	        return ResponseEntity.ok("삭제 성공");
+	    } else {
+	        System.out.println("게시물 삭제 실패: feed_idx=" + idx);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
+	    }
 	}
 
 }

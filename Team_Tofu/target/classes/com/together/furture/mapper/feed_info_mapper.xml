@@ -27,7 +27,7 @@
 </delete>
 
 <!-- 특정 게시물 조회 -->
-   <!--  <select id="getFeedById" parameterType="int" resultType="com.together.furture.entity.insert_feed">
+<select id="getFeedById" parameterType="int" resultType="com.together.furture.entity.insert_feed">
         SELECT 
             f.feed_title,
             f.feed_content,
@@ -40,10 +40,10 @@
         FROM feed_info f
         LEFT JOIN user_info u ON f.user_id = u.user_id
         WHERE f.feed_idx = #{feed_idx}
-    </select>
+</select>
 
-    게시물 수정
-    <update id="updateFeed" parameterType="com.together.furture.entity.insert_feed">
+    <!-- 게시물 수정 -->
+<update id="updateFeed" parameterType="com.together.furture.entity.insert_feed">
         UPDATE feed_info
         SET 
             feed_title = #{feed_title},
@@ -52,5 +52,12 @@
             hash_tag = #{hash_tag}
             user_id = #{user_id}
         WHERE feed_idx = #{feed_idx}
-    </update> -->
+	</update> 
+<delete id="deleteCommentsByFeedIdx" parameterType="int">
+    DELETE FROM comment_info WHERE feed_idx = #{feed_idx}
+</delete>
+
+<select id="countCommentsByFeedIdx" parameterType="int" resultType="int">
+    SELECT COUNT(*) FROM comment_info WHERE feed_idx = #{feed_idx}
+</select>
 </mapper>

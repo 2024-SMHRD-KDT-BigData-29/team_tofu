@@ -227,4 +227,5 @@ public class user_info_controller {
 			}
 	}
 	
+	
 }
