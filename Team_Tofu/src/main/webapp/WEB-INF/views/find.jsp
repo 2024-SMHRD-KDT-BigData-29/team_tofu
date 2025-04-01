@@ -39,7 +39,7 @@
                     	<span class="author-nickname">${f.user_nick}</span>
                 </div>
                 <h3>${c.cw_title}</h3>
-                <p>0/${c.cw_limit}</p> <!-- 현재 인원 수는 추후 개선 -->
+                <p>${c.currentParticipants != null ? c.currentParticipants : 0}/${c.cw_limit}</p>
                  <form method="post" action="find_detail">
                  	<input type="hidden" name="sel" value="${c.cw_idx}">
                 	<button  class="join-button">참여하기</button>

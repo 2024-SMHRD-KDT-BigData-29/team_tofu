@@ -15,8 +15,11 @@ public interface user_info_mapper {
 
 	void user_update(user_info user);
 
-	int user_delete(String user_pw);
-
+//	int user_delete(String user_pw, String user_id);
+	
+//	user_info user_delete(user_info user);
 	//int profile_save(user_info user);
+
+	int user_delete(user_info user);
 	
 }

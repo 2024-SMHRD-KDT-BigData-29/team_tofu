@@ -41,4 +41,6 @@ public class croom_info {
 
 	    // 방 상태 
 	    private String croom_status;
+
+		
 }

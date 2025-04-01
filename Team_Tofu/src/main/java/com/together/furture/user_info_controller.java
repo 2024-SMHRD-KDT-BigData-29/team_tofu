@@ -1,6 +1,9 @@
 package com.together.furture;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -150,7 +153,6 @@ public class user_info_controller {
 					login_user.getUser_role(), // 회원구분 유지
 					login_user.getJoined_at() // 가입일자 유지
 			);
-			System.out.println("대존잘 김원영 check : " + user.toString());
 
 			// DB 업데이트
 			mapper.user_update(user);
@@ -186,27 +188,43 @@ public class user_info_controller {
 		return "user_delete";
 	}
 
-	@PostMapping("/user_delete")
+	@PostMapping("/user_delete.do")
 	public String user_delete(user_info user, Model model, HttpServletRequest request) {
-
-		HttpSession session = request.getSession();
-		user = (user_info) session.getAttribute("login_user");
-
-		// 세션에있는 비밀번호
-		String session_pass = user.getUser_pw();
-
-		// 입력받은 비밀번호
-		String user_pw = request.getParameter("user_pw");
-
-		// 사용자 삭제 처리
-		int result = mapper.user_delete(user.getUser_pw()); // user_info_mapper에 deleteUser 메서드 가정
-			if (result == 1) {
-				System.out.println("사용자 삭제 성공: user_id=" + user.getUser_id());
-				session.invalidate(); // 세션에 저장된 유저정보 삭제
+		System.out.println("user_delete_do");
+			HttpSession session = request.getSession();
+			user_info login_user = (user_info) session.getAttribute("login_user");
+			// 1. user_id와 user_pw 가져오기
+			String user_id = login_user.getUser_id();
+			String user_pw = login_user.getUser_pw();
+			String user_nick = login_user.getUser_nick();
+			String user_email = login_user.getUser_email();
+			String user_gender = login_user.getUser_gender();
+			String user_intro = login_user.getUser_intro();
+			String user_profile = login_user.getUser_profile();
+			String user_role = login_user.getUser_role();
+			Timestamp joined_at = login_user.getJoined_at();
+	     // 새 객체 생성 (기존 값 유지)
+	     	user = new user_info(
+	     			user_id,
+	    			user_pw,
+	    			user_nick,
+	    			user_email,
+	    			user_gender,
+	    			user_intro,
+	    			user_profile, 
+	    			user_role, 
+	    			joined_at
+	     			);
+	        int result = mapper.user_delete(user);
+			// 3. 삭제 결과 확인
+			if (result > 0) {
+				// 삭제 성공
 				return "redirect:/";
 			} else {
-				System.out.println("사용자 삭제 실패: user_id=" + user.getUser_id());
-				return "user_delete"; // 삭제 페이지로 다시 이동
+				// 삭제 실패 (아이디 또는 비밀번호 불일치)
+				System.out.println("asd");
+				return "user_delete";
 			}
 	}
+	
 }

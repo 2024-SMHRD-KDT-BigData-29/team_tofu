@@ -11,10 +11,9 @@
 <body>
     <div class="join-wrapper">
         <h2 class="logo">TO.FU</h2>
-        <p style="text-align: center; margin-bottom: 20px;">회원 탈퇴를 위해 비밀번호를 입력해주세요.</p>
+        <p style="text-align: center; margin-bottom: 20px;">회원 탈퇴</p>
         
-        <form method="post" action="/user_delete" id="delete-form">
-            <input type="password" name="user_pw" id="user_pw" class="join-input" placeholder="비밀번호 입력" required>
+        <form method="post" action="user_delete.do" id="delete-form">
             <input type="submit" value="탈퇴하기" class="submit-btn">
         </form>
     </div>

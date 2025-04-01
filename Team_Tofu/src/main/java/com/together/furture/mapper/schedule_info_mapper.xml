@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.together.furture.mapper.schedule_info_mapper">
+
+	<!-- select_by_cw_idx -->
+	<select id="select_by_cw_idx" parameterType="int"
+		resultType="com.together.furture.entity.schedule_info">
+		SELECT sche_idx, sche_title, sche_content, st_dt, ed_dt, user_id,
+		sche_status, sche_color, cw_idx
+		FROM schedule_info
+		WHERE cw_idx = #{cw_idx}
+	</select>
+
+	<!-- select_by_sche_idx -->
+	<select id="select_by_sche_idx" parameterType="int"
+		resultType="com.together.furture.entity.schedule_info">
+		SELECT sche_idx, sche_title, sche_content, st_dt, ed_dt, user_id,
+		sche_status, sche_color, cw_idx
+		FROM schedule_info
+		WHERE sche_idx = #{sche_idx}
+	</select>
+
+	<!-- insert_schedule -->
+	<insert id="insert_schedule"
+		parameterType="com.together.furture.entity.schedule_info">
+		INSERT INTO schedule_info (sche_title, sche_content, st_dt, ed_dt, user_id,
+		sche_status, sche_color, cw_idx)
+		VALUES (
+		#{sche_title},
+		#{sche_content},
+		STR_TO_DATE(#{st_dt}, '%Y-%m-%d %H:%i:%s'),
+		STR_TO_DATE(#{ed_dt}, '%Y-%m-%d %H:%i:%s'),
+		#{user_id},
+		#{sche_status},
+		#{sche_color},
+		#{cw_idx}
+		)
+	</insert>
+
+	<!-- delete_schedule -->
+	<delete id="delete_schedule" parameterType="int">
+		DELETE FROM schedule_info
+		WHERE sche_idx = #{sche_idx}
+	</delete>
+
+</mapper>

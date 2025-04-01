@@ -33,18 +33,6 @@ public class cowork_info_controller {
 	@Autowired
 	private coworkUploadUtil coworkUploadUtil;
 
-	// find 페이지 이동
-	@GetMapping("/find")
-	public String findPage(Model model) {
-		System.out.println("find 페이지 이동");
-		List<insert_cowork> coworkList = mapper.getCoworkList();
-		model.addAttribute("coworkList", coworkList);
-		List<insert_feed> feedList = feedmapper.getFeedList();
-		model.addAttribute("feedList", feedList);
-		System.out.println(coworkList);
-		return "find";
-	}
-
 	// 마이페이지 이동
 	@GetMapping("/mypage")
 	public String myPage() {
@@ -77,7 +65,7 @@ public class cowork_info_controller {
 			String cw_content = multi.getParameter("cw_content");
 			String cw_img = multi.getFilesystemName("cw_img");
 
-			cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_tag, user_id, user_nick, 0);
+			cowork = new insert_cowork(cw_title, cw_intro, cw_content, cw_img, cw_limit, hash_tag, user_id, user_nick, 0, 0);
 
 			System.out.println("원영 test2 : " + cowork.toString());
 
@@ -93,7 +81,7 @@ public class cowork_info_controller {
 		}
 
 		return "redirect:/find";
-		
+		 // 유저간 창작물 거래, 
 
 	}
 

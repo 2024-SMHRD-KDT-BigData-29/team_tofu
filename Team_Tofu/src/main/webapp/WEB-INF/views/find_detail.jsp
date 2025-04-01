@@ -25,51 +25,7 @@
 </head>
 <body>
 	<c:set var="selectedIdx" value="${param.sel}" />
-
 	<!-- 고정 상단바 -->
-	<div id="top-bar">
-		<div id="left-section">
-			<span id="tofu-main"><a href="main.do">To.fu</a></span> <span
-				id="find-main"><a href="find.do">FIND</a></span>
-		</div>
-		<form action="#" method="get">
-			<input class="search-txt" type="text" placeholder="검색어를 입력해주세요">
-			<button class="search-btn">
-				<i class="fas fa-search"></i>
-			</button>
-		</form>
-		<button id="profile-btn" type="button">
-			<c:choose>
-				<c:when test="${empty login_user.user_profile}">
-					<img
-						src="${pageContext.request.contextPath}/resources/img/default_profile.png"
-						alt="기본 프로필 이미지" class="profile-img">
-				</c:when>
-				<c:otherwise>
-					<img
-						src="${pageContext.request.contextPath}/resources/img/${login_user.user_profile}"
-						alt="프로필 이미지" class="profile-img">
-				</c:otherwise>
-			</c:choose>
-		</button>
-	</div>
-	<div class="container">
-		<h1>${insert_cowork.cw_title}</h1>
-		<div class="menu-item">
-			<h2>${insert_cowork.cw_intro}</h2>
-			<div class="profile-info">
-				<div class="profile-content">${insert_cowork.cw_content}</div>
-				<div class="profile-image">${insert_cowork.cw_img}</div>
-				<div class="profile-status">참여가능 인원 :
-					${insert_cowork.cw_limit}명</div>
-				<div class="profile-hash">${insert_cowork.hash_tag}</div>
-			</div>
-			<form action="group_chat">
-				<input type="hidden">
-				<button name="group_chat">
-					<i class="fas fa-comment-alt">그룹채팅</i>
-				</button>
-			</form>
 		</div>
 	</div>
 	<hr class="divider">
