@@ -185,7 +185,8 @@ body {
 
 /* 피드 섹션 */
 #feed-section {
-   margin-top: 20px;
+	
+   margin-top:70px;
    padding: 10px;
    background-color: #fff;
    max-width: 800px; /* 최대 너비 설정 */
@@ -329,6 +330,7 @@ body {
    display: flex;
    gap: 10px; /* 태그 사이 간격 */
    padding: 10px; /* 내부 여백 */
+  
    margin-bottom: 20px; /* 게시글과의 간격 */
    background-color: #fff; /* 배경색 */
 }

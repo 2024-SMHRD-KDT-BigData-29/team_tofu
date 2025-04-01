@@ -1,600 +1,764 @@
 @charset "UTF-8";
+
 * {
-    padding: 0;
-    margin: 0;
-    border: none;
-    box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	border: none;
+	box-sizing: border-box;
 }
 /* 기본 스타일 */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-    color: #333;
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f8f8;
+	color: #333;
 }
 
 /* 프로필 팝업 스타일 (profile.css 내용) */
 #popup-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, 0.5);
-   z-index: 1000;
-   display: none;
-   justify-content: center;
-   align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	display: none;
+	justify-content: center;
+	align-items: center;
 }
 
 .profile-container {
-   width: 350px;
-   background-color: #fff;
-   border-radius: 10px;
-   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-   overflow: hidden;
+	width: 350px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
 }
 
 .profile-header {
-   background-color: #f8f8f8;
-   padding: 15px;
-   border-bottom: 1px solid #ddd;
-   display: flex;
-   align-items: center;
+	background-color: #f8f8f8;
+	padding: 15px;
+	border-bottom: 1px solid #ddd;
+	display: flex;
+	align-items: center;
 }
 
 .profile-content {
-   padding: 20px;
-   text-align: center;
+	padding: 20px;
+	text-align: center;
 }
 
 .profile-image img {
-   width: 100px;
-   height: 100px;
-   border-radius: 50%;
-   object-fit: cover;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .profile-info h3 {
-   margin: 10px 0 5px;
-   font-size: 20px;
+	margin: 10px 0 5px;
+	font-size: 20px;
 }
 
 .profile-actions {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   margin-top: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 15px;
 }
 /* 플로팅 버튼 컨테이너 */
 .floating-buttons {
-   position: fixed;
-   bottom: 20px;
-   right: 20px;
-   display: flex;
-   gap: 10px; /* 버튼 사이 간격 */
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	display: flex;
+	gap: 10px; /* 버튼 사이 간격 */
 }
 
 /* 상단 프로필 이미지 */
 #profile-btn {
-    width: 40px;
-   height: 40px;
-   border-radius: 50%;
-   overflow: hidden;
-   padding: 0;
-   border: none;
-   background: none;
-   cursor: pointer;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 
 /* 프로필 이미지 */
 .profile-img {
-   width: 40px;
-   height: 40px;
-   border-radius: 50%;
-   margin-right: 10px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 
 .profile-actions button {
-   margin-top: 10px;
-   padding: 10px 20px;
-   background-color: #000000; /* 검은색 */
-   color: #fff;
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   width: 100%; /* 너비를 100%로 통일 */
-   font-size: 16px; /* 폰트 크기 통일 */
+	margin-top: 10px;
+	padding: 10px 20px;
+	background-color: #000000; /* 검은색 */
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%; /* 너비를 100%로 통일 */
+	font-size: 16px; /* 폰트 크기 통일 */
 }
 
 #edit-profile-button {
-   margin-top: 10px;
-   padding: 10px 20px;
-   background-color: #000000; /* 검은색 */
-   color: #fff;
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   width: 100%; /* 너비를 100%로 통일 */
-   font-size: 16px; /* 폰트 크기 통일 */
+	margin-top: 10px;
+	padding: 10px 20px;
+	background-color: #000000; /* 검은색 */
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%; /* 너비를 100%로 통일 */
+	font-size: 16px; /* 폰트 크기 통일 */
 }
 
 .profile-stats {
-   display: flex;
-   justify-content: space-around;
-   padding: 15px;
-   border-top: 1px solid #ddd;
-   border-bottom: 1px solid #ddd;
+	display: flex;
+	justify-content: space-around;
+	padding: 15px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 .stat {
-   text-align: center;
+	text-align: center;
 }
 
 .stat-number {
-   font-weight: bold;
-   font-size: 16px;
+	font-weight: bold;
+	font-size: 16px;
 }
 
 /* 상단바 스타일 (통일된 버전) */
 #top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    height: 60px; /* 높이 60px로 통일 */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 20px;
+	background-color: #fff;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	height: 60px; /* 높이 60px로 통일 */
 }
 
 #left-section {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 #tofu-main {
-    font-size: 22px;
-    font-weight: bold;
-    color: #000;
-    margin-right: 5px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #000;
+	margin-right: 5px;
 }
 
 #tofu-main a {
-    text-decoration: none;
-    color: #333;
+	text-decoration: none;
+	color: #333;
 }
 
 #find-main a {
-    font-size: 22px;
-    font-weight: bold;
-    color: #707070;
-    text-decoration: none;
+	font-size: 22px;
+	font-weight: bold;
+	color: #707070;
+	text-decoration: none;
 }
 
 #top-bar form {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    margin: 0 30px;
-    max-width: 500px;
-    position: relative;
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	margin: 0 30px;
+	max-width: 500px;
+	position: relative;
 }
 
-    .search-txt {
-   width: 100%;
-   padding: 10px 20px;
-   border: 1px solid #ddd;
-   border-radius: 30px;
-   outline: none;
-   font-size: 14px;
-   background-color: #f5f5f5;
+.search-txt {
+	width: 100%;
+	padding: 10px 20px;
+	border: 1px solid #ddd;
+	border-radius: 30px;
+	outline: none;
+	font-size: 14px;
+	background-color: #f5f5f5;
 }
 
 .search-btn {
-    position: absolute;
-    right: 15px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #777;
+	position: absolute;
+	right: 15px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #777;
 }
 
 #profile-bar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #333;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #333;
 }
 
 /* 컨테이너 조정 */
 .container {
-    max-width: 1000px;
-    margin: 80px auto 30px;
-    padding: 30px;
-    background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
+	max-width: 1000px;
+	margin: 80px auto 30px;
+	padding: 30px;
+	background-color: white;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
 }
 
 header h1 {
-    text-align: center;
-    color: #000;
-    margin-bottom: 30px;
-    font-weight: 600;
-    letter-spacing: 1px;
+	text-align: center;
+	color: #000;
+	margin-bottom: 30px;
+	font-weight: 600;
+	letter-spacing: 1px;
 }
 
 /* 메뉴 섹션 스타일 */
 .menu-section {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    gap: 20px;
-}
-
-.menu-item {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e0e0e0;
-}
-
-.menu-item h2 {
-    color: #000;
-    margin-top: 0;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 12px;
-    font-weight: 600;
-}
-
-.menu-item ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 15px;
-}
-
-.menu-item li {
-    padding: 12px 0;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-    transition: all 0.2s ease;
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+	gap: 20px;
 }
 
 .menu-item li:hover {
-    background-color: #f8f8f8;
-    color: #000;
+	background-color: #f8f8f8;
+	color: #000;
 }
 
 .menu-item i {
-    margin-right: 12px;
-    width: 20px;
-    text-align: center;
-    color: #555;
+	border-radius: 4px;
+	height: 40px;
+	width: 90vh;
+	display: flex; /* 추가 */
+	justify-content: center; /* 추가 */
+	align-items: center; /* 추가 */
+	color: white;
+	background-color: black;
+	border-radius: 8px;
 }
 
-/* 프로필 섹션 스타일 */
+/* menu-item 내부 전체 중앙 정렬 */
+.menu-item {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	width: 100%;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	border: 1px solid #e0e0e0;
+	display: flex;
+	flex-direction: column;
+	height: 320px;
+	overflow: hidden;
+	position: relative;
+	text-align: center; /* 추가: 텍스트 중앙 정렬 */
+	align-items: center; /* 추가: 자식 요소들 중앙 정렬 */
+}
+
+/* menu-item 내부 요소들 중앙 정렬 보장 */
+.menu-item h2, .menu-item ul, .menu-item li {
+	margin: 10px;
+	width: 100%; /* 너비 100%로 설정하여 중앙 정렬 효과 */
+	text-align: center;
+	width: 100%; /* 텍스트 중앙 정렬 */
+}
+
+/* 프로필 섹션 중앙 정렬 */
 .profile-section {
-    display: flex !important;
-    align-items: center;
-    padding: 10px 0 !important;
+	display: flex !important;
+	align-items: center;
+	padding: 10px 0 !important;
+	justify-content: center; /* 추가: 중앙 정렬 */
+}
+
+/* 프로필 정보 중앙 정렬 */
+.profile-info {
+	margin:10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* 추가: 중앙 정렬 */
+	text-align: center; /* 추가: 텍스트 중앙 정렬 */
 }
 
 .profile-pic {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 12px;
-    border: 1px solid #e0e0e0;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 12px;
+	border: 1px solid #e0e0e0;
 }
 
 .profile-pic img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-info {
-    display: flex;
-    flex-direction: column;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .profile-name {
-    font-weight: 600;
-    margin-bottom: 3px;
-    color: #333;
+	font-weight: 600;
+	margin-bottom: 3px;
+	color: #333;
 }
 
 .profile-status {
-    font-size: 0.8em;
-    color: #666;
+	magrin: 10px 10px 10px 10px;
+	font-size: 0.8em;
+	color: #666;
+}
+
+.profile-content {
+	magrin: 10px 10px 10px 10px;
+	font-size: 0.8em;
+	color: #666;
+}
+
+.profile-image {
+	magrin: 10px 10px 10px 10px;
+	font-size: 0.8em;
+	color: #666;
+}
+
+.profile-hash {
+	magrin: 10px 10px 10px 10px;
+	font-size: 0.8em;
+	color: #666;
+}
+
+.profile-status {
+	magrin: 10px 10px 10px 10px;
+	font-size: 0.8em;
+	color: #666;
 }
 
 /* 구분선 스타일 */
 .divider {
-    border: none;
-    height: 1px;
-    background-color: #e0e0e0;
-    margin: 25px 0;
+	border: none;
+	height: 1px;
+	background-color: #e0e0e0;
+	margin: 25px 0;
 }
 
 /* 탭 스타일 */
 .tab-container {
-    display: flex;
-    border-bottom: 1px solid #e0e0e0;
-    margin-bottom: 20px;
+	display: flex;
+	border-bottom: 1px solid #e0e0e0;
+	margin-bottom: 20px;
 }
 
 .tab {
-    padding: 12px 20px;
-    cursor: pointer;
-    font-weight: 500;
-    color: #666;
-    transition: all 0.2s ease;
+	padding: 12px 20px;
+	cursor: pointer;
+	font-weight: 500;
+	color: #666;
+	transition: all 0.2s ease;
 }
 
 .tab:hover {
-    color: #000;
+	color: #000;
 }
 
 .tab.active {
-    color: #000;
-    border-bottom: 2px solid #000;
-    font-weight: 600;
+	color: #000;
+	border-bottom: 2px solid #000;
+	font-weight: 600;
 }
 
 /* 탭 콘텐츠 스타일 */
 .tab-content {
-    display: none;
-    padding: 15px 5px;
+	display: none;
+	padding: 15px 5px;
 }
 
 .tab-content.active {
-    display: block;
+	display: block;
 }
 
 .tab-content h3 {
-    color: #000;
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-weight: 600;
+	color: #000;
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-weight: 600;
 }
 
 /* 캘린더 스타일 */
 .calendar-container {
-    margin-bottom: 25px;
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e0e0e0;
+	margin-bottom: 25px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	border: 1px solid #e0e0e0;
 }
 
 .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .calendar-header button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    color: #333;
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+	background: none;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	color: #333;
+	padding: 5px 10px;
+	border-radius: 4px;
+	transition: background-color 0.2s ease;
 }
 
 .calendar-header button:hover {
-    background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 8px;
 }
 
 .calendar-day-header {
-    text-align: center;
-    font-weight: 600;
-    padding: 10px;
-    color: #333;
-    font-size: 0.9em;
+	text-align: center;
+	font-weight: 600;
+	padding: 10px;
+	color: #333;
+	font-size: 0.9em;
 }
 
 .calendar-day {
-    text-align: center;
-    padding: 12px 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s ease;
+	text-align: center;
+	padding: 12px 5px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9em;
+	transition: all 0.2s ease;
 }
 
 .calendar-day:hover {
-    background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .calendar-day.today {
-    background-color: #333;
-    color: white;
-    font-weight: 600;
+	background-color: #333;
+	color: white;
+	font-weight: 600;
 }
 
 .calendar-day.other-month {
-    color: #aaa;
+	color: #aaa;
 }
 
 /* 파일 목록 스타일 */
 .file-list {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .file-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color 0.2s ease;
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	border-bottom: 1px solid #f0f0f0;
+	transition: background-color 0.2s ease;
 }
 
 .file-item:hover {
-    background-color: #f8f8f8;
+	background-color: #f8f8f8;
 }
 
 .file-item i {
-    margin-right: 15px;
-    color: #555;
-    font-size: 1.1em;
+	margin-right: 15px;
+	color: #555;
+	font-size: 1.1em;
 }
 
 .file-date {
-    margin-left: auto;
-    color: #777;
-    font-size: 0.85em;
+	margin-left: auto;
+	color: #777;
+	font-size: 0.85em;
 }
 
 /* 공지사항 스타일 */
 .notice-list {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .notice-item {
-    padding: 20px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color 0.2s ease;
+	padding: 20px;
+	border-bottom: 1px solid #f0f0f0;
+	transition: background-color 0.2s ease;
 }
 
 .notice-item:hover {
-    background-color: #f8f8f8;
+	background-color: #f8f8f8;
 }
 
 .notice-item h4 {
-    margin: 0 0 8px 0;
-    color: #000;
-    font-weight: 600;
+	margin: 0 0 8px 0;
+	color: #000;
+	font-weight: 600;
 }
 
 .notice-item p {
-    margin: 0 0 8px 0;
-    color: #555;
-    line-height: 1.5;
+	margin: 0 0 8px 0;
+	color: #555;
+	line-height: 1.5;
 }
 
 .notice-date {
-    color: #777;
-    font-size: 0.85em;
+	color: #777;
+	font-size: 0.85em;
 }
 
 /* 일정 스타일 */
 .schedule-form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 25px;
 }
 
 .schedule-form input {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    flex-grow: 1;
-    background-color: #f8f8f8;
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	flex-grow: 1;
+	background-color: #f8f8f8;
 }
 
 .schedule-form button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
+	padding: 10px 20px;
+	background-color: #333;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: background-color 0.2s ease;
 }
 
 .schedule-form button:hover {
-    background-color: #000;
+	background-color: #000;
 }
 
 .schedule-list {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .schedule-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color 0.2s ease;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px;
+	border-bottom: 1px solid #f0f0f0;
+	transition: background-color 0.2s ease;
 }
 
 .schedule-item:hover {
-    background-color: #f8f8f8;
+	background-color: #f8f8f8;
 }
 
 .schedule-item .schedule-info {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .schedule-item .schedule-date {
-    color: #777;
-    font-size: 0.85em;
-    margin-left: 15px;
+	color: #777;
+	font-size: 0.85em;
+	margin-left: 15px;
 }
 
 .schedule-item .delete-schedule {
-    color: #777;
-    cursor: pointer;
-    transition: color 0.2s ease;
+	color: #777;
+	cursor: pointer;
+	transition: color 0.2s ease;
 }
 
 .schedule-item .delete-schedule:hover {
-    color: #333;
+	color: #333;
 }
 /* 캘린더 스타일링 */
 #calendar {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	width: 100% !important;
+	height: 600px !important; /* 고정 높이 지정 */
+	margin: 20px 0;
+	padding: 10px;
+	background-color: white;
+	border-radius: 8px;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+.fc-view-harness {
+	min-height: 500px !important;
 }
 
 .fc-toolbar-title {
-    font-size: 1.2em;
-    color: #333;
+	font-size: 1.2em;
+	color: #333;
 }
 
 .fc-daygrid-day-number {
-    color: #555;
+	color: #555;
 }
 
 .fc-event {
-    background-color: #4a6fa5;
-    border: none;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 0.85em;
+	background-color: #4a6fa5;
+	border: none;
+	padding: 2px 4px;
+	border-radius: 3px;
+	font-size: 0.85em;
 }
 
 .fc-event:hover {
-    background-color: #3a5a8f;
+	background-color: #3a5a8f;
+}
+
+dialog {
+	position: fixed;
+	width: 300px;
+	z-index: 100;
+	padding: 30px;
+	background: #fff;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+	margin: 0;
+}
+/* dialog 스타일 */
+dialog {
+	position: fixed;
+	width: 450px;
+	height: 300px;
+	z-index: 100;
+	padding: 60px;
+	background: #fff;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	margin: 0;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+
+.dialog-header {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 30px;
+	color: #333;
+}
+
+.dialog-content {
+	font-size: 18px;
+	color: #555;
+	margin-bottom: 30px;
+}
+
+.dialog-button {
+	padding: 14px 30px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 18px;
+	background-color: #000;
+	color: white;
+	transition: background-color 0.2s ease;
+}
+
+.dialog-button:hover {
+	background-color: #555;
+}
+
+.popup-content {
+	margin: 20px;
+	font-size: 20px;
+}
+
+.event-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.event-modal .modal-content {
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	width: 400px;
+	max-width: 90%;
+}
+
+.event-modal .form-group {
+	margin-bottom: 15px;
+}
+
+.event-modal label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.event-modal input, .event-modal textarea {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.event-modal textarea {
+	height: 100px;
+	resize: vertical;
+}
+
+.event-modal .form-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+}
+
+.event-modal button {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.event-modal button[type="submit"] {
+	background: black;
+	color: white;
+}
+
+.event-modal button[type="button"] {
+	background: black;
+	color: white;
 }
