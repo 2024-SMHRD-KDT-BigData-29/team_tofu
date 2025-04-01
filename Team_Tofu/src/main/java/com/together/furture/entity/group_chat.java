@@ -21,4 +21,5 @@ public class group_chat {
 	private String chat_emoticon;
 	private String chat_file;
 	private Timestamp created_at;
+	private String user_nick;
 }

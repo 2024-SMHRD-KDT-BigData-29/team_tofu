@@ -10,7 +10,7 @@ socket.onopen = () => {
 
 socket.onmessage = (event) => {
 	const msg = JSON.parse(event.data);
-	if (msg.croom_idx == croom_idx) {
+	if (parseInt(msg.croom_idx) === parseInt(croom_idx)) {
 		appendMessage(msg);
 	}
 };
@@ -46,24 +46,37 @@ function sendMessage() {
 		socket.send(JSON.stringify(msg));
 		input.value = "";
 	} else {
-		alert("⚠️ 웹소켓 연결 상태가 좋지 않습니다.");
+		alert("⚠️ 연결이 끊어졌습니다.");
 	}
 }
 
+// ✅ 메시지 추가
 function appendMessage(msg) {
 	const box = document.getElementById("group-chat-messages");
 	const msgDiv = document.createElement("div");
-	msgDiv.className = (msg.chatter === chatter) ? "group-message user" : "group-message other";
-	msgDiv.innerHTML = `<b>${msg.chatter}</b>: ${msg.chat_content}`;
+	const isMine = msg.chatter === chatter;
+
+	msgDiv.className = "message " + (isMine ? "user" : "other");
+	msgDiv.innerHTML = `
+		<span class="nickname">${msg.chatter}</span>
+		<div class="bubble">${msg.chat_content}</div>
+	`;
 	box.appendChild(msgDiv);
 	box.scrollTop = box.scrollHeight;
 }
 
-// ✅ 기존 채팅 로딩
-window.onload = () => {
-	fetch(`/chat/messages/${croom_idx}`)
-		.then(res => res.json())
+
+// ✅ 기존 메시지 불러오기 (onload 시점)
+window.addEventListener("DOMContentLoaded", () => {
+	fetch("chat/messages?croom_idx=" + croom_idx)
+		.then(res => {
+			if (!res.ok) throw new Error("서버 응답 실패");
+			return res.json();
+		})
 		.then(list => {
 			list.forEach(msg => appendMessage(msg));
+		})
+		.catch(err => {
+			console.error("❌ 기존 메시지 불러오기 실패:", err);
 		});
-};
+});
