@@ -153,7 +153,6 @@ public class user_info_controller {
 					login_user.getUser_role(), // 회원구분 유지
 					login_user.getJoined_at() // 가입일자 유지
 			);
-			System.out.println("대존잘 김원영 check : " + user.toString());
 
 			// DB 업데이트
 			mapper.user_update(user);
