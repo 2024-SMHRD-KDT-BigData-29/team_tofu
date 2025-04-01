@@ -35,7 +35,6 @@
     <!-- 회원 탈퇴 처리 xml -->
    
     <delete id="user_delete" parameterType="com.together.furture.entity.user_info">
-        DELETE FROM user_info
-        WHERE user_pw = #{userPw}
+        DELETE FROM user_info WHERE user_id = #{user_id}
     </delete>
 </mapper>

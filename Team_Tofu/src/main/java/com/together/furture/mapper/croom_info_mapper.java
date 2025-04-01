@@ -1,8 +1,10 @@
 package com.together.furture.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.together.furture.entity.cowork_info;
 import com.together.furture.entity.croom_info;
 import com.together.furture.entity.insert_cowork;
 
@@ -10,8 +12,6 @@ import com.together.furture.entity.insert_cowork;
 
 @Mapper
 public interface croom_info_mapper {
-	// 특정 협업방의 참여자 추가
-    void addParticipant(int coworkId, String userId);
     
     // 협업방 정보
     croom_info cowork(croom_info cowork);
@@ -19,8 +19,19 @@ public interface croom_info_mapper {
     // 특정 협업방 정보 조회
     insert_cowork getCoworkById(int coworkId);
 
-    // 특정 협업방의 참여자 수 조회 (선택적)
-    int getParticipantCount(int coworkId);
+	void update_croom(croom_info croom);
+
+	croom_info getcw_idx(cowork_info cw_idx);
+
+	croom_info getCroomByCwIdx(int cw_idx);
+
+	void updateCroomLimit(croom_info croom);
+
+	void createCroom(croom_info croom);
     
+	void addParticipant(@Param("cw_idx") int cw_idx, @Param("user_id")String user_id); // 참여자 추가
+    
+	boolean isUserInCroom(@Param("cw_idx") int cw_idx, @Param("user_id")String user_id); // 참여 여부 확인
+	
 }
 
