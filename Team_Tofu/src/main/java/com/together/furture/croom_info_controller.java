@@ -40,10 +40,14 @@ public class croom_info_controller {
 
 	@PostMapping("find_detail")
 	public String find_detail(@RequestParam("sel") int cw_idx, Model model) {
-		insert_cowork cowork = comapper.getCoworkById(cw_idx);
-		model.addAttribute("insert_cowork", cowork);
-		System.out.println("cw_idx : " + cowork);
-		return "find_detail";
-	}
+	    insert_cowork cowork = comapper.getCoworkById(cw_idx);
+	    
+	    // JSP에서 사용할 수 있도록 모델에 추가
+	    model.addAttribute("insert_cowork", cowork);
+	    
+	    System.out.println("cw_idx : " + cowork);
+	    
+	    return "find_detail";
 	
+}
 }

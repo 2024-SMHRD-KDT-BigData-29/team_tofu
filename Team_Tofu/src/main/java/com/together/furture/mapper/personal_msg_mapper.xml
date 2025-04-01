@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.together.furture.mapper.personal_msg_mapper">
+
+	<insert id="insert_msg"
+		parameterType="com.together.furture.entity.personal_msg">
+		INSERT INTO personal_msg_info
+		(sender_id, receiver_id,
+		p_msg_content, sended_at, is_read)
+		VALUES
+		(#{sender_id}, #{receiver_id},
+		#{p_msg_content}, NOW(), 0)
+	</insert>
+
+	<select id="getMessagesBetween"
+		resultType="com.together.furture.entity.personal_msg">
+		SELECT * FROM personal_msg_info
+		WHERE (sender_id =
+		#{sender_id} AND receiver_id = #{receiver_id})
+		OR (sender_id =
+		#{receiver_id} AND receiver_id = #{sender_id})
+		ORDER BY sended_at ASC
+	</select>
+
+
+	<!-- 안 읽은 메시지 개수 조회 -->
+	<select id="countUnreadMessages" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM personal_msg_info
+		WHERE receiver_id =
+		#{userId}
+		AND is_read = '0'
+	</select>
+
+	<select id="getChatPreviewList"
+		resultType="com.together.furture.entity.ChatPreview">
+		SELECT
+		m1.receiver_id AS user_id,
+		u.user_nick,
+		u.user_profile,
+		m1.p_msg_content AS last_msg,
+		DATE_FORMAT(m1.sended_at, '%Y-%m-%d %H:%i') AS sended_at
+		FROM personal_msg_info m1
+		JOIN (
+		SELECT
+		CASE
+		WHEN sender_id = #{userId} THEN receiver_id
+		ELSE sender_id
+		END AS user_id,
+		MAX(sended_at) AS max_time
+		FROM personal_msg_info
+		WHERE sender_id = #{userId} OR receiver_id = #{userId}
+		GROUP BY user_id
+		) m2 ON ((m1.receiver_id = m2.user_id OR m1.sender_id = m2.user_id)
+		AND m1.sended_at = m2.max_time)
+		JOIN user_info u ON u.user_id = m2.user_id
+		WHERE (m1.sender_id = #{userId} OR m1.receiver_id = #{userId})
+	</select>
+
+	<select id="getChatHistory"
+		resultType="com.together.furture.entity.personal_msg">
+		SELECT *
+		FROM personal_msg_info
+		WHERE (sender_id = #{user1}
+		AND receiver_id = #{user2})
+		OR (sender_id = #{user2} AND receiver_id =
+		#{user1})
+		ORDER BY sended_at ASC
+	</select>
+</mapper>

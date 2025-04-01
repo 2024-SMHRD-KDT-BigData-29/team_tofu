@@ -46,13 +46,12 @@
 					${insert_cowork.cw_limit}명</div>
 				<div class="profile-status">${insert_cowork.hash_tag}</div>
 			</div>
-			<form action="group_chat">
-				<input type="hidden">
-				<button name=group_chat>
+			<form action="group_chat" method="get">
+    <input type="hidden" name="croom_idx" value="${insert_cowork.cw_idx}">
+				<button type="submit">
 					<i class="fas fa-comment-alt">그룹채팅</i>
 				</button>
 			</form>
-
 		</div>
 	</div>
 	<hr class="divider">

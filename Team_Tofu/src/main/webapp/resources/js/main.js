@@ -54,6 +54,8 @@ document.getElementById('profile-btn').addEventListener('click', function(e) {
                     <div class="profile-actions">
                         <button id="view-posts-button" onclick="location.href='mypost'">게시글 보기</button>
                         <button id="view-profile-button" onclick="location.href='mypage'">프로필 보기</button>
+                        <!-- 💌 여기 메시지함 버튼 추가 -->
+                    	<button id="view-message-button" onclick="location.href='my_msg_list'">메시지함</button>
                         <button id="logout" onclick="location.href='logout'">로그아웃</button>
                     </div>
                 </div>
@@ -77,6 +79,8 @@ document.getElementById('popup-overlay').addEventListener('click', function(e) {
 		this.style.display = 'none';
 	}
 });
+
+
 
 // 게시글 메뉴 기능
 document.addEventListener('DOMContentLoaded', function() {
@@ -109,6 +113,47 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+	// 이미지 또는 닉네임 클릭 시 사용자 프로필 팝업 (내 아이디는 제외)
+	document.querySelectorAll('.user-click-target').forEach(el => {
+		el.addEventListener('click', function() {
+			const clickedUserId = this.getAttribute('data-user-id');
+			const clickedUserNick = this.getAttribute('data-user-nick');
+
+			if (clickedUserId === user_id) {
+				console.log("내 프로필입니다. 팝업 띄우지 않음.");
+				return;
+			}
+
+			const popup = document.getElementById('popup-overlay');
+			popup.style.display = 'flex';
+
+			popup.innerHTML = `
+		    <div class="profile-container">
+		        <div class="profile-header">
+		            <h2>${clickedUserNick}님의 프로필</h2>
+		        </div>
+		        <div class="profile-content">
+		            <p>이 사용자에게 개인 메세지를 보내시겠습니까?</p>
+		            <div class="profile-actions">
+		                <a href="personal_chat?receiver_id=${clickedUserId}&receiver_nick=${clickedUserNick}">
+		                    <button>메세지 보내기</button>
+		                </a>
+		                <button onclick="document.getElementById('popup-overlay').style.display='none'">닫기</button>
+		            </div>
+		        </div>
+		    </div>
+		`;
+		});
+	});
+});
+// 개인 채팅 기능
+function startPrivateChat(userId, nickname) {
+	alert(`${nickname} (${userId})님에게 메세지를 보냅니다.`);
+	// DM 또는 채팅방 이동 구현 가능
+	document.getElementById('popup-overlay').style.display = 'none';
+}
+
 // 메뉴 옵션 클릭 시 이벤트 전파 방지
 document.querySelectorAll('.menu-option').forEach(option => {
 	option.addEventListener('click', function(e) {
@@ -118,45 +163,45 @@ document.querySelectorAll('.menu-option').forEach(option => {
 
 // 수정 기능
 function editPost(feed_idx) {
-    if (!feed_idx || isNaN(feed_idx)) {
-        console.error('유효하지 않은 feed_idx:', feed_idx);
-        alert('게시글 ID가 유효하지 않습니다.');
-        return;
-    }
-    console.log('수정할 feed_idx:', feed_idx);
-    window.location.href = contextPath + '/editPost/' + feed_idx;
+	if (!feed_idx || isNaN(feed_idx)) {
+		console.error('유효하지 않은 feed_idx:', feed_idx);
+		alert('게시글 ID가 유효하지 않습니다.');
+		return;
+	}
+	console.log('수정할 feed_idx:', feed_idx);
+	window.location.href = contextPath + '/editPost/' + feed_idx;
 }
 
 // 삭제 기능
 function deletePost(feed_idx) {
-    if (!feed_idx || isNaN(feed_idx)) {
-        console.error('유효하지 않은 feed_idx:', feed_idx);
-        alert('게시글 ID가 유효하지 않습니다.');
-        return;
-    }
+	if (!feed_idx || isNaN(feed_idx)) {
+		console.error('유효하지 않은 feed_idx:', feed_idx);
+		alert('게시글 ID가 유효하지 않습니다.');
+		return;
+	}
 
-    if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-        console.log('삭제할 feed_idx:', feed_idx);
-        fetch(contextPath + '/deletePost/' + feed_idx, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('게시물 삭제 성공');
-                window.location.href = contextPath + '/main'; // 삭제 후 리다이렉트
-            } else {
-                console.error('게시물 삭제 실패');
-                alert('게시물 삭제에 실패했습니다.');
-            }
-        })
-        .catch(error => {
-            console.error('삭제 요청 중 오류:', error);
-            alert('삭제 중 오류가 발생했습니다.');
-        });
-    }
+	if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+		console.log('삭제할 feed_idx:', feed_idx);
+		fetch(contextPath + '/deletePost/' + feed_idx, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then(response => {
+				if (response.ok) {
+					console.log('게시물 삭제 성공');
+					window.location.href = contextPath + '/main'; // 삭제 후 리다이렉트
+				} else {
+					console.error('게시물 삭제 실패');
+					alert('게시물 삭제에 실패했습니다.');
+				}
+			})
+			.catch(error => {
+				console.error('삭제 요청 중 오류:', error);
+				alert('삭제 중 오류가 발생했습니다.');
+			});
+	}
 }
 
 // 좋아요 버튼 클릭 시

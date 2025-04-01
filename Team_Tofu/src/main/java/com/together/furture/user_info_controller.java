@@ -79,6 +79,9 @@ public class user_info_controller {
 		request.getSession().setAttribute("user_nick", login_user.getUser_nick());
 		request.getSession().setAttribute("login_user", login_user);
 		System.out.println("로그인 성공, user_id: " + login_user.getUser_id());
+
+		HttpSession session = request.getSession();
+		session.setAttribute("user_id", login_user.getUser_id());
 		return "redirect:/main";
 	}
 
@@ -186,27 +189,4 @@ public class user_info_controller {
 		return "user_delete";
 	}
 
-	@PostMapping("/user_delete")
-	public String user_delete(user_info user, Model model, HttpServletRequest request) {
-
-		HttpSession session = request.getSession();
-		user = (user_info) session.getAttribute("login_user");
-
-		// 세션에있는 비밀번호
-		String session_pass = user.getUser_pw();
-
-		// 입력받은 비밀번호
-		String user_pw = request.getParameter("user_pw");
-
-		// 사용자 삭제 처리
-		int result = mapper.user_delete(user.getUser_pw()); // user_info_mapper에 deleteUser 메서드 가정
-			if (result == 1) {
-				System.out.println("사용자 삭제 성공: user_id=" + user.getUser_id());
-				session.invalidate(); // 세션에 저장된 유저정보 삭제
-				return "redirect:/";
-			} else {
-				System.out.println("사용자 삭제 실패: user_id=" + user.getUser_id());
-				return "user_delete"; // 삭제 페이지로 다시 이동
-			}
-	}
 }

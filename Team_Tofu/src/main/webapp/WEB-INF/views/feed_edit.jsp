@@ -34,7 +34,7 @@
             </div>
             
             <!-- 파일 추가 버튼 -->
-            <input type="file" name="feed_file" id="add-file-btn" class="add-file-btn">파일 추가</input>
+            <input type="file" name="feed_file" id="add-file-btn" class="add-file-btn">파일 추가
             
             <!-- 태그 입력란 -->
             <input type="text" name="hash_tag" placeholder="테그를 추가 해주세요 (예: #태그1 #태그2)" class="form-input" value="${feed.hash_tag}">

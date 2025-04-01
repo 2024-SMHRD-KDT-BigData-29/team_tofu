@@ -1,55 +1,52 @@
-// 메세지 전송기능
-document.getElementById('send-button').addEventListener('click', function() {
-    sendMessage();
-});
+// group_chat.js
+const croom_idx = window.croom_idx || 1;
+const chatter = window.chatter || "익명";
 
-document.getElementById('message-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        sendMessage();
-    }
-});
-
-document.getElementById('back-button').addEventListener('click', function() {
-    alert('뒤로가기 버튼이 클릭되었습니다.'); // 실제로는 페이지 이동 또는 다른 동작을 구현
-});
-
-// 상대방의 응답 목록
-const responses = [
-    "네, 알겠습니다.",
-    "그렇게 해주세요.",
-    "좋은 생각이에요.",
-    "잘 들었습니다.",
-    "그런가요?",
-    "좋아요!",
-    "고마워요!",
-    "그럼요!",
-    "물론이죠.",
-    "확인했습니다."
-];
-
-function getRandomResponse() {
-    return responses[Math.floor(Math.random() * responses.length)];
+// 메시지 로딩
+function loadMessages() {
+    $.ajax({
+        url: "/chat/messages/" + croom_idx,
+        method: "GET",
+        success: function (messages) {
+            $("#chat-messages").html(""); // 기존 비우기
+            messages.forEach(msg => {
+                const alignment = msg.chatter === chatter ? "user" : "other";
+                $("#chat-messages").append(
+                    `<div class="message ${alignment}"><b>${msg.chatter}</b>: ${msg.chat_content}</div>`
+                );
+            });
+        },
+        error: function (err) {
+            console.error("메시지 불러오기 실패:", err);
+        }
+    });
 }
 
-function sendMessage() {
-    const input = document.getElementById('message-input');
-    const message = input.value.trim();
-    if (message !== '') {
-        const chatMessages = document.getElementById('chat-messages');
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', 'user');
-        messageElement.textContent = message;
-        chatMessages.appendChild(messageElement);
-        input.value = '';
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+// 메시지 전송
+$("#send-button").click(function () {
+    const message = $("#message-input").val();
+    if (!message) return;
 
-        // 상대방의 응답을 시뮬레이션
-        setTimeout(() => {
-            const responseElement = document.createElement('div');
-            responseElement.classList.add('message', 'other');
-            responseElement.textContent = getRandomResponse();
-            chatMessages.appendChild(responseElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 1000);
-    }
-}
+    $.ajax({
+        url: "/chat/send",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            croom_idx: croom_idx,
+            chatter: chatter,
+            chat_content: message
+        }),
+        success: function () {
+            $("#message-input").val("");
+            loadMessages();
+        },
+        error: function (err) {
+            console.error("메시지 전송 실패:", err);
+        }
+    });
+});
+
+$(document).ready(function () {
+    loadMessages();
+    setInterval(loadMessages, 2000);
+});
