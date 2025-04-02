@@ -44,12 +44,12 @@
 
 	<!-- 스토리 섹션 -->
 	<div id="story-section">
-		<c:forEach var="i" begin="1" end="5">
+		<%-- <c:forEach var="i" begin="1" end="5">
 			<div class="story">
 				<img src="resources/images/story${i}.jpg" alt="프로필${i}"> <span
 					class="story-nickname">닉네임${i}</span>
 			</div>
-		</c:forEach>
+		</c:forEach> --%>
 	</div>
 
 	<!-- 피드 섹션 -->

@@ -13,11 +13,31 @@
 		<h2 class="msg-title">채팅 목록</h2>
 	</div>
 
-	<!-- 채팅 목록 -->
 	<div class="chat-list">
-		<c:forEach var="chat" items="${chatRoomList}">
-
-			<!-- ✅ 이 조건문으로 감싸줘야 null user_id 때문에 생기는 오류 방지 가능 -->
+		<!-- 그룹채팅 -->
+		<h3 class="section-title">그룹 채팅</h3>
+		<c:forEach var="room" items="${groupList}">
+			<div class="chat-item"
+				onclick="location.href='group_chat?croom_idx=${room.croom_idx}'">
+				<img class="chat-profile" src="resources/img/default_profile.png" />
+				<div class="chat-content">
+					<div class="chat-top">
+						<span class="chat-nick">${room.croom_title}</span>
+						<div class="chat-meta">
+							<c:if
+								test="${room.unread_count != null and room.unread_count > 0}">
+								<span class="unread-badge">${room.unread_count}</span>
+							</c:if>
+							<span class="chat-time">${room.sended_at}</span>
+						</div>
+					</div>
+					<div class="chat-msg">${room.last_msg}</div>
+				</div>
+			</div>
+		</c:forEach>
+		<!-- 개인 채팅 목록 -->
+		<h3 class="section-title">개인 채팅</h3>
+		<c:forEach var="chat" items="${personalList}">
 			<c:if test="${not empty chat.user_id}">
 				<div class="chat-item"
 					onclick="location.href='personal_chat?receiver_id=${chat.user_id}&receiver_nick=${chat.user_nick}'">
@@ -38,7 +58,10 @@
 				</div>
 			</c:if>
 		</c:forEach>
+
+
 	</div>
+
 </body>
 <script>
 	function goBack() {
@@ -55,6 +78,10 @@
 		if (sessionStorage.getItem("chatJustRead") === "true") {
 			sessionStorage.removeItem("chatJustRead");
 			location.reload(); // 🔁 강제 새로고침
+		}
+		if (sessionStorage.getItem("groupChatJustRead") === "true") {
+			sessionStorage.removeItem("groupChatJustRead");
+			location.reload(); // 🔁 메세지함 자동 새로고침
 		}
 	});
 	window.addEventListener("pageshow", function() {

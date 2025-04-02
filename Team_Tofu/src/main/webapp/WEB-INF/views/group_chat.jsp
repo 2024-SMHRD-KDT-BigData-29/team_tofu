@@ -23,6 +23,15 @@
 			</c:forEach>
 		</div>
 
+		<!-- 회의록 저장 버튼 -->
+		<div class="chat-download">
+			<form action="group_chat/download" method="get">
+				<input type="hidden" name="croom_idx"
+					value="${croom_info.croom_idx}">
+				<button type="submit">📄 회의록 저장</button>
+			</form>
+		</div>
+
 		<!-- 채팅 내용 -->
 		<div class="chat-box" id="group-chat-box"
 			data-croom-idx="${croom_info.croom_idx}"
@@ -46,23 +55,33 @@
 		</div>
 	</div>
 
-	<script src="resources/js/group_chat.js"></script>
 	<script>
-		function goBack() {
-			window.history.back();
-		}
-		window.onload = () => {
-			fetch("chat/messages?croom_idx=" + croom_idx)
-				.then(res => res.json())
-				.then(list => {
-					list.forEach(msg => appendMessage(msg));
-					// ✅ 불러오고 나서도 맨 아래로
-					const box = document.getElementById("group-chat-messages");
-					box.scrollTop = box.scrollHeight;
-				})
-				.catch(err => console.error("❌ 채팅 불러오기 실패", err));
-		};
-	</script>
+	function goBack() {
+		sessionStorage.setItem("groupChatJustRead", "true"); // ✅ 알림 제거 플래그 저장
+		window.history.back();
+	}
+
+	window.onload = () => {
+		const chatBox = document.getElementById("group-chat-messages");
+		const croom_idx = document.getElementById("group-chat-box").getAttribute("data-croom-idx");
+		
+		fetch("chat/messages?croom_idx=" + croom_idx)
+			.then(res => res.json())
+			.then(list => {
+				list.forEach(msg => appendMessage(msg));
+
+				// ✅ DOM 업데이트 완료 후 스크롤 이동
+				setTimeout(() => {
+					chatBox.scrollTop = chatBox.scrollHeight;
+					console.log("✅ 그룹채팅 스크롤 맨 아래 이동 완료");
+				}, 0);
+			})
+			.catch(err => {
+				console.error("❌ 메시지 로딩 실패:", err);
+			});
+	};
+</script>
+	<script src="resources/js/group_chat.js"></script>
 
 </body>
 </html>
