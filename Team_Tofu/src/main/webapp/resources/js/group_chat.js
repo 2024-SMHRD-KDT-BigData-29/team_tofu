@@ -1,55 +1,82 @@
-// 메세지 전송기능
-document.getElementById('send-button').addEventListener('click', function() {
-    sendMessage();
+const croom_idx = document.getElementById("group-chat-box").getAttribute("data-croom-idx");
+const chatter = document.getElementById("group-chat-box").getAttribute("data-chatter");
+
+// ✅ WebSocket 연결
+const socket = new WebSocket("ws://" + location.host + "/furture/group");
+
+socket.onopen = () => {
+	console.log("✅ 그룹채팅 웹소켓 연결 완료");
+};
+
+socket.onmessage = (event) => {
+	const msg = JSON.parse(event.data);
+	if (parseInt(msg.croom_idx) === parseInt(croom_idx)) {
+		appendMessage(msg);
+	}
+};
+
+socket.onerror = (error) => {
+	console.error("❌ 웹소켓 에러:", error);
+};
+
+socket.onclose = () => {
+	console.warn("⚠️ 웹소켓 연결 종료");
+};
+
+// ✅ 메시지 전송
+const input = document.getElementById("group-message-input");
+const button = document.getElementById("group-send-button");
+
+button.addEventListener("click", sendMessage);
+input.addEventListener("keypress", (e) => {
+	if (e.key === "Enter") sendMessage();
 });
-
-document.getElementById('message-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        sendMessage();
-    }
-});
-
-document.getElementById('back-button').addEventListener('click', function() {
-    alert('뒤로가기 버튼이 클릭되었습니다.'); // 실제로는 페이지 이동 또는 다른 동작을 구현
-});
-
-// 상대방의 응답 목록
-const responses = [
-    "네, 알겠습니다.",
-    "그렇게 해주세요.",
-    "좋은 생각이에요.",
-    "잘 들었습니다.",
-    "그런가요?",
-    "좋아요!",
-    "고마워요!",
-    "그럼요!",
-    "물론이죠.",
-    "확인했습니다."
-];
-
-function getRandomResponse() {
-    return responses[Math.floor(Math.random() * responses.length)];
-}
 
 function sendMessage() {
-    const input = document.getElementById('message-input');
-    const message = input.value.trim();
-    if (message !== '') {
-        const chatMessages = document.getElementById('chat-messages');
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', 'user');
-        messageElement.textContent = message;
-        chatMessages.appendChild(messageElement);
-        input.value = '';
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+	const content = input.value.trim();
+	if (!content) return;
 
-        // 상대방의 응답을 시뮬레이션
-        setTimeout(() => {
-            const responseElement = document.createElement('div');
-            responseElement.classList.add('message', 'other');
-            responseElement.textContent = getRandomResponse();
-            chatMessages.appendChild(responseElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 1000);
-    }
+	const msg = {
+		croom_idx: croom_idx,
+		chatter: chatter,
+		chat_content: content
+	};
+
+	if (socket.readyState === WebSocket.OPEN) {
+		socket.send(JSON.stringify(msg));
+		input.value = "";
+	} else {
+		alert("⚠️ 연결이 끊어졌습니다.");
+	}
 }
+
+// ✅ 메시지 추가
+function appendMessage(msg) {
+	const box = document.getElementById("group-chat-messages");
+	const msgDiv = document.createElement("div");
+	const isMine = msg.chatter === chatter;
+
+	msgDiv.className = "message " + (isMine ? "user" : "other");
+	msgDiv.innerHTML = `
+		<span class="nickname">${msg.chatter}</span>
+		<div class="bubble">${msg.chat_content}</div>
+	`;
+	box.appendChild(msgDiv);
+	box.scrollTop = box.scrollHeight;
+}
+
+
+// ✅ 기존 메시지 불러오기 (onload 시점)
+window.addEventListener("DOMContentLoaded", () => {
+	fetch("chat/messages?croom_idx=" + croom_idx)
+		.then(res => {
+			if (!res.ok) throw new Error("서버 응답 실패");
+			return res.json();
+		})
+		.then(list => {
+			list.forEach(msg => appendMessage(msg));
+		})
+		.catch(err => {
+			console.error("❌ 기존 메시지 불러오기 실패:", err);
+		});
+});

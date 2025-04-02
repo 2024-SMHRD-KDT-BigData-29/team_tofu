@@ -2,9 +2,6 @@ package com.together.furture;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.together.furture.entity.user_info;
 import com.together.furture.mapper.user_info_mapper;
 import com.together.furture.util.FileUploadUtil;
@@ -82,6 +78,9 @@ public class user_info_controller {
 		request.getSession().setAttribute("user_nick", login_user.getUser_nick());
 		request.getSession().setAttribute("login_user", login_user);
 		System.out.println("로그인 성공, user_id: " + login_user.getUser_id());
+
+		HttpSession session = request.getSession();
+		session.setAttribute("user_id", login_user.getUser_id());
 		return "redirect:/main";
 	}
 
@@ -180,7 +179,7 @@ public class user_info_controller {
 		return "redirect:/main";
 	}
 
-	// 회원 탈퇴 처리
+	// 회원 탈퇴 페이지 이동
 	@RequestMapping("/user_delete")
 	public String delete() {
 		System.out.println("회원탈퇴 페이지 이동");
@@ -188,9 +187,12 @@ public class user_info_controller {
 		return "user_delete";
 	}
 
+	// 회원 탈퇴
+
 	@PostMapping("/user_delete.do")
 	public String user_delete(user_info user, Model model, HttpServletRequest request) {
 		System.out.println("user_delete_do");
+
 			HttpSession session = request.getSession();
 			user_info login_user = (user_info) session.getAttribute("login_user");
 			// 1. user_id와 user_pw 가져오기
@@ -225,7 +227,7 @@ public class user_info_controller {
 				System.out.println("asd");
 				return "user_delete";
 			}
-	}
-	
-	
+
+
+}
 }

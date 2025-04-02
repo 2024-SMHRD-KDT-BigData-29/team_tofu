@@ -120,6 +120,31 @@ body {
    border: 2px solid #333;
    border-radius: 50%;
 }
+
+/* 알림(종) 버튼 스타일 */
+#notification-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+/* 알림 뱃지 */
+#notification-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: none;
+}
+
 /* 컨테이너 조정 */
 .container {
    max-width: 1000px;

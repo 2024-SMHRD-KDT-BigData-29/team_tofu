@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.together.furture.entity.user_info;
-import com.together.furture.mapper.profile_mapper;
+import com.together.furture.mapper.personal_msg_mapper;
 import com.together.furture.mapper.user_info_mapper;
 
 @Controller

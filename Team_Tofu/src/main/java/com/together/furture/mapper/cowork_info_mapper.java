@@ -11,13 +11,14 @@ import com.together.furture.entity.user_info;
 @Mapper
 public interface cowork_info_mapper {
 
-	int insertcowork(insert_cowork cowork);
-	
-	user_info user_login(user_info user);
+   int insertcowork(insert_cowork cowork);
+   
+   user_info user_login(user_info user);
 
-	List<insert_cowork> getCoworkList();
+   List<insert_cowork> getCoworkList();
 
-	insert_cowork getCoworkById(int cw_idx);
+   insert_cowork getCoworkById(int cw_idx);
+
 
 
 

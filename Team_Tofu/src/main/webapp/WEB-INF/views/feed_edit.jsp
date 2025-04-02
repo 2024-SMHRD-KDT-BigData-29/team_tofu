@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="write-wrapper">
+        <form method="post" id="write-form" action="${pageContext.request.contextPath}/update_feed" enctype="multipart/form-data">
         <h1>피드 게시글 수정</h1>
         <input type="hidden" name="feed_idx" value="${feed.feed_idx}">
-        <form method="post" id="write-form" action="${pageContext.request.contextPath}/update_feed" enctype="multipart/form-data">
             
             <!-- 제목 입력란 -->
             <input type="text" name="feed_title" placeholder="제목" class="form-input" value="${feed.feed_title}" required />
@@ -34,7 +34,7 @@
             </div>
             
             <!-- 파일 추가 버튼 -->
-            <input type="file" name="feed_file" id="add-file-btn" class="add-file-btn">파일 추가</input>
+            <input type="file" name="feed_file" id="add-file-btn" class="add-file-btn">파일 추가
             
             <!-- 태그 입력란 -->
             <input type="text" name="hash_tag" placeholder="테그를 추가 해주세요 (예: #태그1 #태그2)" class="form-input" value="${feed.hash_tag}">

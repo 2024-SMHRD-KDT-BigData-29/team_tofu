@@ -27,14 +27,20 @@
                 </div>
                 <div id="post-content" class="post-text">${login_user.user_intro}</div>
             </div>
+	    <c:forEach var="f" items="${feedList}">
             <!-- 이전 게시글 목록 -->
             <div class="previous-posts">
                 <h3>나의  게시글</h3>
 	         	<div class="post-list" id="post-list">
-	            
+					<div class="room">
+						<div class="room-author">
+							
+						</div>
+					</div>
 	            <!-- 이전 게시글 자동 로드 위치 -->
 	        	</div>
             </div>
+        </c:forEach>    
         </div>
 
         <!-- 하단 버튼 -->

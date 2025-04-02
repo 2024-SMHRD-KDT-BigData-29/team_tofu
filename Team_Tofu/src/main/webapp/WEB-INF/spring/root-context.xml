@@ -29,6 +29,7 @@
    <bean id="sqlSessionFactory"
       class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />
+      <property name="mapperLocations" value="classpath*:com/together/furture/mapper/*.xml" />
    </bean>
 
    <!-- @Mapper -> Mapper 인터페이스를 메모리에 적재 -->

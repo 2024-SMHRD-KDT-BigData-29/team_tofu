@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.together.furture.mapper.personal_msg_mapper">
+
+	<!-- 메시지 저장 -->
+	<insert id="insert_msg"
+		parameterType="com.together.furture.entity.personal_msg">
+		INSERT INTO personal_msg_info
+		(sender_id, receiver_id,
+		p_msg_content, sended_at, is_read)
+		VALUES (#{sender_id},
+		#{receiver_id}, #{p_msg_content}, NOW(), 0)
+	</insert>
+
+	<!-- 두 유저 간 전체 메시지 불러오기 -->
+	<select id="getMessagesBetween"
+		resultType="com.together.furture.entity.personal_msg">
+		SELECT * FROM personal_msg_info
+		WHERE (sender_id =
+		#{sender_id} AND receiver_id = #{receiver_id})
+		OR (sender_id =
+		#{receiver_id} AND receiver_id = #{sender_id})
+		ORDER BY sended_at ASC
+	</select>
+
+	<!-- 채팅방 진입 시 전체 대화 내역 -->
+	<select id="getChatHistory"
+		resultType="com.together.furture.entity.personal_msg">
+		SELECT * FROM personal_msg_info
+		WHERE (sender_id = #{user1}
+		AND receiver_id = #{user2})
+		OR (sender_id = #{user2} AND receiver_id =
+		#{user1})
+		ORDER BY sended_at ASC
+	</select>
+
+	<!-- 안 읽은 메시지 수 -->
+	<select id="countUnreadMessages" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*) FROM personal_msg_info
+		WHERE receiver_id =
+		#{userId} AND is_read = '0'
+	</select>
+
+	<!-- 메시지 목록 미리보기 (최근 메시지, 읽지 않음 수 포함) -->
+	<select id="getChatPreviewList"
+		resultType="com.together.furture.entity.ChatPreview">
+		SELECT
+		chat_users.user_id,
+		(
+		SELECT p_msg_content
+		FROM
+		personal_msg_info
+		WHERE (sender_id = #{userId} AND receiver_id =
+		chat_users.user_id)
+		OR (sender_id = chat_users.user_id AND receiver_id
+		= #{userId})
+		ORDER BY sended_at DESC
+		LIMIT 1
+		) AS last_msg,
+		(
+		SELECT
+		sended_at
+		FROM personal_msg_info
+		WHERE (sender_id = #{userId} AND
+		receiver_id = chat_users.user_id)
+		OR (sender_id = chat_users.user_id
+		AND receiver_id = #{userId})
+		ORDER BY sended_at DESC
+		LIMIT 1
+		) AS
+		sended_at,
+		(
+		SELECT COUNT(*)
+		FROM personal_msg_info
+		WHERE receiver_id =
+		#{userId}
+		AND sender_id = chat_users.user_id
+		AND is_read = '0'
+		) AS
+		unread_count,
+		u.user_nick,
+		u.user_profile
+		FROM (
+		SELECT
+		CASE
+		WHEN sender_id
+		= #{userId} THEN receiver_id
+		ELSE sender_id
+		END AS user_id
+		FROM
+		personal_msg_info
+		WHERE sender_id = #{userId} OR receiver_id =
+		#{userId}
+		GROUP BY user_id
+		) chat_users
+		JOIN user_info u ON u.user_id =
+		chat_users.user_id
+	</select>
+
+	<!-- 읽음 처리 -->
+	<update id="markMessagesAsRead">
+		UPDATE personal_msg_info
+		SET is_read = '1'
+		WHERE
+		receiver_id = #{receiverId}
+		AND sender_id = #{senderId}
+		AND is_read =
+		'0'
+	</update>
+
+</mapper>

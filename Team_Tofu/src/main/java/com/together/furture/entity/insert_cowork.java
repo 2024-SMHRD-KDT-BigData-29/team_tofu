@@ -42,6 +42,7 @@ public class insert_cowork {
     // 협업 식별자
     private Integer cw_idx;
     
+
     // 실제 참여자 
     private Integer currentParticipants;
     
@@ -52,6 +53,7 @@ public class insert_cowork {
                ", hash_tag=" + hash_tag + ", user_id=" + user_id + ", user_nick=" + user_nick + 
                ", currentParticipants=" + currentParticipants + ")";
     }
+
     
 	
 }

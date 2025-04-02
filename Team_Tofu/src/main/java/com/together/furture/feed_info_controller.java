@@ -124,81 +124,95 @@ public class feed_info_controller {
 		return "feed_edit";
 	}
 
-	// 게시물 수정 처리
 	@PostMapping("/update_feed")
 	public String update_feed(HttpServletRequest request) {
-		MultipartRequest multi = null;
+	    MultipartRequest multi = null;
 
-		try {
-			// 파일 업로드 처리
-			multi = feedUploadUtile.feedupload(request);
+	    try {
+	        // 파일 업로드 처리
+	        multi = feedUploadUtile.feedupload(request);
+	        System.out.println("파일 업로드 완료");
 
-			// feed_idx 검증
-			String feedIdxStr = multi.getParameter("feed_idx");
-			if (feedIdxStr == null || feedIdxStr.trim().isEmpty()) {
-				System.out.println("feed_idx가 전달되지 않았습니다. 요청 파라미터 확인: " + multi.getParameterNames());
-				return "redirect:/main";
-			}
+	        // feed_idx 검증
+	        String feedIdxStr = multi.getParameter("feed_idx");
+	        System.out.println("전달된 feed_idx: " + feedIdxStr);
+	        if (feedIdxStr == null || feedIdxStr.trim().isEmpty()) {
+	            System.out.println("feed_idx가 전달되지 않았습니다. 요청 파라미터 확인: " + multi.getParameterNames());
+	            return "redirect:/main";
+	        }
 
-			int feed_idx;
-			try {
-				feed_idx = Integer.parseInt(feedIdxStr);
-			} catch (NumberFormatException e) {
-				System.out.println("feed_idx 형식이 잘못되었습니다: " + feedIdxStr);
-				return "redirect:/main";
-			}
+	        int feed_idx;
+	        try {
+	            feed_idx = Integer.parseInt(feedIdxStr);
+	            System.out.println("파싱된 feed_idx: " + feed_idx);
+	        } catch (NumberFormatException e) {
+	            System.out.println("feed_idx 형식이 잘못되었습니다: " + feedIdxStr);
+	            return "redirect:/main";
+	        }
 
-			String feed_title = multi.getParameter("feed_title");
-			String feed_content = multi.getParameter("feed_content");
-			String hash_tag = multi.getParameter("hash_tag");
-			String feed_file = multi.getFilesystemName("feed_file");
+	        String feed_title = multi.getParameter("feed_title");
+	        String feed_content = multi.getParameter("feed_content");
+	        String hash_tag = multi.getParameter("hash_tag");
+	        String feed_file = multi.getFilesystemName("feed_file");
 
-			// 필수 필드 검증
-			if (feed_title == null || feed_title.trim().isEmpty()) {
-				System.out.println("feed_title은 필수 입력값입니다.");
-				return "redirect:/main";
-			}
+	        // 입력값 디버깅
+	        System.out.println("feed_title: " + feed_title);
+	        System.out.println("feed_content: " + feed_content);
+	        System.out.println("hash_tag: " + hash_tag);
+	        System.out.println("feed_file: " + feed_file);
 
-			// 기존 게시물 정보 가져오기
-			insert_feed existingFeed = mapper.getFeedById(feed_idx);
-			if (existingFeed == null) {
-				System.out.println("게시물이 존재하지 않습니다: feed_idx=" + feed_idx);
-				return "redirect:/main";
-			}
+	        // 필수 필드 검증
+	        if (feed_title == null || feed_title.trim().isEmpty()) {
+	            System.out.println("feed_title은 필수 입력값입니다.");
+	            return "redirect:/main";
+	        }
 
-			// 새 이미지가 업로드되지 않았으면 기존 이미지 유지
-			if (feed_file == null) {
-				feed_file = existingFeed.getFeed_file();
-			}
+	        // 기존 게시물 정보 가져오기
+	        insert_feed existingFeed = mapper.getFeedById(feed_idx);
+	        if (existingFeed == null) {
+	            System.out.println("게시물이 존재하지 않습니다: feed_idx=" + feed_idx);
+	            return "redirect:/main";
+	        }
+	        System.out.println("기존 게시물 데이터: " + existingFeed.toString());
 
-			// 수정된 데이터로 객체 생성
-			insert_feed feed = new insert_feed();
-			feed.setFeed_idx(feed_idx);
-			feed.setFeed_title(feed_title);
-			feed.setFeed_content(feed_content != null ? feed_content : "");
-			feed.setHash_tag(hash_tag != null ? hash_tag : "");
-			feed.setFeed_file(feed_file);
-			feed.setUser_id(existingFeed.getUser_id());
+	        // 새 이미지가 업로드되지 않았으면 기존 이미지 유지
+	        if (feed_file == null) {
+	            feed_file = existingFeed.getFeed_file();
+	            System.out.println("새 파일이 없으므로 기존 파일 사용: " + feed_file);
+	        }
 
-			// DB 업데이트
-			int result = mapper.updateFeed(feed);
-			if (result == 1) {
-				System.out.println("게시물 수정 성공: feed_idx=" + feed_idx);
-			} else {
-				System.out.println("게시물 수정 실패: feed_idx=" + feed_idx);
-			}
+	        // 수정된 데이터로 객체 생성
+	        insert_feed feed = new insert_feed();
+	        feed.setFeed_idx(feed_idx);
+	        feed.setFeed_title(feed_title);
+	        feed.setFeed_content(feed_content != null ? feed_content : "");
+	        feed.setHash_tag(hash_tag != null ? hash_tag : "");
+	        feed.setFeed_file(feed_file);
+	        feed.setUser_id(existingFeed.getUser_id());
 
-			return "redirect:/main";
+	        System.out.println("업데이트 전 feed 객체: " + feed.toString());
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("파일 업로드 중 오류 발생: " + e.getMessage());
-			return "redirect:/main";
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("예상치 못한 오류 발생: " + (e.getMessage() != null ? e.getMessage() : "알 수 없는 에러"));
-			return "redirect:/main";
-		}
+	        // DB 업데이트
+	        int result = mapper.updateFeed(feed);
+	        System.out.println("업데이트 쿼리 실행 결과: " + result);
+
+	        if (result == 1) {
+	            System.out.println("게시물 수정 성공: feed_idx=" + feed_idx);
+	        } else {
+	            System.out.println("게시물 수정 실패: feed_idx=" + feed_idx + ", result=" + result);
+	        }
+
+	        return "redirect:/main";
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        System.out.println("파일 업로드 중 오류 발생: " + e.getMessage());
+	        return "redirect:/main";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("예상치 못한 오류 발생: " + (e.getMessage() != null ? e.getMessage() : "알 수 없는 에러"));
+	        return "redirect:/main";
+	    }
 	}
 	@PostMapping("/deletePost/{feed_idx}")
 	public ResponseEntity<String> deletepost(@PathVariable("feed_idx") int idx) {

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.together.furture.mapper.croom_info_mapper">
 
-    <!-- 협업방 방 정보 생성 -->
+<!-- 협업방 방 정보 생성-->
 	<insert id="createCroom" parameterType="com.together.furture.entity.croom_info" useGeneratedKeys="true" keyProperty="croom_idx">
     	INSERT INTO croom_info (cw_idx, croom_title, croom_info, croom_img, croom_limit, created_at, user_id, croom_status)
    		VALUES (#{cw_idx}, #{croom_title}, #{croom_info}, #{croom_img}, #{croom_limit}, NOW(), #{user_id}, 'ACTIVE')
 	</insert>
-    <!-- cw_idx로 협업방 방 정보 조회 -->
-    <!-- <select id="getCroomByCwIdx" parameterType="int" resultType="com.together.furture.entity.croom_info">
+    <!-- cw_idx로 협업방 방 정보 조회
+    <select id="getCroomByCwIdx" parameterType="int" resultType="com.together.furture.entity.croom_info">
         SELECT 
         	croom_idx, 
         	cw_idx, 
@@ -24,7 +24,7 @@
     </select> -->
 
     <!-- 협업방 방 정보 업데이트 -->
-    <!-- <update id="updateCroom" parameterType="com.together.furture.entity.croom_info">
+    <update id="updateCroom" parameterType="com.together.furture.entity.croom_info">
         UPDATE croom_info
         SET 
             croom_limit = #{croom_limit},
@@ -33,8 +33,8 @@
             croom_img = #{croom_img},
             croom_status = #{croom_status}
         WHERE croom_idx = #{croom_idx}
-    </update> -->
-    <!-- croomMapper.xml -->
+    </update>
+    
 	<select id="getCroomByCwIdx" resultType="com.together.furture.entity.croom_info">
     	SELECT * FROM croom_info 
     	WHERE cw_idx = #{cw_idx}
@@ -51,10 +51,20 @@
         INSERT INTO croom_participants (cw_idx, user_id) VALUES (#{cw_idx}, #{user_id})
     </insert>
 
-    <!-- 유저가 이미 참여했는지 확인 -->
-    <select id="isUserInCroom" resultType="boolean">
-        SELECT COUNT(*) > 0 FROM croom_participants WHERE cw_idx = #{cw_idx} AND user_id = #{user_id}
-    </select>
+	<!-- 유저가 이미 참여했는지 확인 -->
+	<select id="isUserInCroom" resultType="boolean">
+		SELECT COUNT(*) > 0 FROM croom_participants WHERE cw_idx = #{cw_idx} AND
+		user_id = #{user_id}
+	</select>
 
-</mapper>	
+
+	<select id="getParticipantsByCwIdx"
+		resultType="com.together.furture.entity.user_info">
+		SELECT u.*
+		FROM croom_participants cp
+		JOIN user_info u ON cp.user_id = u.user_id
+		WHERE cp.cw_idx = #{cw_idx}
+	</select>
+
+</mapper>   
 

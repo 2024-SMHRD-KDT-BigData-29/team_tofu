@@ -49,7 +49,7 @@
             feed_title = #{feed_title},
             feed_content = #{feed_content},
             feed_file = #{feed_file},
-            hash_tag = #{hash_tag}
+            hash_tag = #{hash_tag},
             user_id = #{user_id}
         WHERE feed_idx = #{feed_idx}
 	</update> 

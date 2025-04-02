@@ -51,8 +51,8 @@
 				<div class="profile-status">${insert_cowork.hash_tag}</div>
 			</div>
 			<form action="group_chat" method="get">
-				<input type="hidden" name="croom_idx"
-					value="${insert_cowork.cw_idx}">
+
+    			<input type="hidden" name="croom_idx" value="${insert_cowork.cw_idx}">
 				<button type="submit">
 					<i class="fas fa-comment-alt">그룹채팅</i>
 				</button>
