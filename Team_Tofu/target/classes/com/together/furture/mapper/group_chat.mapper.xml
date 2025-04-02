@@ -7,9 +7,11 @@
 	<insert id="insert"
 		parameterType="com.together.furture.entity.group_chat">
 		INSERT INTO chatting_info (
-		croom_idx, chatter, chat_content, chat_emoticon, chat_file, created_at
+		croom_idx, chatter,
+		chat_content, chat_emoticon, chat_file, created_at
 		) VALUES (
-		#{croom_idx}, #{chatter}, #{chat_content}, #{chat_emoticon}, #{chat_file}, NOW()
+		#{croom_idx}, #{chatter}, #{chat_content}, #{chat_emoticon},
+		#{chat_file}, NOW()
 		)
 	</insert>
 
@@ -21,4 +23,68 @@
 		ORDER BY created_at ASC
 	</select>
 
+	<select id="getGroupChatPreviewList"
+		resultType="com.together.furture.entity.GroupChatPreview">
+		SELECT
+		cr.croom_idx,
+		cr.croom_title,
+		(
+		SELECT chat_content
+		FROM
+		chatting_info
+		WHERE croom_idx = cr.croom_idx
+		ORDER BY created_at DESC
+		LIMIT 1
+		) AS last_msg,
+		(
+		SELECT created_at
+		FROM chatting_info
+		WHERE
+		croom_idx = cr.croom_idx
+		ORDER BY created_at DESC
+		LIMIT 1
+		) AS sended_at,
+		(
+		SELECT COUNT(*)
+		FROM chatting_info ci
+		WHERE ci.croom_idx = cr.croom_idx
+		AND ci.created_at > (
+		SELECT COALESCE(cp.entered_at, '1970-01-01
+		00:00:00')
+		FROM croom_participants cp
+		WHERE cp.cw_idx = cr.croom_idx AND
+		cp.user_id = #{user_id}
+		LIMIT 1
+		)
+		) AS unread_count
+		FROM croom_info cr
+		JOIN croom_participants cp ON cr.croom_idx = cp.cw_idx
+		WHERE cp.user_id
+		= #{user_id}
+	</select>
+
+	<update id="updateEnteredAt">
+		UPDATE croom_participants
+		SET entered_at = NOW()
+		WHERE
+		user_id = #{user_id}
+		AND cw_idx = #{croom_idx}
+		AND entered_at IS NULL;
+	</update>
+
+	<update id="updateEnteredAtIfNull">
+		UPDATE croom_participants
+		SET entered_at = NOW()
+		WHERE cw_idx = #{croom_idx} AND user_id = #{user_id} AND entered_at IS NULL
+	</update>
+
+	<select id="countUnreadGroupMessages" resultType="int">
+		SELECT COUNT(*)
+		FROM chatting_info ci
+		JOIN croom_participants cp ON ci.croom_idx =
+		cp.cw_idx
+		WHERE cp.user_id = #{user_id}
+		AND ci.created_at >
+		COALESCE(cp.entered_at, '1970-01-01 00:00:00')
+	</select>
 </mapper>

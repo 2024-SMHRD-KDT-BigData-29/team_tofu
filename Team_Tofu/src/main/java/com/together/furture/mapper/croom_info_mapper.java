@@ -11,32 +11,29 @@ import com.together.furture.entity.croom_info;
 import com.together.furture.entity.insert_cowork;
 import com.together.furture.entity.user_info;
 
-
-
 @Mapper
 public interface croom_info_mapper {
-    
-    // 협업방 정보
-    croom_info cowork(croom_info cowork);
 
-    // 특정 협업방 정보 조회
-    insert_cowork getCoworkById(int coworkId);
+	// 협업방 정보
+	croom_info cowork(croom_info cowork);
 
-   void update_croom(croom_info croom);
+	// 특정 협업방 정보 조회
+	insert_cowork getCoworkById(int coworkId);
 
-   croom_info getcw_idx(cowork_info cw_idx);
+	void update_croom(croom_info croom);
 
-   croom_info getCroomByCwIdx(int cw_idx);
+	croom_info getcw_idx(cowork_info cw_idx);
 
-   void updateCroomLimit(croom_info croom);
+	croom_info getCroomByCwIdx(int cw_idx);
 
-   void createCroom(croom_info croom);
-    
-   void addParticipant(@Param("cw_idx") int cw_idx, @Param("user_id")String user_id); // 참여자 추가
-    
-   boolean isUserInCroom(@Param("cw_idx") int cw_idx, @Param("user_id")String user_id); // 참여 여부 확인
+	void updateCroomLimit(croom_info croom);
 
-List<user_info> getParticipantsByCwIdx(int croom_idx);
-   
+	void createCroom(croom_info croom);
+
+	void addParticipant(@Param("cw_idx") int cw_idx, @Param("user_id") String user_id); // 참여자 추가
+
+	boolean isUserInCroom(@Param("cw_idx") int cw_idx, @Param("user_id") String user_id); // 참여 여부 확인
+
+	List<user_info> getParticipantsByCwIdx(int croom_idx);
+
 }
-

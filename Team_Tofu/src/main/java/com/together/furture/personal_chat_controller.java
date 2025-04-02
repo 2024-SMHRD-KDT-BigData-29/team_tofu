@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.together.furture.entity.personal_msg;
 import com.together.furture.entity.user_info;
+import com.together.furture.mapper.group_chat_mapper;
 import com.together.furture.mapper.personal_msg_mapper;
 
 @Controller
@@ -19,6 +20,9 @@ public class personal_chat_controller {
 
 	@Autowired
 	personal_msg_mapper mapper;
+
+	@Autowired
+	group_chat_mapper groupMapper;
 
 	@GetMapping("/personal_chat")
 	public String openPersonalChat(@RequestParam("receiver_id") String receiverId,
@@ -58,11 +62,5 @@ public class personal_chat_controller {
 		return mapper.getMessagesBetween(senderId, receiverId);
 	}
 
-	@RequestMapping("/my_msg_list")
-	public String myMsgList(HttpServletRequest request, HttpSession session) {
-		String referer = request.getHeader("Referer");
-		session.setAttribute("prevPage", referer); // 어디서 왔는지 기억
-
-		return "my_msg_list";
-	}
+	
 }

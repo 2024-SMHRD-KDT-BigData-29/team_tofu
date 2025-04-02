@@ -4,6 +4,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.together.furture.entity.ChatPreview;
+import com.together.furture.entity.GroupChatPreview;
 import com.together.furture.entity.group_chat;
 import com.together.furture.entity.user_info;
 
@@ -18,4 +20,12 @@ public interface group_chat_mapper {
 
 	// 참여자 조회 (닉네임 포함된 user_info)
 	List<user_info> getParticipantsByCwIdx(@Param("cw_idx") int cw_idx);
+
+	List<GroupChatPreview> getGroupChatPreviewList(@Param("user_id") String user_id);
+
+	void updateEnteredAt(@Param("croom_idx") int croom_idx, @Param("user_id") String user_id);
+
+	int countUnreadGroupMessages(String user_id);
+
+	void updateEnteredAtIfNull(@Param("croom_idx") int croom_idx, @Param("user_id") String user_id);
 }

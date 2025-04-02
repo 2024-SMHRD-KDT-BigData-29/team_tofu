@@ -1,6 +1,6 @@
 const croom_idx = document.getElementById("group-chat-box").getAttribute("data-croom-idx");
 const chatter = document.getElementById("group-chat-box").getAttribute("data-chatter");
-
+console.log("✅ croom_idx:", croom_idx);
 // ✅ WebSocket 연결
 const socket = new WebSocket("ws://" + location.host + "/furture/group");
 
@@ -12,6 +12,7 @@ socket.onmessage = (event) => {
 	const msg = JSON.parse(event.data);
 	if (parseInt(msg.croom_idx) === parseInt(croom_idx)) {
 		appendMessage(msg);
+		scrollToBottom(); // 새 메시지일 때 스크롤 아래로
 	}
 };
 
@@ -50,23 +51,31 @@ function sendMessage() {
 	}
 }
 
-// ✅ 메시지 추가
+// ✅ 메시지 추가 함수
 function appendMessage(msg) {
 	const box = document.getElementById("group-chat-messages");
-	const msgDiv = document.createElement("div");
-	const isMine = msg.chatter === chatter;
 
-	msgDiv.className = "message " + (isMine ? "user" : "other");
+	const msgDiv = document.createElement("div");
+	msgDiv.className = (msg.chatter === chatter) ? "message user" : "message other";
 	msgDiv.innerHTML = `
 		<span class="nickname">${msg.chatter}</span>
 		<div class="bubble">${msg.chat_content}</div>
 	`;
 	box.appendChild(msgDiv);
-	box.scrollTop = box.scrollHeight;
+
+	setTimeout(() => {
+		box.scrollTop = box.scrollHeight;
+	}, 0);
 }
 
+// ✅ 스크롤 맨 아래로 이동
+function scrollToBottom() {
+	const chatBox = document.getElementById("group-chat-messages");
+		chatBox.scrollTop = chatBox.scrollHeight;
+	// ✅ DOM 반영 이후로 delay 줌
+}
 
-// ✅ 기존 메시지 불러오기 (onload 시점)
+// ✅ 기존 메시지 불러오기 (DOM 완전히 로드된 후)
 window.addEventListener("DOMContentLoaded", () => {
 	fetch("chat/messages?croom_idx=" + croom_idx)
 		.then(res => {
@@ -75,6 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		})
 		.then(list => {
 			list.forEach(msg => appendMessage(msg));
+			scrollToBottom(); // 기존 메시지도 끝으로 이동
 		})
 		.catch(err => {
 			console.error("❌ 기존 메시지 불러오기 실패:", err);
